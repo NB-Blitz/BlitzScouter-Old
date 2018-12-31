@@ -16,9 +16,9 @@ During the 2019 Season, the scouting app will be in-browser so it can support mo
 
 ## TODO
 ### Before Kick-Off
-- Upload 2018 season onto GitHub.
-- Redesign the app layout so it's not ugly.
-- Convert pre-made app into a website (XML to HTML & CSS).
+- ~~Upload 2018 season onto GitHub.~~
+- ~~Redesign the app layout so it's not ugly.~~
+- ~~Convert pre-made app into a website (XML to HTML & CSS).~~
 - Test to see if a raspberry pi can host the website AND handle incoming data.
 - Find better method of uploading data to google drive as a google sheet (Preferably editing Google Sheets in real-time to speed up uploading process).
 ### After Kick-Off
