@@ -1,0 +1,1 @@
+﻿// Javascript - Used to manage incrementation and decrementation of the counters used whilst scouting.
