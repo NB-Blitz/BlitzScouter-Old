@@ -1,20 +1,91 @@
 ﻿
 /*
-	HTML
+	Font
 */
 
-body {
-    
+@font-face {
+	font-family: 'bikoregular';
+	/*src: url('../font/biko_regular-webfont.eot');*/
+	src: url('../font/biko_regular-webfont.eot?#iefix') format('embedded-opentype'), url('../Font/biko_regular-webfont.woff2') format('woff2'), url('../Font/biko_regular-webfont.woff') format('woff'), url('../Font/biko_regular-webfont.ttf') format('truetype'), url('../Font/biko_regular-webfont.svg#bikoregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /*
-	IDs
+	HTML
 */
 
+* {
+	font-family: 'bikoregular';
+	color: #ffffff;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
 
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #333333;
+}
 
 /*
-	Classes
+	Items
 */
+
+#teamNum {
+	height: 100px;
+	width: 100%;
+	text-align: center;
+	font-size: 32px;
+	color: #000000;
+}
+
+#colorRed {
+	background-color: #ED1C24;
+	width: 50%;
+	height: 100px;
+	float: left;
+	text-align: center;
+	font-size: 32px;
+}
+
+#colorBlue {
+	background-color: #009CD7;
+	width: 50%;
+	height: 100px;
+	float: right;
+	text-align: center;
+	font-size: 32px;
+}
+
+/*
+	Divs
+*/
+
+#header {
+	height: 100px;
+	width: 100%;
+	background-color: #009CD7;
+	text-align: center;
+	font-size: 32px;
+}
+
+#content {
+	width: 100%;
+	height: 100%;
+}
+
+#footer {
+	height: 100px;
+	width: 100%;
+	background-color: #009CD7;
+	text-align: center;
+	font-size: 32px;
+
+	position: fixed;
+	left: 0;
+	bottom: 0;
+}
 
 

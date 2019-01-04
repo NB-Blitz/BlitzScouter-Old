@@ -8,6 +8,12 @@ namespace BlitzScouter.Controllers
 {
     public class MainController : Controller
     {
+        [HttpPost]
+        public IActionResult Index(String teamNum, String color)
+        {
+            return RedirectToAction("Scout");
+        }
+
         public IActionResult Index()
         {
             return View();
