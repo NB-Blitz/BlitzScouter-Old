@@ -1,0 +1,17 @@
+﻿@ViewData["Title"] = "Scout";
+@model BlitzScouter.Models.DataModel
+
+@using (Html.BeginForm())
+{
+	<div id="header">
+		<h2 id="smallTxt">Currently Scouting...</h2>
+		<h1 id="headerTxt">@Model.teamNum</h1>
+	</div>
+	<div id="content">
+		@Html.HiddenFor(model => model.teamNum)
+		@Html.HiddenFor(model => model.color)
+	</div>
+	<div id="footer">
+		<input type="submit" id="footerTxt" value="Send Data" />
+	</div>
+}
