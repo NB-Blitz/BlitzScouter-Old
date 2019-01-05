@@ -24,5 +24,9 @@ namespace BlitzScouter.Controllers
         {
             return View();
         }
+
+        // Redirect to Index When Manually Connecting to Scout or Data
+        public IActionResult Scout() { return RedirectToAction("Index"); }
+        public IActionResult Data() { return RedirectToAction("Index"); }
     }
 }

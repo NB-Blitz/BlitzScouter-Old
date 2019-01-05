@@ -7,8 +7,13 @@
 {
 	<input type="button" id="header" value="@Model.teamNum" />
 	<div id="content">
-		<div class="checkbox"> @Html.DisplayFor(m => m.checkbox1) @Html.CheckBoxFor(m => m.checkbox1) </div>
-		<div class="counter"> @Model.counter1 @Html.DisplayFor(m => m.counter1) </div>
+		<div class="center">
+			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox1) @Html.CheckBoxFor(m => m.checkbox1) </div>
+			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox2) @Html.CheckBoxFor(m => m.checkbox2) </div>
+		</div>
+		<div class="center">
+			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox3) @Html.CheckBoxFor(m => m.checkbox3) </div>
+		</div>
 	</div>
 	<input type="submit" id="footer" value="Send Data" />
 }
