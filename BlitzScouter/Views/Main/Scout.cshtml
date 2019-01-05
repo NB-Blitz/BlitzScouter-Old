@@ -1,17 +1,14 @@
-﻿@ViewData["Title"] = "Scout";
+﻿@{
+	ViewData["Title"] = "Scout";
+}
 @model BlitzScouter.Models.DataModel
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Data", "Main", FormMethod.Post))
 {
-	<div id="header">
-		<h2 id="smallTxt">Currently Scouting...</h2>
-		<h1 id="headerTxt">@Model.teamNum</h1>
-	</div>
+	<input type="button" id="header" value="@Model.teamNum" />
 	<div id="content">
-		@Html.HiddenFor(model => model.teamNum)
-		@Html.HiddenFor(model => model.color)
+		<div class="checkbox"> @Html.DisplayFor(m => m.checkbox1) @Html.CheckBoxFor(m => m.checkbox1) </div>
+		<div class="counter"> @Model.counter1 @Html.DisplayFor(m => m.counter1) </div>
 	</div>
-	<div id="footer">
-		<input type="submit" id="footerTxt" value="Send Data" />
-	</div>
+	<input type="submit" id="footer" value="Send Data" />
 }

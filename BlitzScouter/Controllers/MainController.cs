@@ -8,29 +8,19 @@ namespace BlitzScouter.Controllers
 {
     public class MainController : Controller
     {
-        [HttpPost]
-        public IActionResult Index(String teamNum, String color)
-        {
-            return RedirectToAction("Scout");
-        }
-
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Scout(String[] teamInfo)
-        {
-            return View();
-        }
-
         [HttpPost]
-        public IActionResult Scout()
+        public IActionResult Scout(Models.DataModel data)
         {
-            return RedirectToAction("Data");
+            return View(data);
         }
-
-        public IActionResult Data()
+        
+        [HttpPost]
+        public IActionResult Data(Models.DataModel model)
         {
             return View();
         }

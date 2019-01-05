@@ -3,7 +3,7 @@
 }
 @model BlitzScouter.Models.DataModel
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Scout", "Main", FormMethod.Post))
 {
 	<input type="button" id="header" value="Team Num" />
 	<div id="content">
