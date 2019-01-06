@@ -10,3 +10,8 @@ function red() {
 	document.getElementById("colorBlue").style.height = "100px";
 	document.getElementById("color").value = "Red";
 }
+
+function change(id, amt) {
+	document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
+	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
+}
