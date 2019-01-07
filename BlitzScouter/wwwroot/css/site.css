@@ -29,6 +29,13 @@ body {
 	background-color: #333333;
 }
 
+input[type="button"], input[type="submit"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	touch-action: manipulation;
+	border-radius: 0;
+}
+
 /*
 	Items
 */
