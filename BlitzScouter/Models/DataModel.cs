@@ -11,19 +11,14 @@ namespace BlitzScouter.Models
         // Default Values
         public DataModel()
         {
-            counter1 = 0.ToString();
-            counter2 = 0.ToString();
-            counter3 = 0.ToString();
-            counter4 = 0.ToString();
-            counter5 = 0.ToString();
+            counter1 = "0";
+            counter2 = "0";
+            counter3 = "0";
+            counter4 = "0";
+            counter5 = "0";
         }
 
         // Data Management Methods
-        public bool connectToServer()
-        {
-            return false;
-        }
-
         public bool uploadData()
         {
             return false;
@@ -31,7 +26,23 @@ namespace BlitzScouter.Models
 
         private String[] condenseData()
         {
-            return null;
+            string[] arr = new string[11];
+            
+            arr[0] = teamNum;
+            arr[1] = color;
+
+            arr[2] = checkbox1.ToString();
+            arr[3] = checkbox2.ToString();
+            arr[4] = checkbox3.ToString();
+            arr[5] = checkbox4.ToString();
+
+            arr[6] = counter1;
+            arr[7] = counter2;
+            arr[8] = counter3;
+            arr[9] = counter4;
+            arr[10] = counter5;
+
+            return arr;
         }
 
         // Team Data

@@ -12,6 +12,7 @@ function red() {
 }
 
 function change(id, amt) {
-	document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
+	if (parseInt(document.getElementById(id).value) + amt >= 0)
+		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
 	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
 }
