@@ -1,15 +1,15 @@
-﻿@{
+﻿@model BlitzScouter.Models.DataModel
+@{
 	ViewData["Title"] = "Send Data";
 }
-@model BlitzScouter.Models.DataModel
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Main", FormMethod.Post))
 {
-	<input type="button" id="header" value="Connecting..." />
+	<input type="button" id="header" value="Uploaded!" />
 	<div id="content">
 		<div class="center">
-			<img src="@Url.Content("~/images/rocket.png")" />
+			<img id="rocket" src="@Url.Content("~/images/rocket.png")" />
 		</div>
-		<input type="submit" id="footer" value="Sending Data..." />
+		<input type="submit" id="footer" value="Return" />
 	</div>
 }

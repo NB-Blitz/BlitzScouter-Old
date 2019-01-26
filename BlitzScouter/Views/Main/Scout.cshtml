@@ -7,6 +7,10 @@
 {
 	<input type="button" id="header" value="@Model.teamNum" />
 	<div id="content">
+
+		@Html.HiddenFor(m => m.teamNum)
+		@Html.HiddenFor(m => m.color)
+
 		<div class="center">
 			<div class="title">Sandstorm</div>
 		</div>
