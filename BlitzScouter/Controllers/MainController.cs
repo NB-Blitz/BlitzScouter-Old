@@ -48,7 +48,9 @@ namespace BlitzScouter.Controllers
                 else
                 {
                     sheet = ep.Workbook.Worksheets.Add("Raw Data");
-                    sheet.Cells["A1"].Value = "Raw Data:";
+                    string[] title = model.condenseTitles();
+                    for (int i = 0; i < title.Length; i++)
+                        sheet.Cells[1, i + 1].Value = title[i];
                 }
                 //ep.SaveAs(info);
 
@@ -56,9 +58,7 @@ namespace BlitzScouter.Controllers
                 sheet.Cells[sheet.Dimension.End.Row + 1, 1].Value = "0";
                 string[] data = model.condenseData();
                 for (int i = 0; i < data.Length; i++)
-                {
                    sheet.Cells[sheet.Dimension.End.Row, i + 1].Value = data[i];
-                }
 
                 ep.SaveAs(info);
             }

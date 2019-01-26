@@ -42,6 +42,27 @@ namespace BlitzScouter.Models
 			return arr;
 		}
 
+        // Condense Titles into an Array
+        public string[] condenseTitles()
+        {
+            string[] arr = new string[11];
+            arr[0] = "Team Num";
+            arr[1] = "Color";
+
+            arr[2] = "Crossed Line";
+            arr[3] = "Placed Piece";
+            arr[4] = "Foaled";
+            arr[5] = "Broke";
+
+            arr[6] = "Fuel in Rocket";
+            arr[7] = "Fuel in Cargo Ship";
+            arr[8] = "Hatch in Rocket";
+            arr[9] = "Hatch in Cargo Ship";
+            arr[10] = "Habitat Level";
+
+            return arr;
+        }
+
         // Team Data
         public String teamNum { get; set; }
 		public String color { get; set; }
