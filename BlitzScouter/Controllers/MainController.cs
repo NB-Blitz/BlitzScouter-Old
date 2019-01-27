@@ -51,6 +51,7 @@ namespace BlitzScouter.Controllers
                     string[] title = model.condenseTitles();
                     for (int i = 0; i < title.Length; i++)
                         sheet.Cells[1, i + 1].Value = title[i];
+                    sheet.Cells["G:K"].Style.Numberformat.Format = "0";
                 }
                 //ep.SaveAs(info);
 
