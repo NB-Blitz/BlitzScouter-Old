@@ -1,0 +1,18 @@
+﻿@{
+	ViewData["Title"] = "Home";
+}
+@model BlitzScouter.Models.DataModel
+
+@using (Html.BeginForm("Scout", "Main", FormMethod.Post))
+{
+	<input type="button" id="header" value="Team Num" />
+	<div id="content">
+		@Html.TextBoxFor(model => model.teamNum, new { id = "teamNum" })
+		@Html.HiddenFor(model => model.color, new { id = "color" })
+
+		<input id="colorRed" value="Red" class="color" type="button" onclick="red()" />
+		<input id="colorBlue" value="Blue" class="color" type="button" onclick="blue()" />
+
+	</div>
+	<input type="submit" id="footer" value="Continue" />
+}

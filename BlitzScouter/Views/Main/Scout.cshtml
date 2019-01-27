@@ -1,0 +1,48 @@
+﻿@{
+	ViewData["Title"] = "Scout";
+}
+@model BlitzScouter.Models.DataModel
+
+@using (Html.BeginForm("Data", "Main", FormMethod.Post))
+{
+	<input type="button" id="header" value="@Model.teamNum" />
+	<div id="content">
+
+		@Html.HiddenFor(m => m.teamNum)
+		@Html.HiddenFor(m => m.color)
+
+		<div class="center">
+			<div class="title">Sandstorm</div>
+		</div>
+		<div class="center">
+			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox1) @Html.CheckBoxFor(m => m.checkbox1) </div>
+			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox2) @Html.CheckBoxFor(m => m.checkbox2) </div>
+		</div>
+		<div class="center">
+			<div class="title">Teleoperated</div>
+		</div>
+		<div class="center">
+			<div class="counter"> @Html.HiddenFor(m => m.counter1, new { id = "cnt1" }) <div class="counterDsp" id="cnt1disp">0</div> <input type="button" class="counterBtn" value="+" onclick="change('cnt1', 1)"> <input type="button" class="counterBtn" value="-" onclick="change('cnt1', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter1) </div> </div>
+		</div>
+		<div class="center">
+			<div class="counter"> @Html.HiddenFor(m => m.counter2, new { id = "cnt2" }) <div class="counterDsp" id="cnt2disp">0</div> <input type="button" class="counterBtn" value="+" onclick="change('cnt2', 1)"> <input type="button" class="counterBtn" value="-" onclick="change('cnt2', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter2) </div> </div>
+		</div>
+		<div class="center">
+			<div class="counter"> @Html.HiddenFor(m => m.counter3, new { id = "cnt3" }) <div class="counterDsp" id="cnt3disp">0</div> <input type="button" class="counterBtn" value="+" onclick="change('cnt3', 1)"> <input type="button" class="counterBtn" value="-" onclick="change('cnt3', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter3) </div> </div>
+		</div>
+		<div class="center">
+			<div class="counter"> @Html.HiddenFor(m => m.counter4, new { id = "cnt4" }) <div class="counterDsp" id="cnt4disp">0</div> <input type="button" class="counterBtn" value="+" onclick="change('cnt4', 1)"> <input type="button" class="counterBtn" value="-" onclick="change('cnt4', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter4) </div> </div>
+		</div>
+		<div class="center">
+			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox3) @Html.CheckBoxFor(m => m.checkbox3) </div>
+			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox4) @Html.CheckBoxFor(m => m.checkbox4) </div>
+		</div>
+		<div class="center">
+			<div class="title">End Game</div>
+		</div>
+		<div class="center">
+			<div class="counter"> @Html.HiddenFor(m => m.counter5, new { id = "cnt5" }) <div class="counterDsp" id="cnt5disp">0</div> <input type="button" class="counterBtn" value="+" onclick="change('cnt5', 1)"> <input type="button" class="counterBtn" value="-" onclick="change('cnt5', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter5) </div> </div>
+		</div>
+	</div>
+	<input type="submit" id="footer" value="Send Data" />
+}

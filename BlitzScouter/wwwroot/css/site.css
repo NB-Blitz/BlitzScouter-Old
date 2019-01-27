@@ -1,0 +1,149 @@
+﻿
+/*
+	Font
+*/
+
+@font-face {
+	font-family: 'bikoregular';
+	/*src: url('../font/biko_regular-webfont.eot');*/
+	src: url('../font/biko_regular-webfont.eot?#iefix') format('embedded-opentype'), url('../Font/biko_regular-webfont.woff2') format('woff2'), url('../Font/biko_regular-webfont.woff') format('woff'), url('../Font/biko_regular-webfont.ttf') format('truetype'), url('../Font/biko_regular-webfont.svg#bikoregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/*
+	HTML
+*/
+
+* {
+	font-family: 'bikoregular';
+	color: #ffffff;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #333333;
+}
+
+input[type="button"], input[type="submit"] {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	touch-action: manipulation;
+	border-radius: 0;
+}
+
+/*
+	Items
+*/
+
+#teamNum {
+	height: 100px;
+	width: 100%;
+	text-align: center;
+	font-size: 32px;
+	color: #000000;
+}
+
+#colorRed {
+	background-color: #ED1C24;
+	width: 50%;
+	height: 100px;
+	float: left;
+	text-align: center;
+	font-size: 32px;
+}
+
+#colorBlue {
+	background-color: #009CD7;
+	width: 50%;
+	height: 100px;
+	float: right;
+	text-align: center;
+	font-size: 32px;
+}
+
+.checkbox {
+	height: 30px;
+	width: 200px;
+
+	text-align: center;
+	font-size: 24px;
+}
+
+.counter {
+	height: 80px;
+	width: 100%;
+	text-align: center;
+	font-size: 24px;
+}
+
+	.counterDsp {
+		height: 100%;
+		width: 10%;
+		display: inline-block;
+		text-align: center;
+	}
+
+	.counterBtn {
+		height: 100%;
+		width: 20%;
+		background-color: #009CD7;
+		font-size: 32px;
+	}
+
+	.counterTxt {
+		height: 100%;
+		width: 40%;
+		display: inline-block;
+		text-align: center;
+	}
+
+.center {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top:3px;
+	padding-bottom:3px;
+}
+
+.title {
+	height: 50px;
+	width: 100%;
+	text-align: center;
+	font-size: 36px;
+}
+
+/*
+	Divs
+*/
+
+#header {
+	height: 100px;
+	width: 100%;
+	background-color: #009CD7;
+	text-align: center;
+	font-size: 32px;
+}
+
+#content {
+	width: 100%;
+	height: 100%;
+	padding-bottom: 100px;
+}
+
+#footer {
+	height: 100px;
+	width: 100%;
+	background-color: #009CD7;
+	text-align: center;
+	font-size: 32px;
+
+	position: fixed;
+	left: 0;
+	bottom: 0;
+}
