@@ -16,3 +16,9 @@ function change(id, amt) {
 		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
 	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
 }
+
+function changeHab(id, amt) {
+	if (parseInt(document.getElementById(id).value) + amt >= 0 && parseInt(document.getElementById(id).value) + amt <= 4)
+		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
+	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
+}

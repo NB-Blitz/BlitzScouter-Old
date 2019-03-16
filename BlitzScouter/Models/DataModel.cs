@@ -18,26 +18,31 @@ namespace BlitzScouter.Models
 			counter3 = "0";
 			counter4 = "0";
 			counter5 = "0";
+            counter6 = "0";
+            counter7 = "0";
 		}
         
         // Condense Functions into an Array
 		public string[] condenseData()
 		{
-			string[] arr = new string[11];
+			string[] arr = new string[14];
 			
 			arr[0] = teamNum;
-			arr[1] = color;
+            arr[1] = roundNum;
+			arr[2] = color;
 
-			arr[2] = checkbox1.ToString();
-			arr[3] = checkbox2.ToString();
-			arr[4] = checkbox3.ToString();
-			arr[5] = checkbox4.ToString();
+			arr[3] = checkbox1.ToString();
+			arr[4] = checkbox2.ToString();
+			arr[5] = checkbox3.ToString();
+			arr[6] = checkbox4.ToString();
 
-			arr[6] = counter1;
-			arr[7] = counter2;
-			arr[8] = counter3;
-			arr[9] = counter4;
-			arr[10] = counter5;
+			arr[7] = counter1;
+			arr[8] = counter2;
+			arr[9] = counter3;
+			arr[10] = counter4;
+			arr[11] = counter5;
+            arr[12] = counter6;
+            arr[13] = counter7;
 
 			return arr;
 		}
@@ -45,47 +50,55 @@ namespace BlitzScouter.Models
         // Condense Titles into an Array
         public string[] condenseTitles()
         {
-            string[] arr = new string[11];
+            string[] arr = new string[14];
             arr[0] = "Team Num";
-            arr[1] = "Color";
+            arr[1] = "Round Num";
+            arr[2] = "Color";
 
-            arr[2] = "Crossed Line";
-            arr[3] = "Placed Piece";
-            arr[4] = "Foaled";
-            arr[5] = "Broke";
-
-            arr[6] = "Fuel in Rocket";
-            arr[7] = "Fuel in Cargo Ship";
-            arr[8] = "Hatch in Rocket";
-            arr[9] = "Hatch in Cargo Ship";
-            arr[10] = "Habitat Level";
+            arr[3] = "Crossed Line";
+            arr[4] = "Null";
+            arr[5] = "Foul";
+            arr[6] = "Broken";
+        
+            arr[7] = "Cargo in Rocket";
+            arr[8] = "Cargo in Cargo Ship";
+            arr[9] = "Hatch in Rocket";
+            arr[10] = "Hatch in Cargo Ship";
+            arr[11] = "End Habitat";
+            arr[12] = "Pieces Placed";
+            arr[13] = "Start Habitat";
 
             return arr;
         }
 
         // Team Data
         public String teamNum { get; set; }
-		public String color { get; set; }
+        public String roundNum { get; set; }
+        public String color { get; set; }
 
 		// Scouting Data
 		[DisplayName("Crossed Line")]
 		public bool checkbox1 { get; set; }
-		[DisplayName("Placed Piece")]
-		public bool checkbox2 { get; set; }
-		[DisplayName("Foaled")]
+        [DisplayName("NULL")]
+        public bool checkbox2 { get; set; }
+        [DisplayName("Foul")]
 		public bool checkbox3 { get; set; }
-		[DisplayName("Broke")]
+		[DisplayName("Broken")]
 		public bool checkbox4 { get; set; }
 
-		[DisplayName("Fuel in Rocket")]
+        [DisplayName("Cargo in Rocket")]
 		public String counter1 { get; set; }
-		[DisplayName("Fuel in Cargo Ship")]
+		[DisplayName("Cargo in Cargo Ship")]
 		public String counter2 { get; set; }
 		[DisplayName("Hatch in Rocket")]
 		public String counter3 { get; set; }
 		[DisplayName("Hatch in Cargo Ship")]
 		public String counter4 { get; set; }
-		[DisplayName("Habitat Level")]
+		[DisplayName("Ending Habitat")]
 		public String counter5 { get; set; }
-	}
+        [DisplayName("Pieces Placed")]
+        public String counter6{ get; set; }
+        [DisplayName("Start Habitat")]
+        public String counter7{ get; set; }
+    }
 }

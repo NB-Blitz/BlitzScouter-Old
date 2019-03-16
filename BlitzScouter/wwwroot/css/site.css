@@ -48,6 +48,14 @@ input[type="button"], input[type="submit"] {
 	color: #000000;
 }
 
+#roundNum {
+	height: 100px;
+	width: 100%;
+	text-align: center;
+	font-size: 32px;
+	color: #000000;
+}
+
 #colorRed {
 	background-color: #ED1C24;
 	width: 50%;
