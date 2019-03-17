@@ -49,6 +49,10 @@
 		<div class="center">
 			<div class="counter"> @Html.HiddenFor(m => m.counter5, new { id = "cnt5" }) <div class="counterDsp" id="cnt5disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeHab('cnt5', 1)"> <input type="button" class="counterBtn" value="-" onclick="changeHab('cnt5', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter5) </div> </div>
 		</div>
+		<div class="center">
+			<div class="title">Comments</div>
+		</div>
+		@Html.TextBoxFor(model => model.comments, new { id = "comments" })
 	</div>
 	<input type="submit" id="footer" value="Send Data" />
 }

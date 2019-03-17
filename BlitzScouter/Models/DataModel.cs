@@ -25,7 +25,7 @@ namespace BlitzScouter.Models
         // Condense Functions into an Array
 		public string[] condenseData()
 		{
-			string[] arr = new string[14];
+			string[] arr = new string[15];
 			
 			arr[0] = teamNum;
             arr[1] = roundNum;
@@ -44,13 +44,15 @@ namespace BlitzScouter.Models
             arr[12] = counter6;
             arr[13] = counter7;
 
+            arr[14] = comments;
+
 			return arr;
 		}
 
         // Condense Titles into an Array
         public string[] condenseTitles()
         {
-            string[] arr = new string[14];
+            string[] arr = new string[15];
             arr[0] = "Team Num";
             arr[1] = "Round Num";
             arr[2] = "Color";
@@ -68,6 +70,8 @@ namespace BlitzScouter.Models
             arr[12] = "Pieces Placed";
             arr[13] = "Start Habitat";
 
+            arr[14] = "Comments";
+
             return arr;
         }
 
@@ -75,6 +79,7 @@ namespace BlitzScouter.Models
         public String teamNum { get; set; }
         public String roundNum { get; set; }
         public String color { get; set; }
+        public String comments { get; set; }
 
 		// Scouting Data
 		[DisplayName("Crossed Line")]
