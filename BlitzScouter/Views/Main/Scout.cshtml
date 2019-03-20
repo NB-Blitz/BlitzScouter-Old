@@ -19,7 +19,7 @@
 			<div class="checkbox"> @Html.DisplayNameFor(m => m.checkbox1) @Html.CheckBoxFor(m => m.checkbox1) </div>
 		</div>
 		<div class="center">
-			<div class="counter"> @Html.HiddenFor(m => m.counter7, new { id = "cnt7" }) <div class="counterDsp" id="cnt7disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeHab('cnt7', 1)"> <input type="button" class="counterBtn" value="-" onclick="changeHab('cnt7', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter7) </div> </div>
+			<div class="counter"> @Html.HiddenFor(m => m.counter7, new { id = "cnt7" }) <div class="counterDsp" id="cnt7disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeStartHab('cnt7', 1)"> <input type="button" class="counterBtn" value="-" onclick="changeStartHab('cnt7', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter7) </div> </div>
 		</div>
 		<div class="center">
 			<div class="counter"> @Html.HiddenFor(m => m.counter6, new { id = "cnt6" }) <div class="counterDsp" id="cnt6disp">0</div> <input type="button" class="counterBtn" value="+" onclick="change('cnt6', 1)"> <input type="button" class="counterBtn" value="-" onclick="change('cnt6', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter6) </div> </div>
@@ -47,7 +47,7 @@
 			<div class="title">End Game</div>
 		</div>
 		<div class="center">
-			<div class="counter"> @Html.HiddenFor(m => m.counter5, new { id = "cnt5" }) <div class="counterDsp" id="cnt5disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeHab('cnt5', 1)"> <input type="button" class="counterBtn" value="-" onclick="changeHab('cnt5', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter5) </div> </div>
+			<div class="counter"> @Html.HiddenFor(m => m.counter5, new { id = "cnt5" }) <div class="counterDsp" id="cnt5disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeEndHab('cnt5', 1)"> <input type="button" class="counterBtn" value="-" onclick="changeEndHab('cnt5', -1)"> <div class="counterTxt"> @Html.DisplayNameFor(m => m.counter5) </div> </div>
 		</div>
 		<div class="center">
 			<div class="title">Comments</div>
