@@ -24,7 +24,7 @@ namespace BlitzScouter.Controllers
         [HttpPost]
         public IActionResult Data(Models.DataModel model)
         {
-            uploadData(model); // TODO: Multi Threading
+            //uploadData(model); // TODO: Multi Threading
             return View();
         }
 
@@ -32,9 +32,10 @@ namespace BlitzScouter.Controllers
         public IActionResult Scout() { return RedirectToAction("Index"); }
         public IActionResult Data() { return RedirectToAction("Index"); }
 
-        // Data Management Methods
+
+        /* Data Management Methods
         private bool uploadData(Models.DataModel model)
-        {
+        {   
             string path = "./data.xlsx";
             FileInfo info = new FileInfo(path);
             
@@ -64,6 +65,8 @@ namespace BlitzScouter.Controllers
                 ep.SaveAs(info);
             }
             return System.IO.File.Exists(path);
+            
         }
+        */
     }
 }
