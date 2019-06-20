@@ -34,10 +34,7 @@ namespace BlitzScouter
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<BlitzScouterContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("BlitzScouterContext")));
-
-            services.AddDbContext<BlitzScouterContext>(options =>
+            services.AddDbContext<BSContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BlitzScoutingData")));
         }
 
