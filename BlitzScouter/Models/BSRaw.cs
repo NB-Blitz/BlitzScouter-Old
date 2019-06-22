@@ -4,14 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using OfficeOpenXml;
 
 namespace BlitzScouter.Models
 {
-	public class DataModel
+	public class BSRaw
 	{
 		// Default Values
-		public DataModel()
+		public BSRaw()
 		{
 			counter1 = "0";
 			counter2 = "0";
@@ -21,10 +20,6 @@ namespace BlitzScouter.Models
             counter6 = "0";
             counter7 = "0";
 		}
-
-        // Key
-        [System.ComponentModel.DataAnnotations.Key]
-        public int Id { get; set; }
 
         // Team Data
         public String teamNum { get; set; }
@@ -56,14 +51,5 @@ namespace BlitzScouter.Models
         public String counter6{ get; set; }
         [DisplayName("Start Habitat")]
         public String counter7{ get; set; }
-    }
-
-    public class BSContext : DbContext{
-        public BSContext(DbContextOptions<BSContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<BlitzScouter.Models.DataModel> BlitzScoutingData { get; set; }
     }
 }

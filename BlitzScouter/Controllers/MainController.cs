@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BlitzScouter.Models;
+using BlitzScouter.Services;
 using Microsoft.AspNetCore.Mvc;
 using OfficeOpenXml;
 
@@ -11,11 +12,11 @@ namespace BlitzScouter.Controllers
 {
     public class MainController : Controller {
 
-        private readonly BSContext db;
+        private BSService service;
 
         public MainController(BSContext context)
         {
-            db = context;
+            service = new BSService(context);
         }
 
         public IActionResult Index()
@@ -24,16 +25,20 @@ namespace BlitzScouter.Controllers
         }
 
         [HttpPost]
-        public IActionResult Scout(DataModel data)
+        public IActionResult Scout(BSRaw data)
         {
             return View(data);
         }
         
         [HttpPost]
-        public IActionResult Data(DataModel model)
+        public IActionResult Data(BSRaw model)
         {
-            db.BlitzScoutingData.Add(model);
-            db.SaveChanges();
+            service.addUserData(model);
+            return View();
+        }
+
+        public IActionResult Admin()
+        {
             return View();
         }
 
