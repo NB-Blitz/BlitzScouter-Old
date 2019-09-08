@@ -21,31 +21,27 @@ namespace BlitzScouter.Services
 
         public void addUserData(BSRaw model)
         {
-            if (repo.containsTeam(model.teamNum))
+            if (repo.containsTeam(model.team))
             {
-                BSTeam team = repo.getTeam(model.teamNum);
-                string roundData = team.roundData;
-
-                roundData += "," + serialize(model);
-
-                team.roundData = roundData;
-                repo.saveData();
+                repo.addRound(model);
             }
             else
             {
                 BSTeam team = new BSTeam();
-                team.teamNum = model.teamNum;
-                team.roundData = serialize(model);
-                repo.addData(team);
+                team.team = model.team;
+                repo.addTeam(team);
+                repo.addRound(model);
             }
         }
 
-        private string serialize(BSRaw data)
+        public void addTeam(string teamNum)
         {
-            StringWriter writer = new StringWriter(CultureInfo.InvariantCulture);
-            XmlSerializer serializer = new XmlSerializer(typeof(BSRaw));
-            serializer.Serialize(writer, data);
-            return writer.ToString();
+            if (!repo.containsTeam(teamNum))
+            {
+                BSTeam team = new BSTeam();
+                team.team = teamNum;
+                repo.addTeam(team);
+            }
         }
     }
 }

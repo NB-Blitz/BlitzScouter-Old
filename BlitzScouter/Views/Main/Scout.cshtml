@@ -5,12 +5,12 @@
 
 @using (Html.BeginForm("Data", "Main", FormMethod.Post))
 {
-	<input type="button" id="header" value="@Model.teamNum" />
+	<input type="button" id="header" value="@Model.team" />
 	<div id="content">
 
-		@Html.HiddenFor(m => m.teamNum)
+		@Html.HiddenFor(m => m.team)
 		@Html.HiddenFor(m => m.color)
-		@Html.HiddenFor(m => m.roundNum)
+		@Html.HiddenFor(m => m.round)
 
 		<div class="center">
 			<div class="title">Sandstorm</div>

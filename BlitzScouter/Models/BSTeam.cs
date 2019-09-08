@@ -10,17 +10,11 @@ namespace BlitzScouter.Models
     public class BSTeam
     {
         [System.ComponentModel.DataAnnotations.Key]
-        public int Id { get; set; }
-        public String teamNum { get; set; }
-        public String roundData { get; set; }
+        public int id { get; set; }
+        public String team { get; set; }
+		public String name { get; set; }
+        public String pitComments { get; set; }
     }
 
-    public class BSContext : DbContext{
-        public BSContext(DbContextOptions<BSContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<BlitzScouter.Models.BSTeam> BlitzScoutingData { get; set; }
-    }
+    
 }

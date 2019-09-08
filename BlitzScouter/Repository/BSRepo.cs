@@ -18,14 +18,18 @@ namespace BlitzScouter.Repository
         }
 
         // Get Data
-        public BSTeam getTeam(string teamNum)
+        public BSTeam getTeam(string team)
         {
-            return db.BlitzScoutingData.FirstOrDefault(t => t.teamNum == teamNum);
-            //return db.BlitzScoutingData.FromSql("SELECT * FROM dbo.BlitzScoutingData WHERE teamNum = '@team'", new SqlParameter("team", teamNum)).FirstOrDefault();
+            return db.BS_Teams.FirstOrDefault(t => t.team == team);
         }
-        public bool containsTeam(string teamNum)
+        public bool containsTeam(string team)
         {
-            return getTeam(teamNum) != null;
+            return getTeam(team) != null;
+        }
+        public BSRaw[] getRounds(string team)
+        {
+            return db.BS_Rounds.Where(t => t.team == team).ToArray<BSRaw>();
+            //return db.Rounds.SqlQuery("SELECT * FROM BS_Rounds WHERE team=@t", new SqlParameter("@t", team)).ToArray<BSRaw>();
         }
 
         // Change Data
@@ -34,16 +38,16 @@ namespace BlitzScouter.Repository
             db.SaveChanges();
         }
 
-        public void addData(BSTeam teamData)
+        public void addTeam(BSTeam teamData)
         {
-            db.BlitzScoutingData.Add(teamData);
+            db.BS_Teams.Add(teamData);
             saveData();
         }
 
-        /*public void addUserData(BSRaw model)
+        public void addRound(BSRaw roundData)
         {
-            db.BlitzScoutingData.Add(model);
-            db.SaveChanges();
-        }*/
+            db.BS_Rounds.Add(roundData);
+            saveData();
+        }
     }
 }

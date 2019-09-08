@@ -22,8 +22,10 @@ namespace BlitzScouter.Models
 		}
 
         // Team Data
-        public String teamNum { get; set; }
-        public String roundNum { get; set; }
+        [System.ComponentModel.DataAnnotations.Key]
+        public int id { get; set; }
+        public String team { get; set; }
+        public String round { get; set; }
         public String color { get; set; }
         public String comments { get; set; }
 
