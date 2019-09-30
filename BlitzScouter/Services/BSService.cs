@@ -34,14 +34,28 @@ namespace BlitzScouter.Services
             }
         }
 
-        public void addTeam(string teamNum)
+        public void setTeam(BSTeam team)
         {
-            if (!repo.containsTeam(teamNum))
+            if (repo.containsTeam(team.team))
             {
-                BSTeam team = new BSTeam();
-                team.team = teamNum;
-                repo.addTeam(team);
+                BSTeam rTeam = repo.getTeam(team.team);
+                rTeam.name = team.name;
+                rTeam.pitComments = team.pitComments;
+                repo.saveData();
             }
+        }
+
+        public BSTeam getTeam(string teamNum)
+        {
+            return repo.getTeam(teamNum);
+        }
+
+        public BSTeamMod getMod(string team)
+        {
+            BSTeamMod mod = new BSTeamMod();
+            mod.team = getTeam(team);
+            mod.prevTeam = team;
+            return mod;
         }
     }
 }

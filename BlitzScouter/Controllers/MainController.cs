@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,14 +37,30 @@ namespace BlitzScouter.Controllers
             service.addUserData(model);
             return View();
         }
-
-        public IActionResult Admin()
+    
+        [HttpPost]
+        public IActionResult Team(BSTeamMod mod)
         {
-            return View();
+            if (mod.team.team != mod.prevTeam)
+            {
+                return View(service.getMod(mod.team.team));
+            }
+            else
+            {
+                
+                service.setTeam(mod.team);
+                return View(service.getMod(mod.team.team));
+            }
+        }
+
+        public IActionResult Team()
+        {
+            return View(service.getMod("5148"));
         }
 
         // Redirect to Index When Manually Connecting to Scout or Data
         public IActionResult Scout() { return RedirectToAction("Index"); }
         public IActionResult Data() { return RedirectToAction("Index"); }
+        
     }
 }

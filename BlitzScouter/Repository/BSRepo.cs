@@ -29,7 +29,6 @@ namespace BlitzScouter.Repository
         public BSRaw[] getRounds(string team)
         {
             return db.BS_Rounds.Where(t => t.team == team).ToArray<BSRaw>();
-            //return db.Rounds.SqlQuery("SELECT * FROM BS_Rounds WHERE team=@t", new SqlParameter("@t", team)).ToArray<BSRaw>();
         }
 
         // Change Data
