@@ -43,19 +43,20 @@ namespace BlitzScouter.Services
                 rTeam.pitComments = team.pitComments;
                 repo.saveData();
             }
+            else
+            {
+                repo.addTeam(team);
+            }
         }
 
-        public BSTeam getTeam(string teamNum)
+        public BSTeam getTeam(String team)
         {
-            return repo.getTeam(teamNum);
+            return repo.getTeam(team);
         }
 
-        public BSTeamMod getMod(string team)
+        public BSRaw[] getRounds(String team)
         {
-            BSTeamMod mod = new BSTeamMod();
-            mod.team = getTeam(team);
-            mod.prevTeam = team;
-            return mod;
+            return repo.getRounds(team);
         }
     }
 }

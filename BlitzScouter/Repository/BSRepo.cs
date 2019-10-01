@@ -18,17 +18,19 @@ namespace BlitzScouter.Repository
         }
 
         // Get Data
-        public BSTeam getTeam(string team)
+        public BSTeam getTeam(String team)
         {
             return db.BS_Teams.FirstOrDefault(t => t.team == team);
         }
-        public bool containsTeam(string team)
+        public bool containsTeam(String team)
         {
             return getTeam(team) != null;
         }
-        public BSRaw[] getRounds(string team)
+        public BSRaw[] getRounds(String team)
         {
-            return db.BS_Rounds.Where(t => t.team == team).ToArray<BSRaw>();
+            var rounds = db.BS_Rounds.Where(t => t.team.Equals(team));
+            var arr = rounds.ToArray();
+            return arr;
         }
 
         // Change Data

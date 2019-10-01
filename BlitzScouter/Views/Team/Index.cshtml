@@ -1,0 +1,13 @@
+﻿@{
+	ViewData["Title"] = "Scout";
+}
+@model BlitzScouter.Models.BSTeam
+
+@using (Html.BeginForm("Scout", "Team", FormMethod.Post))
+{
+	<input type="button" id="header" value="Team Lookup" />
+	<div id="content">
+		@Html.TextBoxFor(model => model.team, new { placeholder = "Team Number", id = "teamNum" })
+	</div>
+	<input type="submit" id="footer" value="Search Team" />
+}

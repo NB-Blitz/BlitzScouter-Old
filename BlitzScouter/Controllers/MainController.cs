@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using BlitzScouter.Models;
 using BlitzScouter.Services;
 using Microsoft.AspNetCore.Mvc;
-using OfficeOpenXml;
 
 namespace BlitzScouter.Controllers
 {
@@ -36,26 +35,6 @@ namespace BlitzScouter.Controllers
         {
             service.addUserData(model);
             return View();
-        }
-    
-        [HttpPost]
-        public IActionResult Team(BSTeamMod mod)
-        {
-            if (mod.team.team != mod.prevTeam)
-            {
-                return View(service.getMod(mod.team.team));
-            }
-            else
-            {
-                
-                service.setTeam(mod.team);
-                return View(service.getMod(mod.team.team));
-            }
-        }
-
-        public IActionResult Team()
-        {
-            return View(service.getMod("5148"));
         }
 
         // Redirect to Index When Manually Connecting to Scout or Data
