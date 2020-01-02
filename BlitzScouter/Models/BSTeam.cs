@@ -11,7 +11,7 @@ namespace BlitzScouter.Models
     {
         [System.ComponentModel.DataAnnotations.Key]
         public int id { get; set; }
-        public String team { get; set; }
+        public int team { get; set; }
 		public String name { get; set; }
         public String pitComments { get; set; }
     }

@@ -49,12 +49,12 @@ namespace BlitzScouter.Services
             }
         }
 
-        public BSTeam getTeam(String team)
+        public BSTeam getTeam(int team)
         {
             return repo.getTeam(team);
         }
 
-        public BSRaw[] getRounds(String team)
+        public BSRaw[] getRounds(int team)
         {
             return repo.getRounds(team);
         }
