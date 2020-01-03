@@ -27,6 +27,7 @@ namespace BlitzScouter.Controllers
         [HttpPost]
         public IActionResult Scout(BSRaw data)
         {
+            ViewBag.config = new BSConfig("./config.txt");
             return View(data);
         }
         

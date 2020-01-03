@@ -11,20 +11,8 @@ function red() {
 	document.getElementById("color").value = "Red";
 }
 
-function change(id, amt) {
-	if (parseInt(document.getElementById(id).value) + amt >= 0)
-		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
-	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
-}
-
-function changeStartHab(id, amt) {
-	if (parseInt(document.getElementById(id).value) + amt >= 1 && parseInt(document.getElementById(id).value) + amt <= 2)
-		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
-	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
-}
-
-function changeEndHab(id, amt) {
-	if (parseInt(document.getElementById(id).value) + amt >= 0 && parseInt(document.getElementById(id).value) + amt <= 3)
+function change(id, amt, min, max) {
+	if (parseInt(document.getElementById(id).value) + amt >= min && parseInt(document.getElementById(id).value) + amt <= max)
 		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
 	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
 }
