@@ -1,5 +1,4 @@
-﻿// Javascript - Used to manage incrementation and decrementation of the counters used whilst scouting.
-function blue() {
+﻿function blue() {
 	document.getElementById("colorRed").style.height = "100px";
 	document.getElementById("colorBlue").style.height = "110px";
 	document.getElementById("color").value = "Blue";
@@ -11,14 +10,32 @@ function red() {
 	document.getElementById("color").value = "Red";
 }
 
-function change(id, amt) {
-	if (parseInt(document.getElementById(id).value) + amt >= 0)
-		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
-	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
+function changeCounters(id, amt, min, max) {
+	if (counters[id] + amt >= min && counters[id] + amt <= max)
+		counters[id] = counters[id] + amt;
+	document.getElementById("cnt" + id + "disp").innerText = counters[id];
 }
 
-function changeHab(id, amt) {
-	if (parseInt(document.getElementById(id).value) + amt >= 0 && parseInt(document.getElementById(id).value) + amt <= 4)
-		document.getElementById(id).value = (parseInt(document.getElementById(id).value) + amt).toString();
-	document.getElementById(id + "disp").innerText = document.getElementById(id).value;
+function changeCheckboxes(id) {
+	checkboxes[id] = !checkboxes[id];
+}
+
+function toStr() {
+	// Counters to String
+	var counter = "";
+	for (var i = 0; i < counters.length; i++)
+		if (i == counters.length - 1)
+			counter += counters[i];
+		else
+			counter += counters[i] + ",";
+	document.getElementById("counter").value = counter;
+
+	// Checkboxes to String
+	var checkbox = "";
+	for (var i = 0; i < checkboxes.length; i++)
+		if (i == checkboxes.length - 1)
+			checkbox += checkboxes[i];
+		else
+			checkbox += checkboxes[i] + ",";
+	document.getElementById("checkbox").value = checkbox;
 }

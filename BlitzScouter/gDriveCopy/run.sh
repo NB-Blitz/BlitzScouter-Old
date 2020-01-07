@@ -1,1 +1,0 @@
-gradle -q run

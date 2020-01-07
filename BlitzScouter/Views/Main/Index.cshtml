@@ -1,14 +1,14 @@
 ﻿@{
 	ViewData["Title"] = "Home";
 }
-@model BlitzScouter.Models.DataModel
+@model BlitzScouter.Models.BSRaw
 
 @using (Html.BeginForm("Scout", "Main", FormMethod.Post))
 {
 	<input type="button" id="header" value="Scouting" />
 	<div id="content">
-		@Html.TextBoxFor(model => model.teamNum, new { placeholder = "Team Number", id = "teamNum", required = string.Empty, type = "number" })
-		@Html.TextBoxFor(model => model.roundNum, new { placeholder = "Round Number", id = "roundNum", required = string.Empty, type = "number" })
+		@Html.TextBoxFor(model => model.team, new { placeholder = "Team Number", id = "teamNum", required = string.Empty, type = "number" })
+		@Html.TextBoxFor(model => model.round, new { placeholder = "Round Number", id = "roundNum", required = string.Empty, type = "number" })
 		@Html.HiddenFor(model => model.color, new { id = "color" })
 		<input id="colorRed" value="Red" class="color" type="button" onclick="red()" />
 		<input id="colorBlue" value="Blue" class="color" type="button" onclick="blue()" />

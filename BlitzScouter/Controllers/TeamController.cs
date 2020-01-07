@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using BlitzScouter.Models;
@@ -10,13 +8,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlitzScouter.Controllers
 {
-    public class MainController : Controller {
-
+    public class TeamController : Controller
+    {
         private BSService service;
 
-        public MainController(BSContext context)
+        public TeamController(BSContext context)
         {
             service = new BSService(context);
+        }
+
+        [HttpPost]
+        public IActionResult Data(BSTeam data)
+        {
+            service.setTeam(data);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Scout(BSTeam mod)
+        {
+            ViewBag.roundData = service.getRounds(mod.team);
+            ViewBag.config = new BSConfig("./config.txt");
+            return View(service.getTeam(mod.team));
         }
 
         public IActionResult Index()
@@ -24,23 +37,6 @@ namespace BlitzScouter.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Scout(BSRaw data)
-        {
-            ViewBag.config = new BSConfig("./config.txt");
-            return View(data);
-        }
-        
-        [HttpPost]
-        public IActionResult Data(BSRaw model)
-        {
-            service.addUserData(model);
-            return View();
-        }
-
-        // Redirect to Index When Manually Connecting to Scout or Data
         public IActionResult Scout() { return RedirectToAction("Index"); }
-        public IActionResult Data() { return RedirectToAction("Index"); }
-        
     }
 }
