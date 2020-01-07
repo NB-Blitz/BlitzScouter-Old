@@ -3,20 +3,29 @@
 }
 @model BlitzScouter.Models.BSRaw
 
-@using (Html.BeginForm("Data", "Main", FormMethod.Post))
+@using (Html.BeginForm("Data", "Main", FormMethod.Post, new { onsubmit = "toStr();"}))
 {
 	<input type="button" id="header" value="@Model.team" />
 	<div id="content">
-		@{
-			Html.HiddenFor(m => m.team);
-			Html.HiddenFor(m => m.color);
-			Html.HiddenFor(m => m.round);
+		<script type="text/javascript">
+			var checkboxes = [];
+			for (var i = 0; i < @(ViewBag.config.checkboxCounter); i++)
+				checkboxes[i] = false;
+			var counters = [];
+			for (var i = 0; i < @(ViewBag.config.counterCounter); i++)
+				counters[i] = 0;
+		</script>
 
-			// Initialize Array Values
+		@Html.HiddenFor(m => m.team)
+		@Html.HiddenFor(m => m.color)
+		@Html.HiddenFor(m => m.round)
+		@Html.HiddenFor(m => m.checkbox, new { id = "checkbox" })
+		@Html.HiddenFor(m => m.counter, new { id = "counter" })
+
+		@{
+			// Initialize Variables
 			int checkboxCounter = 0;
 			int counterCounter = 0;
-			Model.checkboxes = new bool[ViewBag.config.checkboxCounter];
-			Model.counters = new int[ViewBag.config.counterCounter];
 
 			// Iterate Through Each Component
 			foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
@@ -30,23 +39,22 @@
 						break;
 					case "checkbox":
 						<div class="center">
-							<div class="checkbox"> @t.title @Html.CheckBoxFor(m => m.checkboxes[checkboxCounter]) </div>
+							<div class="checkbox"> @t.title <input type="checkbox" id="" onclick="changeCheckboxes(@(checkboxCounter))" /> </div>
 						</div>
 						checkboxCounter++;
 						break;
 					case "counter":
 						<div class="center">
-							<div class="counter"> @Html.HiddenFor(m => m.counters[counterCounter], new { id = "cnt" + counterCounter }) <div class="counterDsp" id="cnt@(counterCounter)disp">0</div> <input type="button" class="counterBtn" value="+" onclick="change('cnt@(counterCounter)', 1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <input type="button" class="counterBtn" value="-" onclick="change('cnt@(counterCounter)', -1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <div class="counterTxt"> @t.title </div> </div>
+							<div class="counter"> <div class="counterDsp" id="cnt@(counterCounter)disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeCounters(@(counterCounter), 1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <input type="button" class="counterBtn" value="-" onclick="changeCounters(@(counterCounter), -1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <div class="counterTxt"> @t.title </div> </div>
 						</div>
 						counterCounter++;
 						break;
 				}
 			}
-
-			// Comments Field
-			Html.TextBoxFor(model => model.comments, new { id = "comments" });
 		}
+
+		@Html.TextBoxFor(model => model.comments, new { id = "comments" })
 	</div>
-	
+
 		<input type="submit" id="footer" value="Send Data" />
 }

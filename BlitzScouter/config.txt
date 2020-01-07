@@ -1,3 +1,8 @@
-header,Sandstorm
-checkbox,Crossed Line,false
-counter,Start Habitat,1,1,10
+header,Autonomous
+checkbox,Did Auto,false
+header,Teleoperated
+counter,Balls Low,0,100
+counter,Balls Outer,0,100
+counter,Balls Inner,0,100
+checkbox,Robot Issues,false
+header,Comments

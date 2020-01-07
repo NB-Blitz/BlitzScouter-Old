@@ -3,7 +3,7 @@
 }
 @model BlitzScouter.Models.BSTeam
 
-@using (Html.BeginForm("Data", "Team", FormMethod.Post))
+@using (Html.BeginForm("Data", "Team", FormMethod.Post, new { onsubmit="toStr();" }))
 {
 	<input type="button" id="header" value="@Model.team" />
 	<div id="content">
@@ -18,24 +18,31 @@
 			<table>
 				<tr>
 					<th>Round</th>
-					<th>Foul</th>
-					<th>Broken</th>
-					<th>Rocket Cargo</th>
-					<th>Ship Cargo</th>
-					<th>Rocket Hatch</th>
-					<th>Ship Hatch</th>
-					<th>End Hab</th>
+					@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+					{
+						if (t.type == "checkbox")
+						{
+							<th>@t.title</th>
+						}
+					}
+
+					@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+					{
+						if (t.type == "counter")
+						{
+							<th>@t.title</th>
+						}
+					}
 				</tr>
 				@foreach (var r in ViewBag.roundData) {
 					<tr>
 						<td>@r.round</td>
-						<td>@r.checkbox3</td>
-						<td>@r.checkbox4</td>
-						<td>@r.counter1</td>
-						<td>@r.counter2</td>
-						<td>@r.counter3</td>
-						<td>@r.counter4</td>
-						<td>@r.counter5</td>
+						@foreach (bool checkbox in r.checkboxes) {
+							<td>@checkbox</td>
+						}
+						@foreach (int counter in r.counters) {
+							<td>@counter</td>
+						}
 					</tr>
 				}
 			</table>

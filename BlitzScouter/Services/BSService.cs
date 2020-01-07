@@ -21,6 +21,7 @@ namespace BlitzScouter.Services
 
         public void addUserData(BSRaw model)
         {
+            //model.toStr();
             if (repo.containsTeam(model.team))
             {
                 repo.addRound(model);
@@ -56,7 +57,10 @@ namespace BlitzScouter.Services
 
         public BSRaw[] getRounds(int team)
         {
-            return repo.getRounds(team);
+            BSRaw[] arr = repo.getRounds(team);
+            for (int i = 0; i < arr.Length; i++)
+                arr[i].toObj();
+            return arr;
         }
     }
 }

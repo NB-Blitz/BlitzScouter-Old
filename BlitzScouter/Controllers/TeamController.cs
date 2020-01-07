@@ -28,6 +28,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Scout(BSTeam mod)
         {
             ViewBag.roundData = service.getRounds(mod.team);
+            ViewBag.config = new BSConfig("./config.txt");
             return View(service.getTeam(mod.team));
         }
 

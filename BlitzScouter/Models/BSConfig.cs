@@ -18,7 +18,6 @@ namespace BlitzScouter.Models
             String[] output = File.ReadAllLines(filePath);
             foreach (String line in output)
             {
-                System.Diagnostics.Debug.WriteLine(line);
                 String[] split = line.Split(',');
                 if (split.Length < 2)
                     return;
@@ -89,11 +88,10 @@ namespace BlitzScouter.Models
     {
         public int min = 0;
         public int max = 10;
-        public int dat = 0;
 
         public Counter(String[] data)
         {
-            if (data.Length < 5)
+            if (data.Length < 4)
             {
                 System.Diagnostics.Debug.WriteLine("CONFIG PARSE ERROR: Not enough arguments '" + data.Length + "'.");
                 return;
@@ -102,8 +100,7 @@ namespace BlitzScouter.Models
             this.type = data[0];
             this.title = data[1];
             this.min = int.Parse(data[2]);
-            this.dat = int.Parse(data[3]);
-            this.max = int.Parse(data[4]);
+            this.max = int.Parse(data[3]);
         }
     }
 }
