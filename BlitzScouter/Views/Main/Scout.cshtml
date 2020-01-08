@@ -9,10 +9,10 @@
 	<div id="content">
 		<script type="text/javascript">
 			var checkboxes = [];
-			for (var i = 0; i < @(ViewBag.config.checkboxCounter); i++)
+			for (var i = 0; i < @(BSConfig.checkboxCounter); i++)
 				checkboxes[i] = false;
 			var counters = [];
-			for (var i = 0; i < @(ViewBag.config.counterCounter); i++)
+			for (var i = 0; i < @(BSConfig.counterCounter); i++)
 				counters[i] = 0;
 		</script>
 
@@ -28,7 +28,7 @@
 			int counterCounter = 0;
 
 			// Iterate Through Each Component
-			foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+			foreach (BlitzScouter.Models.Type t in BSConfig.components)
 			{
 				switch (t.type)
 				{

@@ -6,7 +6,7 @@
 	<table>
 		<tr>
 			<th>Team</th>
-			@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+			@foreach (BlitzScouter.Models.Type t in BSConfig.components)
 			{
 				if (t.type == "checkbox")
 				{
@@ -14,32 +14,72 @@
 				}
 			}
 
-			@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+			@foreach (BlitzScouter.Models.Type t in BSConfig.components)
 			{
 				if (t.type == "counter")
 				{
 					<th>@t.title</th>
 				}
 			}
+			<th>Comments</th>
 		</tr>
 		@for (var i = 0; i < Model.blue.Count; i++)
 		{
 			<tr>
-				<th>@Model.blue[i].team</th>
+				<th><button style="background:none;" onclick="toggleDisp(@(Model.blue[i].team));">@Model.blue[i].team</button></th>
 				@for (var o = 0; o < Model.blue[i].averages.Count; o++)
 				{
 					<td>@Model.blue[i].averages[o]</td>
 				}
+
+				@if (Model.blue[i].averages.Count > 0)
+				{
+					<td>@Model.blue[i].pitComments</td>
+				}
 			</tr>
+			@foreach (BSRaw r in Model.blue[i].rounds)
+			{
+				<tr class="@(Model.blue[i].team)matchdata" style="display:none;">
+					<td>@r.round</td>
+					@foreach (bool checkbox in r.checkboxes)
+					{
+						<td>@checkbox</td>
+					}
+					@foreach (int counter in r.counters)
+					{
+						<td>@counter</td>
+					}
+					<td>@r.comments</td>
+				</tr>
+			}
 		}
 		@for (var i = 0; i < Model.red.Count; i++)
 		{
 			<tr>
-				<th style="background-color:#ED1C24;">@Model.red[i].team</th>
+				<th style="background-color:#ED1C24;"><button style="background:none;" onclick="toggleDisp(@(Model.red[i].team));">@Model.red[i].team</button></th>
 				@for (var o = 0; o < Model.red[i].averages.Count; o++)
 				{
 					<td>@Model.red[i].averages[o]</td>
 				}
+				@if (Model.red[i].averages.Count > 0)
+				{
+					<td>@Model.red[i].pitComments</td>
+				}
 			</tr>
+			@foreach (BSRaw r in Model.red[i].rounds)
+			{
+				<tr class="@(Model.red[i].team)matchdata" style="display:none;">
+					<td>@r.round</td>
+					@foreach (bool checkbox in r.checkboxes)
+					{
+						<td>@checkbox</td>
+					}
+					@foreach (int counter in r.counters)
+					{
+						<td>@counter</td>
+					}
+					<td>@r.comments</td>
+				</tr>
+			}
 		}
 	</table>

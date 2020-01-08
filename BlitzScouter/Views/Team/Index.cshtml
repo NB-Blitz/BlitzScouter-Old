@@ -7,7 +7,7 @@
 {
 	<input type="button" id="header" value="Team Lookup" />
 	<div id="content">
-		@Html.TextBoxFor(model => model.team, new { placeholder = "Team Number", id = "teamNum" })
+		@Html.TextBoxFor(model => model.team, new { placeholder = "Team Number", id = "teamNum", required = string.Empty, type = "number"})
 	</div>
 	<input type="submit" id="footer" value="Search Team" />
 }

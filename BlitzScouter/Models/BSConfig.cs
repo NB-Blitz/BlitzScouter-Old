@@ -9,13 +9,29 @@ namespace BlitzScouter.Models
 {
     public class BSConfig
     {
-        public ArrayList components = new ArrayList();
-        public int checkboxCounter = 0;
-        public int counterCounter = 0;
+        /*
+         *       CONFIGURATION FILE LOCATION
+         *      -----------------------------
+         *         Default file location is
+         *              ./config.txt
+         *      ----------------------------- 
+         */
 
-        public BSConfig(String filePath)
+        private const String CONFIG_FILE_LOCATION = "./config.txt";
+
+
+        public static ArrayList components = new ArrayList();
+        public static String tbaKey = "";
+        public static String tbaComp = "";
+        public static int checkboxCounter = 0;
+        public static int counterCounter = 0;
+        public static bool initialized = false;
+
+        public static void initialize()
         {
-            String[] output = File.ReadAllLines(filePath);
+            if (initialized)
+                return;
+            String[] output = File.ReadAllLines(CONFIG_FILE_LOCATION);
             foreach (String line in output)
             {
                 String[] split = line.Split(',');
@@ -35,14 +51,24 @@ namespace BlitzScouter.Models
                         components.Add(new Counter(split));
                         counterCounter++;
                         break;
+                    case "tba-api-key":
+                        tbaKey = split[1];
+                        break;
+                    case "tba-comp":
+                        tbaComp = split[1];
+                        break;
                     default:
                         System.Diagnostics.Debug.WriteLine("CONFIG PARSE ERROR: Unknown type '" + split[0] + "'.");
                         break;
                 }
             }
+            initialized = true;
         }
     }
     
+
+
+
     /*
      *      Object Types
      */

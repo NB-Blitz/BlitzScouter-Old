@@ -1,3 +1,5 @@
+tba-api-key,
+tba-comp,2019wimi
 header,Autonomous
 checkbox,Did Auto,false
 header,Teleoperated

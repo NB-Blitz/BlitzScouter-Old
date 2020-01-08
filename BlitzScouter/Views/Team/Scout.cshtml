@@ -26,7 +26,7 @@
 				</tr>
 				<tr>
 					<th>Round</th>
-					@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+					@foreach (BlitzScouter.Models.Type t in BSConfig.components)
 					{
 						if (t.type == "checkbox")
 						{
@@ -34,7 +34,7 @@
 						}
 					}
 
-					@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+					@foreach (BlitzScouter.Models.Type t in BSConfig.components)
 					{
 						if (t.type == "counter")
 						{

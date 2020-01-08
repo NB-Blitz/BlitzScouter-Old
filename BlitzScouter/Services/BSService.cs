@@ -20,9 +20,9 @@ namespace BlitzScouter.Services
             repo = new BSRepo(context);
         }
 
+        // Upload BSRaw
         public void addUserData(BSRaw model)
         {
-            //model.toStr();
             if (repo.containsTeam(model.team))
             {
                 repo.addRound(model);
@@ -36,6 +36,7 @@ namespace BlitzScouter.Services
             }
         }
 
+        // Upload BSTeam
         public void setTeam(BSTeam team)
         {
             if (repo.containsTeam(team.team))
@@ -51,9 +52,12 @@ namespace BlitzScouter.Services
             }
         }
 
+        // Get BSTeam
         public BSTeam getTeam(int team)
         {
             BSTeam tm;
+
+            // Check if Exists
             if (repo.containsTeam(team))
                 tm = repo.getTeam(team);
             else
@@ -99,11 +103,14 @@ namespace BlitzScouter.Services
             for (int i = 0; i < tm.averages.Count; i++)
             {
                 tm.averages[i] /= tm.rounds.Count;
+                // Fix Decimals
+                tm.averages[i] = Math.Round(tm.averages[i] * 100) / 100;
             }
 
             return tm;
         }
 
+        // Get all BSRaws
         public List<BSRaw> getRounds(int team)
         {
             List<BSRaw> arr = repo.getRounds(team);
@@ -112,14 +119,16 @@ namespace BlitzScouter.Services
             return arr;
         }
 
+        // Get BSMatch
         public BSMatch getMatch(int match)
         {
-            //String tba = repo.getTBA("event/" + DateTime.Now.Year + "wimi/matches");
-            String tba = repo.getTBA("event/2019wimi/matches");
+            String tba = repo.getTBA("event/" + BSConfig.tbaComp + "/matches");
             List<RootObject> json = JsonConvert.DeserializeObject<List<RootObject>>(tba);
 
             // Check Data
             if (json.Count < 1)
+                return null;
+            if (match < 1)
                 return null;
 
             BSMatch bsmatch = new BSMatch();

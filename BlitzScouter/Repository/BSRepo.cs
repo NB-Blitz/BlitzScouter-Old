@@ -24,7 +24,7 @@ namespace BlitzScouter.Repository
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://www.thebluealliance.com/api/v3/" + query);
             request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-            request.Headers["X-TBA-Auth-Key"] = "";
+            request.Headers["X-TBA-Auth-Key"] = BSConfig.tbaKey;
 
             using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
             using (Stream stream = response.GetResponseStream())

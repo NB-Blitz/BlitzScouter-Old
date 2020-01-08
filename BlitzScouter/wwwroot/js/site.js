@@ -39,3 +39,13 @@ function toStr() {
 			checkbox += checkboxes[i] + ",";
 	document.getElementById("checkbox").value = checkbox;
 }
+
+function toggleDisp(team) {
+	var objs = document.getElementsByClassName(team + "matchdata");
+	for (var i = 0; i < objs.length; i++) {
+		if (objs[i].style.display == "none")
+			objs[i].style.display = "revert";
+		else
+			objs[i].style.display = "none";
+	}
+}

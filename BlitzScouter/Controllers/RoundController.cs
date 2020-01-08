@@ -20,9 +20,15 @@ namespace BlitzScouter.Controllers
         [HttpPost]
         public IActionResult Scout(String roundNum)
         {
-            ViewBag.config = new BSConfig("./config.txt");
-            //                  INSECURE \/ \/ \/ \/ \/ \/ \/
-            return View(service.getMatch(int.Parse(roundNum)));
+            BSConfig.initialize();
+
+            int ex;
+            bool isNumeric = int.TryParse(roundNum, out ex);
+            BSMatch match = service.getMatch(ex);
+            if (isNumeric && match != null)
+                return View(match);
+            else
+                return RedirectToAction("Index");
         }
 
         public IActionResult Index()
