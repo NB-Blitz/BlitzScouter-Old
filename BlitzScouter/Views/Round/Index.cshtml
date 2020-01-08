@@ -1,0 +1,12 @@
+﻿@{
+	ViewData["Title"] = "Match Lookup";
+}
+
+@using (Html.BeginForm("Scout", "Round", FormMethod.Post))
+{
+	<input type="button" id="header" value="Match Overview" />
+	<div id="content">
+		<input type="number" placeholder="Match Number" name="roundNum" id="roundNum"/>
+	</div>
+	<input type="submit" id="footer" value="View Match" />
+}

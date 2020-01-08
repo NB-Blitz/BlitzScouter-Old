@@ -1,0 +1,45 @@
+﻿@{
+	ViewData["Title"] = "Match Overview";
+}
+@model BlitzScouter.Models.BSMatch
+
+	<table>
+		<tr>
+			<th>Team</th>
+			@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+			{
+				if (t.type == "checkbox")
+				{
+					<th>@t.title</th>
+				}
+			}
+
+			@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+			{
+				if (t.type == "counter")
+				{
+					<th>@t.title</th>
+				}
+			}
+		</tr>
+		@for (var i = 0; i < Model.blue.Count; i++)
+		{
+			<tr>
+				<th>@Model.blue[i].team</th>
+				@for (var o = 0; o < Model.blue[i].averages.Count; o++)
+				{
+					<td>@Model.blue[i].averages[o]</td>
+				}
+			</tr>
+		}
+		@for (var i = 0; i < Model.red.Count; i++)
+		{
+			<tr>
+				<th style="background-color:#ED1C24;">@Model.red[i].team</th>
+				@for (var o = 0; o < Model.red[i].averages.Count; o++)
+				{
+					<td>@Model.red[i].averages[o]</td>
+				}
+			</tr>
+		}
+	</table>

@@ -47,6 +47,11 @@ td, th {
 	padding: 8px;
 }
 
+th {
+	background-color: #009CD7;
+	color: white;
+}
+
 /*
 	Items
 */
