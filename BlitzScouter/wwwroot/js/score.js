@@ -145,75 +145,75 @@ Score.prototype._defaults = {
 		{
 			"checkmark": 0,
 			"status":"Infinite Recharge",
-			"quote":"2020 - This Year's Game!"
+			"quote":"2020 - Clothes Hanger?"
+		},
+		{
+			"checkmark": 1,
+			"status":"Deep Space",
+			"quote":"2019 - Deep Spaceto"
 		},
 		{
 			"checkmark": 3,
-			"status":"Deep Space",
-			"quote":"2019 - Fill up rockets with cargo and hatches."
-		},
-		{
-			"checkmark": 6,
 			"status":"Power Up",
 			"quote":"2018 - Power cubes, power cubes everywhere!"
 		},
 		{
-			"checkmark": 9,
+			"checkmark": 5,
 			"status":"Steamworks",
 			"quote":"2017 - Steampower, steampower, steampower, steampower, ..."
 		},
 		{
-			"checkmark": 12,
+			"checkmark": 7,
 			"status":"Stronghold",
 			"quote":"2016 - Medieval battle with unstable terrain."
 		},
 		{
-			"checkmark": 15,
+			"checkmark": 10,
 			"status":"Recycle Rush",
 			"quote":"2015 - Not you!"
 		},
 		{
-			"checkmark": 18,
+			"checkmark": 15,
 			"status":"Aerial Assist",
 			"quote":"2014 - New Berlin Blitz's first year in FRC."
 		},
 		{
-			"checkmark": 21,
+			"checkmark": 22,
 			"status":"Ultimate Ascent",
 			"quote":"2013 - Disc Golf, but robots."
 		},
 		{
-			"checkmark": 24,
+			"checkmark": 30,
 			"status":"Rebound Rumble",
 			"quote":"2012 - Basketball, but robots."
 		},
 		{
-			"checkmark": 27,
+			"checkmark": 40,
 			"status":"Logo Motion",
-			"quote":"2011 - Form the FRC logo with 3 inflated shapes."
+			"quote":"2011 - Form the FRC logo with 3 giant inflated shapes."
 		},
 		{
-			"checkmark": 30,
+			"checkmark": 50,
 			"status":"Breakaway",
-			"quote":"2010 - Soccer, but robots."
+			"quote":"2010 - FIFA FRC cup"
 		},
 		{
-			"checkmark": 33,
+			"checkmark": 65,
 			"status":"Lunacy",
-			"quote":"2009 - Frictionless Deep Space."
+			"quote":"2009 - When frc plays wiht fire, bad things happen..."
 		},
 		{
-			"checkmark": 36,
+			"checkmark": 80,
 			"status":"Overdrive",
-			"quote":"2008 - NASCAR, FRC edition."
+			"quote":"2008 - I...am...speed..."
 		},
 		{
-			"checkmark": 39,
+			"checkmark": 90,
 			"status":"2007 - Rack N' Roll",
-			"quote":"2007 - Logo Motion, but only circles."
+			"quote":"2007 - HOOLA HOOPS!"
 		},
 		{
-			"checkmark": 42,
+			"checkmark": 100,
 			"status":"Aim High",
 			"quote":"2006 - Basketball, but not really."
 		}

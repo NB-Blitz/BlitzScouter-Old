@@ -47,6 +47,9 @@ namespace BlitzScouter.Models
                     case "header":
                         components.Add(new Header(split));
                         break;
+                    case "desc":
+                        components.Add(new Description(split));
+                        break;
                     case "counter":
                         components.Add(new Counter(split));
                         counterCounter++;
@@ -107,6 +110,23 @@ namespace BlitzScouter.Models
 
             this.type = data[0];
             this.title = data[1];
+        }
+    }
+
+    public class Description : Type
+    {
+        public Description(String[] data)
+        {
+            if (data.Length < 2)
+            {
+                System.Diagnostics.Debug.WriteLine("CONFIG PARSE ERROR: Not enough arguments '" + data.Length + "'.");
+                return;
+            }
+
+            this.type = data[0];
+            this.title = data[1];
+            for (int i = 2; i < data.Length; i++)
+                this.title += "," + data[i];
         }
     }
 

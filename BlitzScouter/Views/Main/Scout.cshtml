@@ -3,7 +3,7 @@
 }
 @model BlitzScouter.Models.BSRaw
 
-@using (Html.BeginForm("Data", "Main", FormMethod.Post, new { onsubmit = "toStr();"}))
+@using (Html.BeginForm("Data", "Main", FormMethod.Post, new { onsubmit = "increment();" }))
 {
 	<input type="button" id="header" value="@Model.team" />
 	<div id="content">
@@ -16,11 +16,14 @@
 				counters[i] = 0;
 		</script>
 
+		@{
+			Model.checkboxes = new List<bool>();
+			Model.counters = new List<int>();
+		}
+
 		@Html.HiddenFor(m => m.team)
 		@Html.HiddenFor(m => m.color)
 		@Html.HiddenFor(m => m.round)
-		@Html.HiddenFor(m => m.checkbox, new { id = "checkbox" })
-		@Html.HiddenFor(m => m.counter, new { id = "counter" })
 
 		@{
 			// Initialize Variables
@@ -37,13 +40,21 @@
 							<div class="title">@t.title</div>
 						</div>
 						break;
-					case "checkbox":
+					case "desc":
 						<div class="center">
-							<div class="checkbox"> @t.title <input type="checkbox" id="" onclick="changeCheckboxes(@(checkboxCounter))" /> </div>
+							<p>@t.title</p>
+						</div>
+						break;
+					case "checkbox":
+						Model.checkboxes.Add(((Checkbox)t).data);
+						<div class="center">
+							<div class="checkbox"> @t.title @Html.CheckBoxFor(m => m.checkboxes[checkboxCounter]) </div>
 						</div>
 						checkboxCounter++;
 						break;
 					case "counter":
+						Model.counters.Add(0);
+						@Html.HiddenFor(m => m.counters[counterCounter], new { id = "cnt" + counterCounter + "val" })
 						<div class="center">
 							<div class="counter"> <div class="counterDsp" id="cnt@(counterCounter)disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeCounters(@(counterCounter), 1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <input type="button" class="counterBtn" value="-" onclick="changeCounters(@(counterCounter), -1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <div class="counterTxt"> @t.title </div> </div>
 						</div>
@@ -53,7 +64,7 @@
 			}
 		}
 
-		@Html.TextBoxFor(model => model.comments, new { id = "comments" })
+		@Html.TextBoxFor(model => model.comments, new { id = "comments", placeholder = "Comments" })
 	</div>
 
 		<input type="submit" id="footer" value="Send Data" />

@@ -23,6 +23,7 @@ namespace BlitzScouter.Services
         // Upload BSRaw
         public void addUserData(BSRaw model)
         {
+            model.toStr();
             if (repo.containsTeam(model.team))
             {
                 repo.addRound(model);
@@ -73,7 +74,7 @@ namespace BlitzScouter.Services
             for (int i = 0; i < tm.rounds.Count; i++)
             {
                 // Checkbox
-                for (int o = 0; o < tm.rounds[i].checkboxes.Length; o++)
+                for (int o = 0; o < tm.rounds[i].checkboxes.Count; o++)
                 {
                     if (i == 0)
                     {
@@ -86,7 +87,7 @@ namespace BlitzScouter.Services
                 }
 
                 // Counter
-                for (int o = 0; o < tm.rounds[i].counters.Length; o++)
+                for (int o = 0; o < tm.rounds[i].counters.Count; o++)
                 {
                     if (i == 0)
                     {
@@ -94,7 +95,7 @@ namespace BlitzScouter.Services
                     }
                     else
                     {
-                        tm.averages[tm.rounds[i].checkboxes.Length + o] += tm.rounds[i].counters[o];
+                        tm.averages[tm.rounds[i].checkboxes.Count + o] += tm.rounds[i].counters[o];
                     }
                 }
             }
