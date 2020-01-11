@@ -4,7 +4,7 @@
 
 @using (Html.BeginForm("Scout", "Round", FormMethod.Post))
 {
-	<input type="button" id="header" value="Match Overview" />
+	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">Match Overview</button>
 	<div id="content">
 		<input type="number" placeholder="Match Number" name="roundNum" id="roundNum" type="number" required />
 	</div>

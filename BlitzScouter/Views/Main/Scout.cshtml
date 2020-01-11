@@ -5,7 +5,7 @@
 
 @using (Html.BeginForm("Data", "Main", FormMethod.Post, new { onsubmit = "increment();" }))
 {
-	<input type="button" id="header" value="@Model.team" />
+	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">@Model.team</button>
 	<div id="content">
 		<script type="text/javascript">
 			var checkboxes = [];

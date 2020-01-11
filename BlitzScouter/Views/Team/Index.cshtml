@@ -5,7 +5,7 @@
 
 @using (Html.BeginForm("Scout", "Team", FormMethod.Post))
 {
-	<input type="button" id="header" value="Team Lookup" />
+	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">Team Lookup</button>
 	<div id="content">
 		@Html.TextBoxFor(model => model.team, new { placeholder = "Team Number", id = "teamNum", required = string.Empty, type = "number"})
 	</div>

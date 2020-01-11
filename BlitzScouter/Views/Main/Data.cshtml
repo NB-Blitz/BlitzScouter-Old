@@ -5,7 +5,7 @@
 
 @using (Html.BeginForm("Index", "Main", FormMethod.Post))
 {
-	<input type="button" id="header" value="Uploaded!" />
+	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">Uploaded!</button>
 	<div id="content">
 		<div class="center">
 			<div class="title">Score</div>

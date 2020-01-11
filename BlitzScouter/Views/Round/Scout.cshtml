@@ -43,7 +43,14 @@
 					<td>@r.round</td>
 					@foreach (bool checkbox in r.checkboxes)
 					{
-						<td>@checkbox</td>
+						if (checkbox)
+							{
+								<td style="background-color:green;">@checkbox</td>
+							}
+							else
+							{
+								<td style="background-color:red;">@checkbox</td>
+							}
 					}
 					@foreach (int counter in r.counters)
 					{
@@ -72,7 +79,14 @@
 					<td>@r.round</td>
 					@foreach (bool checkbox in r.checkboxes)
 					{
-						<td>@checkbox</td>
+						if (checkbox)
+						{
+							<td style="background-color:green;">@checkbox</td>
+						}
+						else
+						{
+							<td style="background-color:red;">@checkbox</td>
+						}
 					}
 					@foreach (int counter in r.counters)
 					{
