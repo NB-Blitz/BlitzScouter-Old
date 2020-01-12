@@ -28,11 +28,15 @@ namespace BlitzScouter.Controllers
             if (isNumeric && match != null)
                 return View(match);
             else
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { controller="Round", action="Index", msg = "Invalid Match" });
         }
 
-        public IActionResult Index()
+        public IActionResult Index(String msg)
         {
+            if (msg != null)
+                ViewBag.msg = msg;
+            else
+                ViewBag.msg = "Round Number";
             return View();
         }
 

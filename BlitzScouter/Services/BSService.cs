@@ -111,6 +111,12 @@ namespace BlitzScouter.Services
             return tm;
         }
 
+        // Contains Team
+        public bool containsTeam(int team)
+        {
+            return repo.containsTeam(team);
+        }
+
         // Get all BSRaws
         public List<BSRaw> getRounds(int team)
         {

@@ -7,7 +7,14 @@
 {
 	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">Scouting</button>
 	<div id="content">
-		@Html.TextBoxFor(model => model.team, new { placeholder = "Team Number", id = "teamNum", required = string.Empty, type = "number" })
+		@if (ViewBag.msg != null)
+		{
+			@Html.TextBoxFor(model => model.team, new { placeholder = ViewBag.msg, id = "teamNum", required = string.Empty, type = "number" })
+		}
+		else
+		{
+			@Html.TextBoxFor(model => model.team, new { placeholder = "Team Number", id = "teamNum", required = string.Empty, type = "number" })
+		}
 		@Html.TextBoxFor(model => model.round, new { placeholder = "Round Number", id = "roundNum", required = string.Empty, type = "number" })
 		@Html.HiddenFor(model => model.color, new { id = "color" })
 		<input id="colorRed" value="Red" class="color" type="button" onclick="red()" />
