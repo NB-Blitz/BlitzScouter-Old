@@ -1,6 +1,4 @@
-﻿var score = new Score();
-
-function blue() {
+﻿function blue() {
 	document.getElementById("colorRed").style.height = "100px";
 	document.getElementById("colorBlue").style.height = "110px";
 	document.getElementById("color").value = "Blue";
@@ -14,9 +12,10 @@ function red() {
 
 function changeCounters(id, amt, min, max) {
 	var old = parseInt(document.getElementById("cnt" + id + "val").value);
-	if (old + amt >= min && old + amt <= max)
+	if (old + amt >= min && old + amt <= max) {
 		document.getElementById("cnt" + id + "val").value = old + amt;
-	document.getElementById("cnt" + id + "disp").innerText = old + amt;
+		document.getElementById("cnt" + id + "disp").innerText = old + amt;
+	}
 }
 
 function changeCheckboxes(id) {
@@ -48,7 +47,10 @@ function toStr() {
 */
 
 function increment() {
-	score.increment();
+	var score = localStorage.getItem("score");
+	if (score == null)
+		score = 0;
+	localStorage.setItem("score", parseInt(score) + 1);
 }
 
 function toggleDisp(team) {
@@ -62,8 +64,8 @@ function toggleDisp(team) {
 }
 
 function loadScore() {
-	var card = score.scorecard();
-	document.getElementById("scoreNum").innerHTML = card.levelscore + "/" + card.leveltotal;
-	document.getElementById("scoreTitle").innerHTML = card.status;
-	document.getElementById("scoreDesc").innerHTML = card.quote;
+	var score = localStorage.getItem("score");
+	if (score == null)
+		score = "0";
+	document.getElementById("scoreNum").innerHTML = score;
 }
