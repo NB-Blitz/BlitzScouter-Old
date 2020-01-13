@@ -1,11 +1,11 @@
 ﻿@{
-	ViewData["Title"] = "Scout";
+	ViewData["Title"] = "Team";
 }
 @model BlitzScouter.Models.BSTeam
 
 @using (Html.BeginForm("Data", "Team", FormMethod.Post, new { onsubmit="toStr();" }))
 {
-	<input type="button" id="header" value="@Model.team" />
+	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">@Model.team</button>
 	<div id="content">
 
 		@Html.HiddenFor(m => m.team)
@@ -17,8 +17,16 @@
 		<div class="center">
 			<table>
 				<tr>
+					<th>Average</th>
+					@foreach (var a in Model.averages)
+					{
+						<td>@a</td>
+					}
+					<td>@Model.pitComments</td>
+				</tr>
+				<tr>
 					<th>Round</th>
-					@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+					@foreach (BlitzScouter.Models.Type t in BSConfig.components)
 					{
 						if (t.type == "checkbox")
 						{
@@ -26,23 +34,32 @@
 						}
 					}
 
-					@foreach (BlitzScouter.Models.Type t in ViewBag.config.components)
+					@foreach (BlitzScouter.Models.Type t in BSConfig.components)
 					{
 						if (t.type == "counter")
 						{
 							<th>@t.title</th>
 						}
 					}
+					<th>Comments</th>
 				</tr>
-				@foreach (var r in ViewBag.roundData) {
+				@foreach (var r in Model.rounds) {
 					<tr>
-						<td>@r.round</td>
+						<th>@r.round</th>
 						@foreach (bool checkbox in r.checkboxes) {
-							<td>@checkbox</td>
+							if (checkbox)
+							{
+								<td style="background-color:green;">@checkbox</td>
+							}
+							else
+							{
+								<td style="background-color:red;">@checkbox</td>
+							}
 						}
 						@foreach (int counter in r.counters) {
 							<td>@counter</td>
 						}
+						<td>@r.comments</td>
 					</tr>
 				}
 			</table>

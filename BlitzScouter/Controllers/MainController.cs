@@ -19,16 +19,21 @@ namespace BlitzScouter.Controllers
             service = new BSService(context);
         }
 
-        public IActionResult Index()
+        public IActionResult Index(String msg)
         {
+            if (msg != null)
+                ViewBag.msg = msg;
             return View();
         }
 
         [HttpPost]
         public IActionResult Scout(BSRaw data)
         {
-            ViewBag.config = new BSConfig("./config.txt");
-            return View(data);
+            BSConfig.initialize();
+            if (service.containsTeam(data.team))
+                return View(data);
+            else
+                return RedirectToAction("Index", new { controller = "Main", action = "Index", msg = "Invalid Team" });
         }
         
         [HttpPost]

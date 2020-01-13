@@ -47,6 +47,11 @@ td, th {
 	padding: 8px;
 }
 
+th {
+	background-color: #005CB8;
+	color: white;
+}
+
 /*
 	Items
 */
@@ -85,12 +90,16 @@ td, th {
 }
 
 #colorBlue {
-	background-color: #009CD7;
+	background-color: #005CB8;
 	width: 50%;
 	height: 100px;
 	float: right;
 	text-align: center;
 	font-size: 32px;
+}
+
+#score {
+	font-size: 24px;
 }
 
 .checkbox {
@@ -115,12 +124,12 @@ td, th {
 		text-align: center;
 	}
 
-	.counterBtn {
-		height: 100%;
-		width: 20%;
-		background-color: #009CD7;
-		font-size: 32px;
-	}
+.counterBtn {
+	height: 100%;
+	width: 20%;
+	background-color: #005CB8;
+	font-size: 32px;
+}
 
 	.counterTxt {
 		height: 100%;
@@ -152,7 +161,7 @@ td, th {
 #header {
 	height: 100px;
 	width: 100%;
-	background-color: #009CD7;
+	background-color: #005CB8;
 	text-align: center;
 	font-size: 32px;
 }
@@ -166,10 +175,9 @@ td, th {
 #footer {
 	height: 100px;
 	width: 100%;
-	background-color: #009CD7;
+	background-color: #005CB8;
 	text-align: center;
 	font-size: 32px;
-
 	position: fixed;
 	left: 0;
 	bottom: 0;

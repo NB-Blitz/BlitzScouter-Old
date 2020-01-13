@@ -25,15 +25,27 @@ namespace BlitzScouter.Controllers
         }
 
         [HttpPost]
-        public IActionResult Scout(BSTeam mod)
+        public IActionResult Scout(String teamNum)
         {
-            ViewBag.roundData = service.getRounds(mod.team);
-            ViewBag.config = new BSConfig("./config.txt");
-            return View(service.getTeam(mod.team));
+            BSConfig.initialize();
+
+            int ex;
+            bool isNumeric = int.TryParse(teamNum, out ex);
+            if (ex < 0)
+                ex = -ex;
+            BSTeam tm = service.getTeam(ex);
+            if (isNumeric && tm != null)
+                return View(tm);
+            else
+                return RedirectToAction("Index", new { controller = "Team", action = "Index", msg = "Invalid Team" });
         }
 
-        public IActionResult Index()
+        public IActionResult Index(String msg)
         {
+            if (msg != null)
+                ViewBag.msg = msg;
+            else
+                ViewBag.msg = "Team Number";
             return View();
         }
 

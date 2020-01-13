@@ -5,11 +5,18 @@
 
 @using (Html.BeginForm("Index", "Main", FormMethod.Post))
 {
-	<input type="button" id="header" value="Uploaded!" />
+	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">Uploaded!</button>
 	<div id="content">
 		<div class="center">
-			<!--<img id="rocket" src="Url.Content("~/images/rocket.png")" />-->
+			<div class="title">You've Scouted</div>
+		</div>
+		<div class="center">
+			<div class="title" id="scoreNum"></div>
+		</div>
+		<div class="center">
+			<div class="title">Times</div>
 		</div>
 		<input type="submit" id="footer" value="Return" />
 	</div>
 }
+<script>loadScore();</script>
