@@ -129,7 +129,7 @@ namespace BlitzScouter.Services
         // Get BSMatch
         public BSMatch getMatch(int match)
         {
-            String tba = repo.getTBA("event/" + BSConfig.tbaComp + "/matches");
+            String tba = repo.getTBA("event/" + BSConfig.c.tbaComp + "/matches");
             List<RootObject> json = JsonConvert.DeserializeObject<List<RootObject>>(tba);
 
             // Check Data

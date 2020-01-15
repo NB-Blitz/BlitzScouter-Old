@@ -26,19 +26,19 @@
 				</tr>
 				<tr>
 					<th>Round</th>
-					@foreach (BlitzScouter.Models.Type t in BSConfig.components)
+					@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
 					{
 						if (t.type == "checkbox")
 						{
-							<th>@t.title</th>
+							<th>@t.text</th>
 						}
 					}
 
-					@foreach (BlitzScouter.Models.Type t in BSConfig.components)
+					@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
 					{
 						if (t.type == "counter")
 						{
-							<th>@t.title</th>
+							<th>@t.text</th>
 						}
 					}
 					<th>Comments</th>

@@ -18,10 +18,6 @@ function changeCounters(id, amt, min, max) {
 	}
 }
 
-function changeCheckboxes(id) {
-	checkboxes[id] = !checkboxes[id];
-}
-
 /*
 function toStr() {
 	// Counters to String

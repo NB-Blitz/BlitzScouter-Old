@@ -7,14 +7,6 @@
 {
 	<button type="button" id="header" onclick="document.documentElement.requestFullscreen()">@Model.team</button>
 	<div id="content">
-		<script type="text/javascript">
-			var checkboxes = [];
-			for (var i = 0; i < @(BSConfig.checkboxCounter); i++)
-				checkboxes[i] = false;
-			var counters = [];
-			for (var i = 0; i < @(BSConfig.counterCounter); i++)
-				counters[i] = 0;
-		</script>
 
 		@{
 			Model.checkboxes = new List<bool>();
@@ -31,32 +23,32 @@
 			int counterCounter = 0;
 
 			// Iterate Through Each Component
-			foreach (BlitzScouter.Models.Type t in BSConfig.components)
+			foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
 			{
 				switch (t.type)
 				{
 					case "header":
 						<div class="center">
-							<div class="title">@t.title</div>
+							<div class="title">@t.text</div>
 						</div>
 						break;
 					case "desc":
 						<div class="center">
-							<p>@t.title</p>
+							<p>@t.text</p>
 						</div>
 						break;
 					case "checkbox":
-						Model.checkboxes.Add(((Checkbox)t).data);
+						Model.checkboxes.Add(t.def != 0);
 						<div class="center">
-							<div class="checkbox"> @t.title @Html.CheckBoxFor(m => m.checkboxes[checkboxCounter]) </div>
+							<div class="checkbox"> @t.text @Html.CheckBoxFor(m => m.checkboxes[checkboxCounter]) </div>
 						</div>
 						checkboxCounter++;
 						break;
 					case "counter":
-						Model.counters.Add(0);
+						Model.counters.Add(t.def);
 						@Html.HiddenFor(m => m.counters[counterCounter], new { id = "cnt" + counterCounter + "val" })
 						<div class="center">
-							<div class="counter"> <div class="counterDsp" id="cnt@(counterCounter)disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeCounters(@(counterCounter), 1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <input type="button" class="counterBtn" value="-" onclick="changeCounters(@(counterCounter), -1, @(((BlitzScouter.Models.Counter) t).min), @(((BlitzScouter.Models.Counter) t).max))"> <div class="counterTxt"> @t.title </div> </div>
+							<div class="counter"> <div class="counterDsp" id="cnt@(counterCounter)disp">0</div> <input type="button" class="counterBtn" value="+" onclick="changeCounters(@(counterCounter), 1, @(t.min), @(t.max))"> <input type="button" class="counterBtn" value="-" onclick="changeCounters(@(counterCounter), -1, @(t.min), @(t.max))"> <div class="counterTxt"> @t.text </div> </div>
 						</div>
 						counterCounter++;
 						break;

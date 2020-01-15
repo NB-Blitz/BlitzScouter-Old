@@ -1,0 +1,36 @@
+tbaApiKey: 
+tbaComp: 2019wimi
+matchScout:
+  - type: header
+    text: "Autonomous"
+  - type: checkbox
+    text: "Did Auto"
+    def: 0
+  - type: header
+    text: "Teleoperated"
+  - type: checkbox
+    text: "Control Panel"
+    def: 0
+  - type: counter
+    text: "Balls Low"
+    min: 0
+    def: 0
+    max: 100
+  - type: counter
+    text: "Balls High"
+    min: 0
+    def: 0
+    max: 100
+  - type: checkbox
+    text: "Climb"
+    def: 0
+  - type: checkbox
+    text: "Balanced"
+    def: 0
+  - type: header
+    text: "Miscellaneous"
+  - type: checkbox
+    text: "Robot Issues"
+    def: 0
+  - type: desc
+    text: "Specify anything that impressed you or issues that occured with the robot in the comments below."
