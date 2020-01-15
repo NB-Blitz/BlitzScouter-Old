@@ -26,13 +26,17 @@
 		@for (var i = 0; i < Model.blue.Count; i++)
 		{
 			<tr>
-				<th><button style="background:none;" onclick="toggleDisp(@(Model.blue[i].team));">@Model.blue[i].team</button></th>
-				@for (var o = 0; o < Model.blue[i].averages.Count; o++)
+				<th><button style="background:none; font-size:20px;" onclick="toggleDisp(@(Model.blue[i].team));">@Model.blue[i].team</button><h4>@Model.blue[i].name</h4></th>
+				@foreach (var a in Model.blue[i].checkboxAverages)
 				{
-					<td>@Model.blue[i].averages[o]</td>
+					<td style="font-size:@(Math.Round(6 + a*20))px;">@(a*100)%</td>
+				}
+				@foreach (var a in Model.blue[i].counterAverages)
+				{
+					<td>@a</td>
 				}
 
-				@if (Model.blue[i].averages.Count > 0)
+				@if (Model.blue[i].rounds.Count > 0)
 				{
 					<td>@Model.blue[i].pitComments</td>
 				}
@@ -63,12 +67,16 @@
 		@for (var i = 0; i < Model.red.Count; i++)
 		{
 			<tr>
-				<th style="background-color:#ED1C24;"><button style="background:none;" onclick="toggleDisp(@(Model.red[i].team));">@Model.red[i].team</button></th>
-				@for (var o = 0; o < Model.red[i].averages.Count; o++)
-				{
-					<td>@Model.red[i].averages[o]</td>
-				}
-				@if (Model.red[i].averages.Count > 0)
+				<th style="background-color:#ED1C24;"><button style="background:none; font-size:20px;" onclick="toggleDisp(@(Model.red[i].team));">@Model.red[i].team</button><h4>@Model.red[i].name</h4></th>
+				@foreach (var a in Model.red[i].checkboxAverages)
+					{
+						<td style="font-size:@(Math.Round(6 + a*20))px;">@(a*100)%</td>
+					}
+					@foreach (var a in Model.red[i].counterAverages)
+					{
+						<td>@a</td>
+					}
+				@if (Model.red[i].rounds.Count > 0)
 				{
 					<td>@Model.red[i].pitComments</td>
 				}

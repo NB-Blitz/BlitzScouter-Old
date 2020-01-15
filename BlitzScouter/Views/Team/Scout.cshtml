@@ -10,7 +10,7 @@
 
 		@Html.HiddenFor(m => m.team)
 		
-		@Html.TextBoxFor(model => model.name, new { placeholder = "Team Name", id = "teamNum" })
+		@Html.TextBoxFor(model => model.name, new { placeholder = "Team Name", @class = "txtBig" })
 		<div class="center">
 			<div class="title">Round Data</div>
 		</div>
@@ -18,7 +18,11 @@
 			<table>
 				<tr>
 					<th>Average</th>
-					@foreach (var a in Model.averages)
+					@foreach (var a in Model.checkboxAverages)
+					{
+						<td>@(a*100)%</td>
+					}
+					@foreach (var a in Model.counterAverages)
 					{
 						<td>@a</td>
 					}
@@ -68,7 +72,7 @@
 			<div class="title">Pit Comments</div>
 		</div>
 		<div class="center">
-			@Html.TextBoxFor(model => model.pitComments, new { id = "comments" })
+			@Html.TextBoxFor(model => model.pitComments, new { @class="txtBox" })
 		</div>
 	</div>
 	<input type="submit" id="footer" value="Update Team" />

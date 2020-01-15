@@ -12,7 +12,7 @@
 }
 
 /*
-	HTML
+	HTML Elements
 */
 
 * {
@@ -36,6 +36,7 @@ input[type="button"], input[type="submit"] {
 	border-radius: 0;
 }
 
+/* Table */
 table {
 	width: 100%;
 	border-collapse: collapse;
@@ -53,33 +54,76 @@ th {
 }
 
 /*
-	Items
+	Classes
 */
 
-#teamNum {
-	height: 100px;
-	width: 100%;
-	text-align: center;
-	font-size: 32px;
-	color: #000000;
-}
-
-#roundNum {
-	height: 100px;
-	width: 100%;
-	text-align: center;
-	font-size: 32px;
-	color: #000000;
-}
-
-#comments {
+.txtBox {
 	height: 100px;
 	width: 100%;
 	text-align: center;
 	font-size: 16px;
 	color: #000000;
 }
+.txtBig {
+	height: 100px;
+	width: 100%;
+	text-align: center;
+	font-size: 30px;
+	color: #000000;
+}
 
+.checkbox {
+	height: 30px;
+	width: 200px;
+	text-align: center;
+	font-size: 24px;
+}
+
+.counter {
+	height: 80px;
+	width: 100%;
+	text-align: center;
+	font-size: 24px;
+}
+
+.counterDsp {
+	height: 100%;
+	width: 10%;
+	display: inline-block;
+	text-align: center;
+}
+
+.counterBtn {
+	height: 100%;
+	width: 20%;
+	background-color: #005CB8;
+	font-size: 32px;
+}
+
+.counterTxt {
+	height: 100%;
+	width: 40%;
+	display: inline-block;
+	text-align: center;
+}
+
+.center {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.title {
+	height: 50px;
+	width: 100%;
+	text-align: center;
+	font-size: 36px;
+}
+
+/* Buttons */
 #colorRed {
 	background-color: #ED1C24;
 	width: 50%;
@@ -98,61 +142,12 @@ th {
 	font-size: 32px;
 }
 
+/* Mega Text */
 #score {
 	font-size: 24px;
 }
 
-.checkbox {
-	height: 30px;
-	width: 200px;
 
-	text-align: center;
-	font-size: 24px;
-}
-
-.counter {
-	height: 80px;
-	width: 100%;
-	text-align: center;
-	font-size: 24px;
-}
-
-	.counterDsp {
-		height: 100%;
-		width: 10%;
-		display: inline-block;
-		text-align: center;
-	}
-
-.counterBtn {
-	height: 100%;
-	width: 20%;
-	background-color: #005CB8;
-	font-size: 32px;
-}
-
-	.counterTxt {
-		height: 100%;
-		width: 40%;
-		display: inline-block;
-		text-align: center;
-	}
-
-.center {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-top:3px;
-	padding-bottom:3px;
-}
-
-.title {
-	height: 50px;
-	width: 100%;
-	text-align: center;
-	font-size: 36px;
-}
 
 /*
 	Divs

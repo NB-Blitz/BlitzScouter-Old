@@ -17,7 +17,8 @@ namespace BlitzScouter.Models
         public String pitComments { get; set; }
 
         // Other Data
-        public List<double> averages;
+        public List<double> checkboxAverages;
+        public List<double> counterAverages;
         public List<BSRaw> rounds;
     }
 

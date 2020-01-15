@@ -52,11 +52,14 @@
 						</div>
 						counterCounter++;
 						break;
+					case "text":
+
+						break;
 				}
 			}
 		}
 
-		@Html.TextBoxFor(model => model.comments, new { id = "comments", placeholder = "Comments" })
+		@Html.TextBoxFor(model => model.comments, new { @class="txtBox", placeholder = "Comments" })
 	</div>
 
 		<input type="submit" id="footer" value="Send Data" />

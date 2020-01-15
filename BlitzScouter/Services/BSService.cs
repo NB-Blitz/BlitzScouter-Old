@@ -70,7 +70,8 @@ namespace BlitzScouter.Services
             tm.rounds = getRounds(team);
 
             // Calculate Averages
-            tm.averages = new List<double>();
+            tm.checkboxAverages = new List<double>();
+            tm.counterAverages = new List<double>();
             for (int i = 0; i < tm.rounds.Count; i++)
             {
                 // Checkbox
@@ -78,11 +79,11 @@ namespace BlitzScouter.Services
                 {
                     if (i == 0)
                     {
-                        tm.averages.Add(Convert.ToInt32(tm.rounds[i].checkboxes[o]));
+                        tm.checkboxAverages.Add(Convert.ToInt32(tm.rounds[i].checkboxes[o]));
                     }
                     else
                     {
-                        tm.averages[o] += Convert.ToInt32(tm.rounds[i].checkboxes[o]);
+                        tm.checkboxAverages[o] += Convert.ToInt32(tm.rounds[i].checkboxes[o]);
                     }
                 }
 
@@ -91,21 +92,27 @@ namespace BlitzScouter.Services
                 {
                     if (i == 0)
                     {
-                        tm.averages.Add(tm.rounds[i].counters[o]);
+                        tm.counterAverages.Add(tm.rounds[i].counters[o]);
                     }
                     else
                     {
-                        tm.averages[tm.rounds[i].checkboxes.Count + o] += tm.rounds[i].counters[o];
+                        tm.counterAverages[o] += tm.rounds[i].counters[o];
                     }
                 }
             }
 
             // Divide for Averages
-            for (int i = 0; i < tm.averages.Count; i++)
+            for (int i = 0; i < tm.checkboxAverages.Count; i++)
             {
-                tm.averages[i] /= tm.rounds.Count;
+                tm.checkboxAverages[i] /= tm.rounds.Count;
                 // Fix Decimals
-                tm.averages[i] = Math.Round(tm.averages[i] * 100) / 100;
+                tm.checkboxAverages[i] = Math.Round(tm.checkboxAverages[i] * 100) / 100;
+            }
+            for (int i = 0; i < tm.counterAverages.Count; i++)
+            {
+                tm.counterAverages[i] /= tm.rounds.Count;
+                // Fix Decimals
+                tm.counterAverages[i] = Math.Round(tm.counterAverages[i] * 100) / 100;
             }
 
             return tm;
