@@ -118,6 +118,21 @@ namespace BlitzScouter.Services
             return tm;
         }
 
+        // Get all Teams
+        public List<BSTeam> getAllTeams()
+        {
+            String tba = repo.getTBA("event/" + BSConfig.c.tbaComp + "/teams");
+            List<RootTeam> json = JsonConvert.DeserializeObject<List<RootTeam>>(tba);
+
+            List<BSTeam> teams = new List<BSTeam>();
+            foreach (RootTeam tm in json)
+            {
+                teams.Add(getTeam(tm.teamNum));
+            }
+
+            return teams;
+        }
+
         // Contains Team
         public bool containsTeam(int team)
         {
@@ -170,6 +185,27 @@ namespace BlitzScouter.Services
             }
             return null;
         }
+    }
+
+    public class RootTeam
+    {
+        [JsonProperty("team_number")]
+        public int teamNum { get; set; }
+    }
+
+    public class RootAlliance
+    {
+        [JsonProperty("picks")]
+        List<string> picks { get; set; }
+
+        [JsonProperty("status")]
+        Status status { get; set; }
+    }
+
+    public class Status
+    {
+        [JsonProperty("status")]
+        String status { get; set; }
     }
 
     // JSON Conversion

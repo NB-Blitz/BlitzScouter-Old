@@ -65,3 +65,49 @@ function loadScore() {
 		score = "0";
 	document.getElementById("scoreNum").innerHTML = score;
 }
+
+function sort(col) {
+	var table = document.getElementById("sortable");
+	var rows = table.rows;
+	var hasSwitched = true;
+	while (hasSwitched) {
+		hasSwitched = false;
+		loop:
+		for (var i = 1; i < rows.length - 1; i++)
+		{
+			var valA = rows[i].getElementsByTagName("TD")[col];
+			if (valA == undefined)
+				valA = "-1";
+			else
+				valA = valA.innerText
+
+			var indexB = i + 1;
+			while (rows[indexB].className.includes("matchdata")) {
+				indexB++;
+				if (indexB >= rows.length) {
+					break loop;
+				}
+			}
+
+			var valB = rows[indexB].getElementsByTagName("TD")[col];
+			if (valB == undefined)
+				valB = "-1";
+			else
+				valB = valB.innerText;
+
+			if (parseInt(valA) < parseInt(valB)) {
+				rows[i].parentNode.insertBefore(rows[indexB], rows[i]);
+				hasSwitched = true;
+			}
+			i = indexB - 1;
+		}
+	}
+}
+
+function toggleColor(id) {
+	var team = document.getElementById(id);
+	if (team.style.backgroundColor == "rgb(237, 28, 36)")
+		team.style.backgroundColor = "#005CB8";
+	else
+		team.style.backgroundColor = "#ED1C24";
+}
