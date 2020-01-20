@@ -6,16 +6,24 @@
 
 @if (Model == null)
 {
-	<h1>Invalid Team</h1>
+	<h1 class="top-elem">Invalid Team</h1>
 }
 else
 {
-	<form action="/Dash/Team/" method="get">
+	<form action="/Dash/Team/" method="get" class="top-elem">
 		<div class="form-group">
 			<input type="number" class="form-control" id="teamnum" name="teamnum" placeholder="Team Number" />
 		</div>
 		<button type="submit" class="btn btn-primary">Lookup</button>
 	</form>
+	switch (ViewBag.code)
+	{
+		case 1:
+			<div class="alert alert-success" role="alert">
+				Team has been updated!
+			</div>
+			break;
+	}
 	<h1 class="border-bottom">@Model.team</h1>
 	<form action="/Dash/Team/" method="post">
 		<input type="hidden" id="teamnum" name="teamnum" value="@(Model.team)" />

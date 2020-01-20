@@ -19,10 +19,9 @@ namespace BlitzScouter.Controllers
             service = new BSService(context);
         }
 
-        public IActionResult Index(String msg)
+        public IActionResult Index(int code)
         {
-            if (msg != null)
-                ViewBag.msg = msg;
+            ViewBag.code = code;
             return View();
         }
 
@@ -33,14 +32,14 @@ namespace BlitzScouter.Controllers
             if (service.containsTeam(data.team))
                 return View(data);
             else
-                return RedirectToAction("Index", new { controller = "Main", action = "Index", msg = "Invalid Team" });
+                return RedirectToAction("Index", new { controller = "Main", action = "Index", code = 2 });
         }
         
         [HttpPost]
         public IActionResult Data(BSRaw model)
         {
             service.addUserData(model);
-            return View();
+            return RedirectToAction("Index", new { controller = "Main", action = "Index", code = 1 });
         }
 
         // Redirect to Index When Manually Connecting to Scout or Data

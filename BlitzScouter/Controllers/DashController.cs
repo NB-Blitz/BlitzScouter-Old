@@ -23,23 +23,24 @@ namespace BlitzScouter.Controllers
         }
 
         // Teams
-        public IActionResult Teams()
+        public IActionResult Teams(int code)
         {
             BSConfig.initialize();
+            ViewBag.code = code;
             return View(service.getAllTeams());
         }
         
-        public IActionResult Team(String teamnum)
+        public IActionResult Team(String teamnum, int code)
         {
             int ex;
             bool isNumeric = int.TryParse(teamnum, out ex);
             if (ex < 0)
                 ex = -ex;
+            if (isNumeric && !service.containsTeam(ex))
+                return RedirectToAction("Teams", new { controller = "Dash", action = "Teams", code = 2 });
             BSTeam tm = service.getTeam(ex);
-            if (isNumeric && tm != null)
-                return View(tm);
-            else
-                return View(null);
+            ViewBag.code = code;
+            return View(tm);
         }
 
         [HttpPost]
@@ -56,14 +57,14 @@ namespace BlitzScouter.Controllers
                 tm.pitComments = comments;
                 service.setTeam(tm);
             }
-            return RedirectToAction("Index", new { controller = "Dash", action = "Team", teamnum = teamnum });
+            return RedirectToAction("Team", new { controller = "Dash", action = "Team", teamnum = teamnum, code = 1 });
         }
 
         // Rounds
-        public IActionResult Rounds(String msg)
+        public IActionResult Rounds(int code)
         {
             BSConfig.initialize();
-            ViewBag.msg = msg;
+            ViewBag.code = code;
             return View(service.getAllRounds());
         }
 
@@ -77,7 +78,7 @@ namespace BlitzScouter.Controllers
             if (isNumeric && r != null)
                 return View(r);
             else
-                return RedirectToAction("Index", new { controller = "Dash", action = "Rounds", msg = "Invalid Match" });
+                return RedirectToAction("Rounds", new { controller = "Dash", action = "Rounds", code=2 });
         }
     }
 }
