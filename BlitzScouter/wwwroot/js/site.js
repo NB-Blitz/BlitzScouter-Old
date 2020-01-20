@@ -75,11 +75,9 @@ function sort(col) {
 		loop:
 		for (var i = 1; i < rows.length - 1; i++)
 		{
-			var valA = rows[i].getElementsByTagName("TD")[col];
-			if (valA == undefined)
+			var valA = rows[i].getElementsByTagName("TD")[col].innerText;
+			if (valA == "-")
 				valA = "-1";
-			else
-				valA = valA.innerText
 
 			var indexB = i + 1;
 			while (rows[indexB].className.includes("matchdata")) {
@@ -89,11 +87,9 @@ function sort(col) {
 				}
 			}
 
-			var valB = rows[indexB].getElementsByTagName("TD")[col];
-			if (valB == undefined)
+			var valB = rows[indexB].getElementsByTagName("TD")[col].innerText;
+			if (valB == "-")
 				valB = "-1";
-			else
-				valB = valB.innerText;
 
 			if (parseInt(valA) < parseInt(valB)) {
 				rows[i].parentNode.insertBefore(rows[indexB], rows[i]);
@@ -102,12 +98,4 @@ function sort(col) {
 			i = indexB - 1;
 		}
 	}
-}
-
-function toggleColor(id) {
-	var team = document.getElementById(id);
-	if (team.style.backgroundColor == "rgb(237, 28, 36)")
-		team.style.backgroundColor = "#005CB8";
-	else
-		team.style.backgroundColor = "#ED1C24";
 }

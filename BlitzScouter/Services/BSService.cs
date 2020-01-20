@@ -133,6 +133,15 @@ namespace BlitzScouter.Services
             return teams;
         }
 
+        // Get All Rounds
+        public List<BSRaw> getAllRounds()
+        {
+            List<BSRaw> arr = repo.getAll();
+            foreach (BSRaw round in arr)
+                round.toObj();
+            return arr;
+        }
+
         // Contains Team
         public bool containsTeam(int team)
         {
@@ -161,6 +170,7 @@ namespace BlitzScouter.Services
                 return null;
 
             BSMatch bsmatch = new BSMatch();
+            bsmatch.match = match;
             foreach(RootObject obj in json)
             {
                 if (obj.match_number == match)

@@ -49,6 +49,10 @@ namespace BlitzScouter.Repository
             var arr = rounds.ToList();
             return arr;
         }
+        public List<BSRaw> getAll()
+        {
+            return db.BS_Rounds.ToList();
+        }
 
         // Change Data
         public void saveData()
