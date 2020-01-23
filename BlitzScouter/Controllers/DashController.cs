@@ -19,7 +19,8 @@ namespace BlitzScouter.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            BSConfig.initialize();
+            return View(service.getAllTeams());
         }
 
         // Teams
@@ -32,6 +33,7 @@ namespace BlitzScouter.Controllers
         
         public IActionResult Team(String teamnum, int code)
         {
+            BSConfig.initialize();
             int ex;
             bool isNumeric = int.TryParse(teamnum, out ex);
             if (ex < 0)
@@ -46,6 +48,7 @@ namespace BlitzScouter.Controllers
         [HttpPost]
         public IActionResult Team(String teamnum, String teamname, String comments)
         {
+            BSConfig.initialize();
             int ex;
             bool isNumeric = int.TryParse(teamnum, out ex);
             if (ex < 0)
@@ -70,6 +73,7 @@ namespace BlitzScouter.Controllers
 
         public IActionResult Round(String roundnum)
         {
+            BSConfig.initialize();
             int ex;
             bool isNumeric = int.TryParse(roundnum, out ex);
             if (ex < 0)
@@ -79,6 +83,43 @@ namespace BlitzScouter.Controllers
                 return View(r);
             else
                 return RedirectToAction("Rounds", new { controller = "Dash", action = "Rounds", code=2 });
+        }
+
+        [HttpPost]
+        public IActionResult Edit(BSRaw raw)
+        {
+            BSConfig.initialize();
+            service.setRound(raw);
+            ViewBag.code = 1;
+            BSRaw r = service.getById(raw.id);
+            if (r == null)
+            {
+                return RedirectToAction("Rounds", new { controller = "Dash", code = 3 });
+            }
+            else
+            {
+                return View(r);
+            }
+        }
+
+        public IActionResult Edit(int id)
+        {
+            BSConfig.initialize();
+            BSRaw r = service.getById(id);
+            if (r == null)
+            {
+                return RedirectToAction("Rounds", new { controller = "Dash", code = 3 });
+            }
+            else
+            {
+                return View(r);
+            }
+        }
+
+        public IActionResult Delete(int id)
+        {
+            service.deleteRound(id);
+            return RedirectToAction("Rounds", new { controller = "Dash", code = 4 });
         }
     }
 }

@@ -35,3 +35,7 @@ h1 {
 .top-elem {
 	margin-top: 48px;
 }
+
+table {
+	text-align:center;
+}

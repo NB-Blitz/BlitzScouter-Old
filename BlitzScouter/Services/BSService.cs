@@ -37,6 +37,22 @@ namespace BlitzScouter.Services
             }
         }
 
+        // Update BSRaw
+        public void setRound(BSRaw model)
+        {
+            if (model == null)
+                return;
+            model.toStr();
+            if (repo.containsRound(model))
+            {
+                repo.updateRound(model);
+            }
+            else
+            {
+                repo.addRound(model);
+            }
+        }
+
         // Upload BSTeam
         public void setTeam(BSTeam team)
         {
@@ -157,6 +173,14 @@ namespace BlitzScouter.Services
             return arr;
         }
 
+        public BSRaw getById(int id)
+        {
+            BSRaw raw = repo.getById(id);
+            if (raw != null)
+                raw.toObj();
+            return raw;
+        }
+
         // Get BSMatch
         public BSMatch getMatch(int match)
         {
@@ -194,6 +218,13 @@ namespace BlitzScouter.Services
                 }
             }
             return null;
+        }
+
+        public void deleteRound(int id)
+        {
+            if (repo.getById(id) == null)
+                return;
+            repo.deleteRound(id);
         }
     }
 

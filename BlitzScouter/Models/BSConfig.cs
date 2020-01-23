@@ -14,7 +14,7 @@ namespace BlitzScouter.Models
          *       CONFIGURATION FILE LOCATION
          *      -----------------------------
          *         Default file location is
-         *              ./config.txt
+         *              ./config.yml
          *      ----------------------------- 
          */
 
@@ -36,6 +36,7 @@ namespace BlitzScouter.Models
     {
         public string tbaApiKey { get; set; }
         public string tbaComp { get; set; }
+        public int teamnum { get; set; }
         public List<Component> matchScout { get; set; }
     }
 

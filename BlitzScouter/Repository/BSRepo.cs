@@ -43,6 +43,10 @@ namespace BlitzScouter.Repository
         {
             return getTeam(team) != null;
         }
+        public bool containsRound(BSRaw m)
+        {
+            return getById(m.id) != null;
+        }
         public List<BSRaw> getRounds(int team)
         {
             var rounds = db.BS_Rounds.Where(t => t.team.Equals(team));
@@ -52,6 +56,10 @@ namespace BlitzScouter.Repository
         public List<BSRaw> getAll()
         {
             return db.BS_Rounds.ToList();
+        }
+        public BSRaw getById(int id)
+        {
+            return db.BS_Rounds.FirstOrDefault(t => t.id == id);
         }
 
         // Change Data
@@ -69,6 +77,20 @@ namespace BlitzScouter.Repository
         public void addRound(BSRaw roundData)
         {
             db.BS_Rounds.Add(roundData);
+            saveData();
+        }
+        public void updateRound(BSRaw round)
+        {
+            var dup = db.BS_Rounds.FirstOrDefault(m => m.id == round.id);
+            db.Entry(dup).State = EntityState.Detached;
+            db.BS_Rounds.Attach(round);
+            db.Entry(round).State = EntityState.Modified;
+            saveData();
+        }
+        public void deleteRound(int id)
+        {
+            var round = db.BS_Rounds.First(r => r.id == id);
+            db.BS_Rounds.Remove(round);
             saveData();
         }
     }

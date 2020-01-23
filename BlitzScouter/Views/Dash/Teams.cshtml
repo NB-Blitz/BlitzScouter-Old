@@ -48,7 +48,7 @@
 		@foreach (BSTeam tm in Model)
 		{
 			<tr>
-				<td id="@(tm.team)"><a href="/dash/team/?teamnum=@(tm.team)" style="vertical-align:middle;">@tm.team</a></td>
+				<td id="@(tm.team)" style="vertical-align:middle;"><a href="/dash/team/?teamnum=@(tm.team)">@tm.team</a></td>
 
 				@if (tm.checkboxAverages.Count <= 0 || tm.counterAverages.Count <= 0)
 				{

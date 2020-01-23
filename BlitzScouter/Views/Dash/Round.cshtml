@@ -77,21 +77,28 @@
 		</tr>
 		@for (var i = 0; i < Model.red.Count; i++)
 		{
-			<tr>
-				<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;">@Model.red[i].team</a></td>
-				@foreach (var a in Model.red[i].checkboxAverages)
-				{
-					<td>@(a * 100)%</td>
-				}
-				@foreach (var a in Model.red[i].counterAverages)
-				{
-					<td>@a</td>
-				}
-				@if (Model.red[i].rounds.Count > 0)
-				{
-					<td>@Model.red[i].pitComments</td>
-				}
-			</tr>
+	<tr>
+		@if (Model.red[i].team == BSConfig.c.teamnum)
+		{
+			<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;font-weight:bold;text-decoration: underline;">@Model.red[i].team</a></td>
+		}
+		else
+		{
+			<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;">@Model.red[i].team</a></td>
+		}
+		@foreach (var a in Model.red[i].checkboxAverages)
+		{
+			<td>@(a * 100)%</td>
+		}
+		@foreach (var a in Model.red[i].counterAverages)
+		{
+			<td>@a</td>
+		}
+		@if (Model.red[i].rounds.Count > 0)
+		{
+			<td>@Model.red[i].pitComments</td>
+		}
+	</tr>
 		}
 	</table>
 </div>
