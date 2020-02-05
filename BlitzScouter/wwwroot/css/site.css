@@ -1,179 +1,50 @@
-﻿
-/*
-	Font
-*/
-
-@font-face {
-	font-family: 'bikoregular';
-	/*src: url('../font/biko_regular-webfont.eot');*/
-	src: url('../font/biko_regular-webfont.eot?#iefix') format('embedded-opentype'), url('../Font/biko_regular-webfont.woff2') format('woff2'), url('../Font/biko_regular-webfont.woff') format('woff'), url('../Font/biko_regular-webfont.ttf') format('truetype'), url('../Font/biko_regular-webfont.svg#bikoregular') format('svg');
-	font-weight: normal;
-	font-style: normal;
+﻿html, body {
+	height:100%;
 }
 
-/*
-	HTML Elements
-*/
-
-* {
-	font-family: 'bikoregular';
-	color: #ffffff;
-	padding: 0;
-	margin: 0;
-	border: 0;
+.linkIcon {
+	padding-top: 4px;
+	vertical-align: text-bottom;
+	color:#999;
+	width:20px;
+	height:20px;
 }
 
-body {
-	width: 100%;
-	height: 100%;
-	background-color: #333333;
+a:hover .linkIcon {
+	color:inherit;
 }
 
-input[type="button"], input[type="submit"] {
-	-webkit-appearance: none;
-	-moz-appearance: none;
-	touch-action: manipulation;
-	border-radius: 0;
+.sideLink {
+	font-size:14px;
 }
 
-/* Table */
+form {
+	padding-bottom:20px;
+}
+
+h1 {
+	padding-bottom:10px;
+}
+
+h3, p {
+	padding-top:10px;
+}
+
+.center-input {
+	margin: auto;
+	text-align: center;
+	width:max-content;
+}
+
+.top-elem {
+	margin-top: 48px;
+}
+
+.matchLink {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
 table {
-	width: 100%;
-	border-collapse: collapse;
-}
-
-td, th {
-	border: 1px solid #ffffff;
-	text-align: center;
-	padding: 8px;
-}
-
-th {
-	background-color: #005CB8;
-	color: white;
-}
-
-/*
-	Classes
-*/
-
-.txtBox {
-	height: 100px;
-	width: 100%;
-	text-align: center;
-	font-size: 16px;
-	color: #000000;
-}
-.txtBig {
-	height: 100px;
-	width: 100%;
-	text-align: center;
-	font-size: 30px;
-	color: #000000;
-}
-
-.checkbox {
-	height: 30px;
-	width: 200px;
-	text-align: center;
-	font-size: 24px;
-}
-
-.counter {
-	height: 80px;
-	width: 100%;
-	text-align: center;
-	font-size: 24px;
-}
-
-.counterDsp {
-	height: 100%;
-	width: 10%;
-	display: inline-block;
-	text-align: center;
-}
-
-.counterBtn {
-	height: 100%;
-	width: 20%;
-	background-color: #005CB8;
-	font-size: 32px;
-}
-
-.counterTxt {
-	height: 100%;
-	width: 40%;
-	display: inline-block;
-	text-align: center;
-}
-
-.center {
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-top: 3px;
-	padding-bottom: 3px;
-}
-
-.title {
-	height: 50px;
-	width: 100%;
-	text-align: center;
-	font-size: 36px;
-}
-
-/* Buttons */
-#colorRed {
-	background-color: #ED1C24;
-	width: 50%;
-	height: 100px;
-	float: left;
-	text-align: center;
-	font-size: 32px;
-}
-
-#colorBlue {
-	background-color: #005CB8;
-	width: 50%;
-	height: 100px;
-	float: right;
-	text-align: center;
-	font-size: 32px;
-}
-
-/* Mega Text */
-#score {
-	font-size: 24px;
-}
-
-
-
-/*
-	Divs
-*/
-
-#header {
-	height: 100px;
-	width: 100%;
-	background-color: #005CB8;
-	text-align: center;
-	font-size: 32px;
-}
-
-#content {
-	width: 100%;
-	height: 100%;
-	padding-bottom: 100px;
-}
-
-#footer {
-	height: 100px;
-	width: 100%;
-	background-color: #005CB8;
-	text-align: center;
-	font-size: 32px;
-	position: fixed;
-	left: 0;
-	bottom: 0;
+	text-align:center;
 }

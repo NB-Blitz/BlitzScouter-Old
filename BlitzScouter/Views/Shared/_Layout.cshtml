@@ -7,6 +7,14 @@
 
 	<title>Blitz Scouter</title>
 
+	<link rel="manifest" href="@Url.Content("~/manifest.json")">
+
+	<script src="@Url.Content("~/external/jquery-3.4.1.min.js")"></script>
+	<script src="@Url.Content("~/external/popper.min.js")"></script>
+	<script src="@Url.Content("~/external/bootstrap.min.js")"></script>
+	<script src="@Url.Content("~/external/js.cookie.js")"></script>
+	<link rel="stylesheet" href="@Url.Content("~/external/bootstrap.min.css")">
+
 	<link href="@Url.Content("~/css/site.css?v=1.6")" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="@Url.Content("~/js/site.js?v=1.21")"></script>
 
@@ -15,7 +23,7 @@
 	<link rel="apple-touch-icon" sizes="114x114" href="@Url.Content("~/images/apple-icon-114x114.png?v=1.4")" />
 	<link rel="apple-touch-icon" sizes="144x144" href="@Url.Content("~/images/apple-icon-144x144.png?v=1.4")" />
 </head>
-<body>
+<body class="text-center" style="background-color:#f5f5f5;display:flex;align-items:center;">
 	@RenderBody()
 	@RenderSection("Scripts", required: false)
 </body>

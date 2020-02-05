@@ -37,6 +37,22 @@ namespace BlitzScouter.Services
             }
         }
 
+        // Update BSRaw
+        public void setRound(BSRaw model)
+        {
+            if (model == null)
+                return;
+            model.toStr();
+            if (repo.containsRound(model))
+            {
+                repo.updateRound(model);
+            }
+            else
+            {
+                repo.addRound(model);
+            }
+        }
+
         // Upload BSTeam
         public void setTeam(BSTeam team)
         {
@@ -51,6 +67,44 @@ namespace BlitzScouter.Services
             {
                 repo.addTeam(team);
             }
+        }
+
+        public List<String> getUpcomingRounds()
+        {
+            String tba = repo.getTBA("team/frc" + BSConfig.c.teamnum + "/event/" + BSConfig.c.tbaComp + "/matches");
+            List<RootMatch> json = JsonConvert.DeserializeObject<List<RootMatch>>(tba);
+
+            List<String> str = new List<String>();
+            foreach (RootMatch m in json)
+            {
+                String key = m.key.Substring(m.key.LastIndexOf("_") + 1);
+                // Qualification Match
+                if (m.comp_level == "qm")
+                {
+                    str.Add("<a href=\"/Dash/Round?roundnum=" + key.Substring(2) + "\" class=\"nav-link text-dark sideLink matchLink\">Quals " + key.Substring(2) + "</a>");
+                }
+            }
+            foreach(RootMatch m in json)
+            {
+                String key = m.key.Substring(m.key.LastIndexOf("_") + 1);
+                // Quarter Final
+                if (m.comp_level == "qf")
+                {
+                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Quarters " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
+                }
+                // Semi Final
+                else if (m.comp_level == "sf")
+                {
+                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Semis " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
+                }
+                // Final
+                else if (m.comp_level == "f")
+                {
+                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Finals " + key.Substring(3) + "</a>");
+                }
+            }
+
+            return str;
         }
 
         // Get BSTeam
@@ -133,6 +187,15 @@ namespace BlitzScouter.Services
             return teams;
         }
 
+        // Get All Rounds
+        public List<BSRaw> getAllRounds()
+        {
+            List<BSRaw> arr = repo.getAll();
+            foreach (BSRaw round in arr)
+                round.toObj();
+            return arr;
+        }
+
         // Contains Team
         public bool containsTeam(int team)
         {
@@ -148,6 +211,14 @@ namespace BlitzScouter.Services
             return arr;
         }
 
+        public BSRaw getById(int id)
+        {
+            BSRaw raw = repo.getById(id);
+            if (raw != null)
+                raw.toObj();
+            return raw;
+        }
+
         // Get BSMatch
         public BSMatch getMatch(int match)
         {
@@ -161,6 +232,7 @@ namespace BlitzScouter.Services
                 return null;
 
             BSMatch bsmatch = new BSMatch();
+            bsmatch.match = match;
             foreach(RootObject obj in json)
             {
                 if (obj.match_number == match)
@@ -184,6 +256,13 @@ namespace BlitzScouter.Services
                 }
             }
             return null;
+        }
+
+        public void deleteRound(int id)
+        {
+            if (repo.getById(id) == null)
+                return;
+            repo.deleteRound(id);
         }
     }
 
@@ -243,5 +322,13 @@ namespace BlitzScouter.Services
 
         [JsonProperty("team_keys")]
         public List<string> team_keys { get; set; }
+    }
+    public class RootMatch
+    {
+        [JsonProperty("comp_level")]
+        public String comp_level { get; set; }
+
+        [JsonProperty("key")]
+        public String key { get; set; }
     }
 }
