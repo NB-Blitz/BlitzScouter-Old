@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BlitzScouter.Models;
 using BlitzScouter.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace BlitzScouter.Controllers
 {
@@ -20,6 +21,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Index()
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             return View(service.getAllTeams());
         }
 
@@ -27,6 +29,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Teams(int code)
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             ViewBag.code = code;
             return View(service.getAllTeams());
         }
@@ -34,6 +37,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Team(String teamnum, int code)
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             int ex;
             bool isNumeric = int.TryParse(teamnum, out ex);
             if (ex < 0)
@@ -49,6 +53,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Team(String teamnum, String teamname, String comments)
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             int ex;
             bool isNumeric = int.TryParse(teamnum, out ex);
             if (ex < 0)
@@ -67,6 +72,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Rounds(int code)
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             ViewBag.code = code;
             return View(service.getAllRounds());
         }
@@ -74,6 +80,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Round(String roundnum)
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             int ex;
             bool isNumeric = int.TryParse(roundnum, out ex);
             if (ex < 0)
@@ -89,6 +96,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Edit(BSRaw raw)
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             service.setRound(raw);
             ViewBag.code = 1;
             BSRaw r = service.getById(raw.id);
@@ -105,6 +113,7 @@ namespace BlitzScouter.Controllers
         public IActionResult Edit(int id)
         {
             BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             BSRaw r = service.getById(id);
             if (r == null)
             {
@@ -118,6 +127,8 @@ namespace BlitzScouter.Controllers
 
         public IActionResult Delete(int id)
         {
+            BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
             service.deleteRound(id);
             return RedirectToAction("Rounds", new { controller = "Dash", code = 4 });
         }

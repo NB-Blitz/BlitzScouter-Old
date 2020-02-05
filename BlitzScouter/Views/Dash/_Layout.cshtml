@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="@Url.Content("~/external/bootstrap.min.css")">
 	<script src="@Url.Content("~/external/Chart.min.js")"></script>
 
-	<link href="@Url.Content("~/css/site.css?v=1.6")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/css/site.css?v=1.7")" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="@Url.Content("~/js/site.js?v=1.22")"></script>
 
 	<link rel="apple-touch-icon" sizes="57x57" href="@Url.Content("~/images/apple-icon-57x57.png?v=1.4")" />
@@ -62,9 +62,12 @@
 					</ul>
 					<h6 class="text-muted" href="/Dash/" style="font-size: 12px;padding-top: 10px;margin-bottom: 2px;">UPCOMING MATCHES</h6>
 					<ul class="nav flex-column">
-						<li class="nav-item">
-							
-						</li>
+						@foreach (String s in ViewBag.upcomingRounds)
+						{
+							<li class="nav-item">
+								@Html.Raw(s)
+							</li>
+						}
 					</ul>
 				</div>
 			</nav>

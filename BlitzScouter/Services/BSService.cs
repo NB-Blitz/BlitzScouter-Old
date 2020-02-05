@@ -69,6 +69,44 @@ namespace BlitzScouter.Services
             }
         }
 
+        public List<String> getUpcomingRounds()
+        {
+            String tba = repo.getTBA("team/frc" + BSConfig.c.teamnum + "/event/" + BSConfig.c.tbaComp + "/matches");
+            List<RootMatch> json = JsonConvert.DeserializeObject<List<RootMatch>>(tba);
+
+            List<String> str = new List<String>();
+            foreach (RootMatch m in json)
+            {
+                String key = m.key.Substring(m.key.LastIndexOf("_") + 1);
+                // Qualification Match
+                if (m.comp_level == "qm")
+                {
+                    str.Add("<a href=\"/Dash/Round?roundnum=" + key.Substring(2) + "\" class=\"nav-link text-dark sideLink matchLink\">Quals " + key.Substring(2) + "</a>");
+                }
+            }
+            foreach(RootMatch m in json)
+            {
+                String key = m.key.Substring(m.key.LastIndexOf("_") + 1);
+                // Quarter Final
+                if (m.comp_level == "qf")
+                {
+                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Quarters " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
+                }
+                // Semi Final
+                else if (m.comp_level == "sf")
+                {
+                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Semis " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
+                }
+                // Final
+                else if (m.comp_level == "f")
+                {
+                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Finals " + key.Substring(3) + "</a>");
+                }
+            }
+
+            return str;
+        }
+
         // Get BSTeam
         public BSTeam getTeam(int team)
         {
@@ -284,5 +322,13 @@ namespace BlitzScouter.Services
 
         [JsonProperty("team_keys")]
         public List<string> team_keys { get; set; }
+    }
+    public class RootMatch
+    {
+        [JsonProperty("comp_level")]
+        public String comp_level { get; set; }
+
+        [JsonProperty("key")]
+        public String key { get; set; }
     }
 }

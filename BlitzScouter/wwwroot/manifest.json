@@ -1,0 +1,16 @@
+{
+	"short_name": "Blitz Scouter",
+	"name": "Blitz Scouting App",
+	"icons": [
+		{
+			"src": "/images/apple-icon-144x144.png",
+			"sizes": "144x144",
+			"type": "image/png"
+		}
+	],
+	"background_color": "#999",
+	"start_url": "/",
+	"scope": "/",
+	"display": "fullscreen",
+	"orientation": "portrait"
+}
