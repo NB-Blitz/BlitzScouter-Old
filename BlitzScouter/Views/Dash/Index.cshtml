@@ -4,3 +4,47 @@
 @model List<BSTeam>
 
 <h1 class="top-elem">Overview</h1>
+@for (int i = 0; i < BSConfig.c.graphs.Count; i++)
+{
+	Graph g = BSConfig.c.graphs[i];
+	if (g.location == "overview")
+	{
+		<h2>@g.title</h2>
+		<canvas id="graph@(i)" width="400" height="200"></canvas>
+		<script>
+			var ctx = document.getElementById('graph@(i)').getContext('2d');
+			var myChart = new Chart(ctx, {
+				type: '@(g.type)',
+				data: {
+					datasets: [
+						@for (int o = 0; o < Model.Count; o++)
+						{
+							@if (Model[o].rounds.Count <= 0)
+							{
+								continue;
+							}
+								<text>
+								{
+									label: @(Model[o].team),
+									backgroundColor: 'rgba(255, 0, 0, .5)',
+									data: [{
+										x: @(Model[o].counterAverages[g.x]),
+										y: @(Model[o].counterAverages[g.y])
+								</text>
+							@if (o >= Model.Count - 1) {
+								<text>
+								}]}
+								</text>
+							} else {
+								<text>
+								}]},
+								</text>
+							}
+						}
+					]
+				},
+				options: {}
+			});
+		</script>
+	}
+}

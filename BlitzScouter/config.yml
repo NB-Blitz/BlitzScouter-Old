@@ -1,17 +1,16 @@
-tbaApiKey: 
+tbaApiKey: 98IYKNSHQoj4RonA9UXmDVnvRqRRdLOicOWALLebLNiENK3ZZkmXXB2i5mGEIxx4
 tbaComp: 2019wimi
 teamnum: 5148
 matchScout:
   - type: header
     text: "Autonomous"
-  - type: checkbox
-    text: "Did Auto"
+  - type: counter
+    text: "Balls Auto"
+    min: 0
     def: 0
+    max: 100
   - type: header
     text: "Teleoperated"
-  - type: checkbox
-    text: "Control Panel"
-    def: 0
   - type: counter
     text: "Balls Low"
     min: 0
@@ -22,6 +21,9 @@ matchScout:
     min: 0
     def: 0
     max: 100
+  - type: checkbox
+    text: "Control Panel"
+    def: 0
   - type: checkbox
     text: "Climb"
     def: 0
@@ -35,3 +37,9 @@ matchScout:
     def: 0
   - type: desc
     text: "Specify anything that impressed you or issues that occured with the robot in the comments below."
+graphs:
+  - type: scatter
+    location: overview
+    title: "Test Graph"
+    x: 1
+    y: 2

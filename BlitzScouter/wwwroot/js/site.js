@@ -39,3 +39,20 @@ function sort(col) {
 		}
 	}
 }
+
+function increment() {
+	if (Cookies.get("scoutCount") == undefined) {
+		Cookies.set("scoutCount", "1");
+	}
+	else {
+		var val = parseInt(Cookies.get("scoutCount")) + 1;
+		Cookies.set("scoutCount", val.toString());
+	}
+}
+
+function getStats() {
+	if (Cookies.get("scoutCount") == undefined) {
+		Cookies.set("scoutCount", "0");
+	}
+	document.getElementById("stat1").innerHTML = "Scouted <b>" + Cookies.get("scoutCount") + "</b> times.";
+}

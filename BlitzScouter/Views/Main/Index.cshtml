@@ -3,6 +3,10 @@
 }
 @model BlitzScouter.Models.BSRaw
 
+<script>
+	window.onload = getStats;
+</script>
+
 @using (Html.BeginForm("Scout", "Main", FormMethod.Post, new { @class = "form-signin", style = "max-width:330px;margin:auto;" }))
 {
 	switch (ViewBag.code)
@@ -24,4 +28,27 @@
 		@Html.TextBoxFor(model => model.round, new { placeholder = "Round Number", @class = "form-control", required = string.Empty, type = "number", style = "border-top-left-radius:0; border-top-right-radius:0;padding:10px;" })
 	</div>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Scout</button>
+	<button class="btn btn-link" type="button" data-toggle="modal" data-target="#statsModal">Stats</button>
+	<div class="modal fade" id="statsModal" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="label">Stats</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table>
+						<tr>
+							<td id="stat1">Loading Stats...</td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 }

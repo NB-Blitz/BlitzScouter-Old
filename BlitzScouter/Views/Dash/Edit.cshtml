@@ -51,6 +51,6 @@
 		</tr>
 	</table>
 	<label>Comments</label>
-	@Html.TextBoxFor(model => model.comments, new { @class = "form-control", required = string.Empty, placeholder = "Comments" })
+	@Html.TextAreaFor(model => model.comments, new { @class = "form-control", required = string.Empty, placeholder = "Comments" })
 	<button type="submit" class="btn btn-primary" style="margin-top:10px;">Update Data</button>
 }
