@@ -7,7 +7,8 @@ namespace BlitzScouter.Models
 {
     public class BSMatch
     {
-        public int match { get; set; }
+        public String match { get; set; }
+        public String matchStr { get; set; }
         public List<BSTeam> blue { get; set; }
         public List<BSTeam> red { get; set; }
     }

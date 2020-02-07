@@ -40,13 +40,13 @@ function sort(col) {
 	}
 }
 
-function increment() {
-	if (Cookies.get("scoutCount") == undefined) {
-		Cookies.set("scoutCount", "1");
+function increment(v) {
+	if (Cookies.get(v) == undefined) {
+		Cookies.set(v, "1");
 	}
 	else {
-		var val = parseInt(Cookies.get("scoutCount")) + 1;
-		Cookies.set("scoutCount", val.toString());
+		var val = parseInt(Cookies.get(v)) + 1;
+		Cookies.set(v, val.toString());
 	}
 }
 

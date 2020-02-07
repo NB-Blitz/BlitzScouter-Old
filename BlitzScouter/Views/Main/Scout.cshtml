@@ -3,7 +3,7 @@
 }
 @model BlitzScouter.Models.BSRaw
 
-@using (Html.BeginForm("Data", "Main", FormMethod.Post, new { @class = "form-signin", style = "max-width:330px;margin:auto;", onsubmit = "increment()" }))
+@using (Html.BeginForm("Data", "Main", FormMethod.Post, new { @class = "form-signin", style = "max-width:330px;margin:auto;", onsubmit = "increment(\"scoutCount\")" }))
 {
 	<h1 class="border-bottom">@Model.team</h1>
 

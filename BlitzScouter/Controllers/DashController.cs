@@ -77,16 +77,20 @@ namespace BlitzScouter.Controllers
             return View(service.getAllRounds());
         }
 
-        public IActionResult Round(String roundnum)
+        public IActionResult Round(String roundnum, String raw)
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
-            int ex;
-            bool isNumeric = int.TryParse(roundnum, out ex);
-            if (ex < 0)
-                ex = -ex;
-            BSMatch r = service.getMatch(ex);
-            if (isNumeric && r != null)
+            BSMatch r;
+            if (raw == null)
+            {
+                r = service.getMatch("qm" + roundnum);
+            }
+            else
+            {
+                r = service.getMatch(raw);
+            }
+            if (r != null)
                 return View(r);
             else
                 return RedirectToAction("Rounds", new { controller = "Dash", action = "Rounds", code=2 });

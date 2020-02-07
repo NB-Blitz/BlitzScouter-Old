@@ -13,7 +13,7 @@ namespace BlitzScouter.Services
 {
     public class BSService
     {
-        BSRepo repo;
+        readonly BSRepo repo;
 
         public BSService(BSContext context)
         {
@@ -30,8 +30,10 @@ namespace BlitzScouter.Services
             }
             else
             {
-                BSTeam team = new BSTeam();
-                team.team = model.team;
+                var team = new BSTeam()
+                {
+                    team = model.team
+                };
                 repo.addTeam(team);
                 repo.addRound(model);
             }
@@ -75,13 +77,22 @@ namespace BlitzScouter.Services
             List<RootMatch> json = JsonConvert.DeserializeObject<List<RootMatch>>(tba);
 
             List<String> str = new List<String>();
+            int startIndex = 0;
             foreach (RootMatch m in json)
             {
                 String key = m.key.Substring(m.key.LastIndexOf("_") + 1);
                 // Qualification Match
                 if (m.comp_level == "qm")
                 {
-                    str.Add("<a href=\"/Dash/Round?roundnum=" + key.Substring(2) + "\" class=\"nav-link text-dark sideLink matchLink\">Quals " + key.Substring(2) + "</a>");
+                    if (int.Parse(key.Substring(2)) < 10)
+                    {
+                        str.Insert(startIndex, "<a href=\"/Dash/Round?roundnum=" + key.Substring(2) + "\" class=\"nav-link text-dark sideLink matchLink\">Quals " + key.Substring(2) + "</a>");
+                        startIndex++;
+                    }
+                    else
+                    {
+                        str.Add("<a href=\"/Dash/Round?roundnum=" + key.Substring(2) + "\" class=\"nav-link text-dark sideLink matchLink\">Quals " + key.Substring(2) + "</a>");
+                    }
                 }
             }
             foreach(RootMatch m in json)
@@ -90,17 +101,17 @@ namespace BlitzScouter.Services
                 // Quarter Final
                 if (m.comp_level == "qf")
                 {
-                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Quarters " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
+                    str.Add("<a href=\"/Dash/Round?raw=qf" + key.Substring(2, 1) + "m" + key.Substring(4) + "\" class=\"nav-link text-dark sideLink matchLink\">Quarters " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
                 }
                 // Semi Final
                 else if (m.comp_level == "sf")
                 {
-                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Semis " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
+                    str.Add("<a href=\"/Dash/Round?raw=sf" + key.Substring(2, 1) + "m" + key.Substring(4) + "\" class=\"nav-link text-dark sideLink matchLink\">Semis " + key.Substring(2,1) + " Match " + key.Substring(4) + "</a>");
                 }
                 // Final
                 else if (m.comp_level == "f")
                 {
-                    str.Add("<a href=\"/Dash/Round\" class=\"nav-link text-dark sideLink matchLink\">Finals " + key.Substring(3) + "</a>");
+                    str.Add("<a href=\"/Dash/Round?raw=f1m" + key.Substring(3) + "\" class=\"nav-link text-dark sideLink matchLink\">Finals " + key.Substring(3) + "</a>");
                 }
             }
 
@@ -117,8 +128,10 @@ namespace BlitzScouter.Services
                 tm = repo.getTeam(team);
             else
             {
-                tm = new BSTeam();
-                tm.team = team;
+                tm = new BSTeam()
+                {
+                    team = team
+                };
                 repo.addTeam(tm);
             }
             tm.rounds = getRounds(team);
@@ -220,28 +233,45 @@ namespace BlitzScouter.Services
         }
 
         // Get BSMatch
-        public BSMatch getMatch(int match)
+        public BSMatch getMatch(String match)
         {
             String tba = repo.getTBA("event/" + BSConfig.c.tbaComp + "/matches");
             List<RootObject> json = JsonConvert.DeserializeObject<List<RootObject>>(tba);
 
             // Check Data
-            if (json.Count < 1)
-                return null;
-            if (match < 1)
+            if (json.Count < 1 || match == null || match == "")
                 return null;
 
-            BSMatch bsmatch = new BSMatch();
-            bsmatch.match = match;
-            foreach(RootObject obj in json)
+            BSMatch bsmatch = new BSMatch()
             {
-                if (obj.match_number == match)
+                match = match
+            };
+
+            if (match.Substring(0, 2) == "qm")
+            {
+                bsmatch.matchStr = "Quals " + match.Substring(2);
+            }
+            else if (match.Substring(0, 2) == "qf")
+            {
+                bsmatch.matchStr = "Quarters " + match.Substring(2,1) + " Match " + match.Substring(4);
+            }
+            else if (match.Substring(0, 2) == "sf")
+            {
+                bsmatch.matchStr = "Semis " + match.Substring(2,1) + " Match " + match.Substring(4);
+            }
+            else if (match.Substring(0, 1) == "f")
+            {
+                bsmatch.matchStr = "Finals Match " + match.Substring(3);
+            }
+            System.Diagnostics.Debug.WriteLine(BSConfig.c.tbaComp + "_" + match);
+            foreach (RootObject obj in json)
+            {
+                if (obj.key == BSConfig.c.tbaComp + "_" + match)
                 {
                     bsmatch.blue = new List<BSTeam>();
                     for(int i = 0; i < obj.alliances.blue.team_keys.Count; i++)
                     {
                         int teamNum = int.Parse(obj.alliances.blue.team_keys[i].Substring(3));
-                        System.Diagnostics.Debug.WriteLine("TBA Data: '" + obj.alliances.blue.team_keys[i] + "' '" + obj.alliances.blue.team_keys[i].Substring(3) + "'");
                         bsmatch.blue.Add(getTeam(teamNum));
                     }
 
@@ -249,7 +279,6 @@ namespace BlitzScouter.Services
                     for (int i = 0; i < obj.alliances.red.team_keys.Count; i++)
                     {
                         int teamNum = int.Parse(obj.alliances.red.team_keys[i].Substring(3));
-                        System.Diagnostics.Debug.WriteLine("TBA Data: '" + obj.alliances.red.team_keys[i] + "' '" + obj.alliances.red.team_keys[i].Substring(3) + "'");
                         bsmatch.red.Add(getTeam(teamNum));
                     }
                     return bsmatch;
@@ -293,8 +322,8 @@ namespace BlitzScouter.Services
         [JsonProperty("alliances")]
         public Alliances alliances { get; set; }
 
-        [JsonProperty("match_number")]
-        public int match_number { get; set; }
+        [JsonProperty("key")]
+        public String key { get; set; }
 
         [JsonProperty("winning_alliance")]
         public string winning_alliance { get; set; }
