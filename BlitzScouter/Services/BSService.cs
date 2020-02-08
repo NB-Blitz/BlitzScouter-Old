@@ -179,7 +179,7 @@ namespace BlitzScouter.Services
             {
                 tm.counterAverages[i] /= tm.rounds.Count;
                 // Fix Decimals
-                tm.counterAverages[i] = Math.Round(tm.counterAverages[i] * 100) / 100;
+                tm.counterAverages[i] = Math.Round(tm.counterAverages[i]);
             }
 
             return tm;

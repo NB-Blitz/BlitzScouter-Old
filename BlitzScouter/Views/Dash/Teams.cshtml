@@ -60,7 +60,7 @@
 
 				@foreach (var a in tm.checkboxAverages)
 				{
-					<td style="vertical-align:middle;">@(a * 100)%</td>
+					<td style="vertical-align:middle;">@(Math.Round(a * 100))%</td>
 				}
 
 				@foreach (var a in tm.counterAverages)

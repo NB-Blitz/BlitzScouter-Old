@@ -31,6 +31,20 @@ namespace BlitzScouter.Models
             c = deserializer.Deserialize<YAMLRoot>(output);
             initialized = true;
         }
+
+        public static List<Component> getByType(string type)
+        {
+            initialize();
+            List<Component> comps = new List<Component>();
+            for (int i = 0; i < c.matchScout.Count; i++)
+            {
+                if (c.matchScout[i].type == type)
+                {
+                    comps.Add(c.matchScout[i]);
+                }
+            }
+            return comps;
+        }
     }
     public class YAMLRoot
     {

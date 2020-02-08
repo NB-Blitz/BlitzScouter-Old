@@ -22,7 +22,23 @@ namespace BlitzScouter.Controllers
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
-            return View(service.getAllTeams());
+            List<BSTeam> tms = service.getAllTeams();
+            List<PlotData> list = new List<PlotData>();
+            foreach (BSTeam tm in tms)
+            {
+                if (tm.counterAverages == null)
+                    continue;
+                if (tm.counterAverages.Count < 3)
+                    continue;
+                list.Add(new PlotData
+                {
+                    Name = tm.team.ToString(),
+                    X = tm.counterAverages[2],
+                    Y = tm.counterAverages[1]
+                });
+            }
+            ViewBag.graphData = list;
+            return View();
         }
 
         // Teams
@@ -46,6 +62,9 @@ namespace BlitzScouter.Controllers
                 return RedirectToAction("Teams", new { controller = "Dash", action = "Teams", code = 2 });
             BSTeam tm = service.getTeam(ex);
             ViewBag.code = code;
+
+            ViewBag.graphDataA = tm.rounds;
+
             return View(tm);
         }
 
@@ -137,4 +156,11 @@ namespace BlitzScouter.Controllers
             return RedirectToAction("Rounds", new { controller = "Dash", code = 4 });
         }
     }
+    public class PlotData
+    {
+        public double X { get; set; }
+        public double Y { get; set; }
+        public String Name { get; set; }
+    }
+
 }

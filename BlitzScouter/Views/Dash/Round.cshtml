@@ -39,7 +39,7 @@
 				<td><a href="/dash/team/?teamnum=@(Model.blue[i].team)" style="vertical-align:middle;">@Model.blue[i].team</a></td>
 				@foreach (var a in Model.blue[i].checkboxAverages)
 				{
-					<td>@(a * 100)%</td>
+					<td>@(Math.Round(a * 100))%</td>
 				}
 				@foreach (var a in Model.blue[i].counterAverages)
 				{
@@ -88,7 +88,7 @@
 		}
 		@foreach (var a in Model.red[i].checkboxAverages)
 		{
-			<td>@(a * 100)%</td>
+			<td>@(Math.Round(a * 100))%</td>
 		}
 		@foreach (var a in Model.red[i].counterAverages)
 		{

@@ -4,47 +4,46 @@
 @model List<BSTeam>
 
 <h1 class="top-elem">Overview</h1>
-@for (int i = 0; i < BSConfig.c.graphs.Count; i++)
-{
-	Graph g = BSConfig.c.graphs[i];
-	if (g.location == "overview")
-	{
-		<h2>@g.title</h2>
-		<canvas id="graph@(i)" width="400" height="200"></canvas>
-		<script>
-			var ctx = document.getElementById('graph@(i)').getContext('2d');
-			var myChart = new Chart(ctx, {
-				type: '@(g.type)',
-				data: {
-					datasets: [
-						@for (int o = 0; o < Model.Count; o++)
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script>
+	window.onload = function () {
+		var font = "Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji";
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			theme: "light2",
+			title: {
+				text: "Balls High vs Low",
+				fontFamily: font
+			},
+			axisX: {
+				title: "Balls Low",
+				titleFontFamily: font,
+				labelFontFamily: font
+			},
+			axisY: {
+				title: "Balls High",
+				titleFontFamily: font,
+				labelFontFamily: font
+			},
+			legend: {
+				cursor: "pointer"
+			},
+			data: [
+				@{
+					String str = "";
+					for (var i = 0; i < ViewBag.graphData.Count; i++)
+					{
+						str += "{type: \"scatter\", name: \"" + ViewBag.graphData[i].Name + "\", markerType: \"circle\", showInLegend: false, toolTipContent: \"<span>{name}</span><br>Balls High: {x}<br>Balls Low: {y}\", dataPoints: [{x: " + ViewBag.graphData[i].X + ", y:" + ViewBag.graphData[i].Y + " }]}";
+						if (i < ViewBag.graphData.Count - 1)
 						{
-							@if (Model[o].rounds.Count <= 0)
-							{
-								continue;
-							}
-								<text>
-								{
-									label: @(Model[o].team),
-									backgroundColor: 'rgba(255, 0, 0, .5)',
-									data: [{
-										x: @(Model[o].counterAverages[g.x]),
-										y: @(Model[o].counterAverages[g.y])
-								</text>
-							@if (o >= Model.Count - 1) {
-								<text>
-								}]}
-								</text>
-							} else {
-								<text>
-								}]},
-								</text>
-							}
+							str += ",";
 						}
-					]
-				},
-				options: {}
-			});
-		</script>
+					}
+					@Html.Raw(str);
+				}
+			]
+		});
+		chart.render();
+
 	}
-}
+</script>
