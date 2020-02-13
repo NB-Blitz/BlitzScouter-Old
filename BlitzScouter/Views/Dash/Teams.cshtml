@@ -43,7 +43,7 @@
 					}
 				}
 			}
-			<th>Comments</th>
+			<!--<th>Comments</th>-->
 		</tr>
 		@foreach (BSTeam tm in Model)
 		{
@@ -52,7 +52,7 @@
 
 				@if (tm.checkboxAverages.Count <= 0 || tm.counterAverages.Count <= 0)
 				{
-					for (var i = 0; i < c; i++)
+					for (var i = 1; i < c; i++)
 					{
 						<td style="vertical-align:middle;">-</td>
 					}
@@ -68,10 +68,10 @@
 					<td style="vertical-align:middle;">@a</td>
 				}
 
-				@if (tm.rounds.Count > 0)
+				<!--if (tm.rounds.Count > 0)
 				{
-					<td style="font-size:16px;">@tm.pitComments</td>
-				}
+					<td style="font-size:16px;">tm.pitComments</td>
+				}-->
 			</tr>
 		}
 	</table>

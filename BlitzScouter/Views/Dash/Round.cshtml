@@ -31,7 +31,7 @@
 					<th>@t.text</th>
 				}
 			}
-			<th>Comments</th>
+			<!--<th>Comments</th>-->
 		</tr>
 		@for (var i = 0; i < Model.blue.Count; i++)
 		{
@@ -46,10 +46,10 @@
 					<td>@a</td>
 				}
 
-				@if (Model.blue[i].rounds.Count > 0)
+				<!--if (Model.blue[i].rounds.Count > 0)
 				{
-					<td>@Model.blue[i].pitComments</td>
-				}
+					<td>Model.blue[i].pitComments</td>
+				}-->
 			</tr>
 		}
 	</table>
@@ -94,10 +94,10 @@
 		{
 			<td>@a</td>
 		}
-		@if (Model.red[i].rounds.Count > 0)
+		<!--if (Model.red[i].rounds.Count > 0)
 		{
-			<td>@Model.red[i].pitComments</td>
-		}
+			<td>Model.red[i].pitComments</td>
+		}-->
 	</tr>
 		}
 	</table>

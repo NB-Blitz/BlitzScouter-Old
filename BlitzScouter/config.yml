@@ -5,7 +5,12 @@ matchScout:
   - type: header
     text: "Autonomous"
   - type: counter
-    text: "Balls Auto"
+    text: "Balls Low"
+    min: 0
+    def: 0
+    max: 100
+  - type: counter
+    text: "Balls High"
     min: 0
     def: 0
     max: 100
@@ -22,6 +27,9 @@ matchScout:
     def: 0
     max: 100
   - type: checkbox
+    text: "Defensive"
+    def: 0
+  - type: checkbox
     text: "Control Panel"
     def: 0
   - type: checkbox
@@ -33,13 +41,10 @@ matchScout:
   - type: header
     text: "Miscellaneous"
   - type: checkbox
+    text: "Defensive"
+    def: 0
+  - type: checkbox
     text: "Robot Issues"
     def: 0
   - type: desc
-    text: "Specify anything that impressed you or issues that occured with the robot in the comments below."
-graphs:
-  - type: scatter
-    location: overview
-    title: "Test Graph"
-    x: 1
-    y: 2
+    text: "Was the robot stable? What issues did the robot encounter? Did anything jump out at you about the robot?"

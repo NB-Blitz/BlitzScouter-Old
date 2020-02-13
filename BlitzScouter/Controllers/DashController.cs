@@ -63,7 +63,7 @@ namespace BlitzScouter.Controllers
             BSTeam tm = service.getTeam(ex);
             ViewBag.code = code;
 
-            ViewBag.graphDataA = tm.rounds;
+            ViewBag.graphData = tm.rounds;
 
             return View(tm);
         }
@@ -146,6 +146,67 @@ namespace BlitzScouter.Controllers
             {
                 return View(r);
             }
+        }
+        
+        public IActionResult Import(int code)
+        {
+            BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
+            ViewBag.code = code;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Import(String num)
+        {
+            int length = 4 + 2 + BSConfig.getByType("counter").Count + BSConfig.getByType("checkbox").Count;
+            bool globalFailure = false;
+            for (int i = 0; i < num.Length / length; i++)
+            {
+                bool isFailure = false;
+
+                String section = num.ToString().Substring(i * length, length);
+                BSRaw raw = new BSRaw();
+                raw.checkboxes = new List<bool>();
+                raw.counters = new List<int>();
+
+                int ex;
+                bool isNumeric;
+                
+                isNumeric = int.TryParse(section.Substring(0, 4), out ex);
+                if (!isNumeric)
+                    isFailure = true;
+                raw.team = ex;
+                
+                isNumeric = int.TryParse(section.Substring(4, 2), out ex);
+                if (!isNumeric)
+                    isFailure = true;
+                raw.round = ex;
+
+                for (int o = 0; o < BSConfig.getByType("counter").Count; o++)
+                {
+                    isNumeric = int.TryParse(section.Substring(6 + (o*2), 2), out ex);
+                    if (!isNumeric)
+                        isFailure = true;
+                    raw.counters.Add(ex);
+                }
+
+                for (int o = 0; o < BSConfig.getByType("checkbox").Count; o++)
+                {
+                    String val = section.Substring(length - BSConfig.getByType("checkbox").Count, 1);
+                    if (!(val == "1" || val == "0"))
+                        isFailure = true;
+                    raw.checkboxes.Add(val == "1");
+                }
+
+                if (isFailure)
+                    globalFailure = true;
+                else
+                    service.addUserData(raw);
+            }
+            if (globalFailure)
+                return RedirectToAction("Import", new { controller = "Dash", code = 2 });
+            return RedirectToAction("Import", new { controller = "Dash", code = 1 });
         }
 
         public IActionResult Delete(int id)
