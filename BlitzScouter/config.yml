@@ -41,9 +41,6 @@ matchScout:
   - type: header
     text: "Miscellaneous"
   - type: checkbox
-    text: "Defensive"
-    def: 0
-  - type: checkbox
     text: "Robot Issues"
     def: 0
   - type: desc

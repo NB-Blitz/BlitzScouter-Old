@@ -47,15 +47,27 @@ namespace BlitzScouter.Repository
         {
             return getById(m.id) != null;
         }
+        public bool containsMatch(String match)
+        {
+            return getMatch(match) != null;
+        }
         public List<BSRaw> getRounds(int team)
         {
             var rounds = db.BS_Rounds.Where(t => t.team.Equals(team));
             var arr = rounds.ToList();
             return arr;
         }
+        public BSMatch getMatch(String match)
+        {
+            return db.BS_Matches.FirstOrDefault(m => m.match == match);
+        }
         public List<BSRaw> getAll()
         {
-            return db.BS_Rounds.ToList();
+            return db.BS_Rounds.OrderBy(val => val.round).ToList();
+        }
+        public List<BSTeam> GetAllTeams()
+        {
+            return db.BS_Teams.ToList();
         }
         public BSRaw getById(int id)
         {
@@ -91,6 +103,11 @@ namespace BlitzScouter.Repository
         {
             var round = db.BS_Rounds.First(r => r.id == id);
             db.BS_Rounds.Remove(round);
+            saveData();
+        }
+        public void addMatch(BSMatch match)
+        {
+            db.BS_Matches.Add(match);
             saveData();
         }
     }

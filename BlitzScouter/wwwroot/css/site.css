@@ -15,7 +15,40 @@ a:hover .linkIcon {
 }
 
 .sideLink {
-	font-size:14px;
+	font-size: 14px;
+}
+
+@media (min-width : 880px) {
+	/* Desktop */
+	.top-elem {
+		margin-top: 48px;
+	}
+
+	.navbar-toggler {
+		display: none;
+	}
+
+	#dropdownmenu {
+		display: unset;
+	}
+}
+
+@media (max-width : 880px) {
+	/* Mobile */
+	.navbar-brand {
+		margin: auto;
+		text-align: center;
+	}
+
+	.sidebar {
+		z-index: 1;
+		min-width: 880px;
+		margin-top: 48px;
+	}
+
+	main {
+		min-width: 100%;
+	}
 }
 
 form {
@@ -34,10 +67,6 @@ h3, p {
 	margin: auto;
 	text-align: center;
 	width:max-content;
-}
-
-.top-elem {
-	margin-top: 48px;
 }
 
 .matchLink {

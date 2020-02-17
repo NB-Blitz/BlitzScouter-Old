@@ -10,8 +10,16 @@
 	</div>
 	<button type="submit" class="btn btn-primary">Lookup</button>
 </form>
+@switch (ViewBag.code)
+{
+	case 1:
+		<div class="alert alert-success" role="alert">
+			Match has been updated!
+		</div>
+		break;
+}
 <h1 class="border-bottom">@(Model.matchStr)</h1>
-<div>
+<div style="overflow-x: scroll;">
 	<h3>Blue Alliance</h3>
 	<table class="table table-striped table-sm">
 		<tr>
@@ -73,32 +81,40 @@
 					<th>@t.text</th>
 				}
 			}
-			<th>Comments</th>
+			<!--<th>Comments</th>-->
 		</tr>
 		@for (var i = 0; i < Model.red.Count; i++)
 		{
-	<tr>
-		@if (Model.red[i].team == BSConfig.c.teamnum)
-		{
-			<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;font-weight:bold;text-decoration: underline;">@Model.red[i].team</a></td>
-		}
-		else
-		{
-			<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;">@Model.red[i].team</a></td>
-		}
-		@foreach (var a in Model.red[i].checkboxAverages)
-		{
-			<td>@(Math.Round(a * 100))%</td>
-		}
-		@foreach (var a in Model.red[i].counterAverages)
-		{
-			<td>@a</td>
-		}
-		<!--if (Model.red[i].rounds.Count > 0)
-		{
-			<td>Model.red[i].pitComments</td>
-		}-->
-	</tr>
+			<tr>
+				@if (Model.red[i].team == BSConfig.c.teamnum)
+				{
+					<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;font-weight:bold;text-decoration: underline;">@Model.red[i].team</a></td>
+				}
+				else
+				{
+					<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;">@Model.red[i].team</a></td>
+				}
+				@foreach (var a in Model.red[i].checkboxAverages)
+				{
+					<td>@(Math.Round(a * 100))%</td>
+				}
+				@foreach (var a in Model.red[i].counterAverages)
+				{
+					<td>@a</td>
+				}
+				<!--if (Model.red[i].rounds.Count > 0)
+				{
+					<td>Model.red[i].pitComments</td>
+				}-->
+			</tr>
 		}
 	</table>
 </div>
+<h3>Comments</h3>
+<form action="/Dash/SetMatch/" method="post">
+	<input type="hidden" id="roundnum" name="roundnum" value="@(Model.match)" />
+	<div class="form-group">
+		<textarea class="form-control" id="comments" name="comments" placeholder="Comments">@(Model.comments)</textarea>
+	</div>
+	<button type="submit" class="btn btn-primary">Save Data</button>
+</form>

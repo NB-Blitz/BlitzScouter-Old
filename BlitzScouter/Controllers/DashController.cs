@@ -22,7 +22,7 @@ namespace BlitzScouter.Controllers
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
-            List<BSTeam> tms = service.getAllTeams();
+            List<BSTeam> tms = service.getTopTeams();
             List<PlotData> list = new List<PlotData>();
             foreach (BSTeam tm in tms)
             {
@@ -38,7 +38,7 @@ namespace BlitzScouter.Controllers
                 });
             }
             ViewBag.graphData = list;
-            return View();
+            return View(tms);
         }
 
         // Teams
@@ -96,10 +96,12 @@ namespace BlitzScouter.Controllers
             return View(service.getAllRounds());
         }
 
-        public IActionResult Round(String roundnum, String raw)
+        [HttpGet]
+        public IActionResult Round(String roundnum, String raw, int code)
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
+            ViewBag.code = code;
             BSMatch r;
             if (raw == null)
             {
@@ -116,10 +118,29 @@ namespace BlitzScouter.Controllers
         }
 
         [HttpPost]
+        public IActionResult SetMatch(String roundnum, String comments)
+        {
+            BSConfig.initialize();
+            ViewBag.upcomingRounds = service.getUpcomingRounds();
+            BSMatch match = new BSMatch()
+            {
+                match = roundnum,
+                comments = comments
+            };
+            service.setMatch(match);
+            return RedirectToAction("Round", new { controller = "Dash", action = "Round", raw = roundnum, code = 1 });
+        }
+
+        [HttpPost]
         public IActionResult Edit(BSRaw raw)
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
+            if (raw == null)
+                return RedirectToAction("Rounds", new { controller = "Dash", code = 5 });
+            if (raw.comments != null)
+                if (raw.comments.Length >= 256)
+                    raw.comments = raw.comments.Substring(0, 256);
             service.setRound(raw);
             ViewBag.code = 1;
             BSRaw r = service.getById(raw.id);
@@ -159,13 +180,13 @@ namespace BlitzScouter.Controllers
         [HttpPost]
         public IActionResult Import(String num)
         {
-            int length = 4 + 2 + BSConfig.getByType("counter").Count + BSConfig.getByType("checkbox").Count;
+            int length = 4 + 2 + (BSConfig.getByType("counter").Count * 2) + BSConfig.getByType("checkbox").Count;
             bool globalFailure = false;
             for (int i = 0; i < num.Length / length; i++)
             {
                 bool isFailure = false;
 
-                String section = num.ToString().Substring(i * length, length);
+                String section = num.Substring(i * length, length);
                 BSRaw raw = new BSRaw();
                 raw.checkboxes = new List<bool>();
                 raw.counters = new List<int>();

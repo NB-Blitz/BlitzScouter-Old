@@ -55,9 +55,27 @@ namespace BlitzScouter.Services
             }
         }
 
+        public void setMatch(BSMatch match)
+        {
+            if (match == null)
+                return;
+            if (repo.containsMatch(match.match))
+            {
+                BSMatch rMatch = repo.getMatch(match.match);
+                rMatch.comments = match.comments;
+                repo.saveData();
+            }
+            else
+            {
+                repo.addMatch(match);
+            }
+        }
+
         // Upload BSTeam
         public void setTeam(BSTeam team)
         {
+            if (team == null)
+                return;
             if (repo.containsTeam(team.team))
             {
                 BSTeam rTeam = repo.getTeam(team.team);
@@ -185,9 +203,64 @@ namespace BlitzScouter.Services
             return tm;
         }
 
+        public List<BSTeam> getTopTeams()
+        {
+            List<BSTeam> top = getAllTeams();
+
+            int sorted = 0;
+            while (sorted < top.Count)
+            {
+                // Find Smallest
+                int smallIndex = sorted;
+                int score = int.MaxValue;
+                for (int i = sorted; i < top.Count; i++)
+                {
+                    if (getScore(top[i]) < score)
+                    {
+                        smallIndex = i;
+                    }
+                }
+                
+                while (smallIndex > sorted)
+                {
+                    if (getScore(top[smallIndex - 1]) >= getScore(top[smallIndex]))
+                    {
+                        BSTeam temp = top[smallIndex];
+                        top[smallIndex] = top[smallIndex - 1];
+                        top[smallIndex - 1] = temp;
+                        smallIndex--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                sorted++;
+            }
+
+            return top;
+        }
+
+        private double getScore(BSTeam team)
+        {
+            if (team == null)
+                return 0;
+            if (team.counterAverages == null)
+                return 0;
+
+            double score = 0;
+            for (int i = 0; i < team.counterAverages.Count; i++)
+            {
+                score += team.counterAverages[i];
+            }
+            return score;
+        }
+
         // Get all Teams
         public List<BSTeam> getAllTeams()
         {
+            /*
+            // The Blue Alliance
             String tba = repo.getTBA("event/" + BSConfig.c.tbaComp + "/teams");
             List<RootTeam> json = JsonConvert.DeserializeObject<List<RootTeam>>(tba);
 
@@ -196,6 +269,63 @@ namespace BlitzScouter.Services
             {
                 teams.Add(getTeam(tm.teamNum));
             }
+            */
+
+            // Internal
+            List<BSTeam> teams = repo.GetAllTeams();
+            for (int b = 0; b < teams.Count; b++)
+            {
+                BSTeam tm = teams[b];
+                tm.rounds = getRounds(tm.team);
+
+                // Calculate Averages
+                tm.checkboxAverages = new List<double>();
+                tm.counterAverages = new List<double>();
+                for (int i = 0; i < tm.rounds.Count; i++)
+                {
+                    // Checkbox
+                    for (int o = 0; o < tm.rounds[i].checkboxes.Count; o++)
+                    {
+                        if (i == 0)
+                        {
+                            tm.checkboxAverages.Add(Convert.ToInt32(tm.rounds[i].checkboxes[o]));
+                        }
+                        else
+                        {
+                            tm.checkboxAverages[o] += Convert.ToInt32(tm.rounds[i].checkboxes[o]);
+                        }
+                    }
+
+                    // Counter
+                    for (int o = 0; o < tm.rounds[i].counters.Count; o++)
+                    {
+                        if (i == 0)
+                        {
+                            tm.counterAverages.Add(tm.rounds[i].counters[o]);
+                        }
+                        else
+                        {
+                            tm.counterAverages[o] += tm.rounds[i].counters[o];
+                        }
+                    }
+                }
+
+                // Divide for Averages
+                for (int i = 0; i < tm.checkboxAverages.Count; i++)
+                {
+                    tm.checkboxAverages[i] /= tm.rounds.Count;
+                    // Fix Decimals
+                    tm.checkboxAverages[i] = Math.Round(tm.checkboxAverages[i] * 100) / 100;
+                }
+                for (int i = 0; i < tm.counterAverages.Count; i++)
+                {
+                    tm.counterAverages[i] /= tm.rounds.Count;
+                    // Fix Decimals
+                    tm.counterAverages[i] = Math.Round(tm.counterAverages[i]);
+                }
+            }
+
+            
 
             return teams;
         }
@@ -246,6 +376,9 @@ namespace BlitzScouter.Services
             {
                 match = match
             };
+
+            if (repo.getMatch(match) != null)
+                bsmatch.comments = repo.getMatch(match).comments;
 
             if (match.Substring(0, 2) == "qm")
             {

@@ -15,7 +15,6 @@ namespace BlitzScouter.Models
         public int id { get; set; }
         public int team { get; set; }
         public int round { get; set; }
-        public String color { get; set; }
         public String comments { get; set; }
 
         // For SQL Use (Serialized)

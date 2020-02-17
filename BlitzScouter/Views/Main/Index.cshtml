@@ -21,6 +21,11 @@
 				Invalid Team Number
 			</div>
 			break;
+		case 3:
+			<div class="alert alert-danger" role="alert">
+				Match is NULL.
+			</div>
+			break;
 	}
 	<h1 class="h3 mb-3 font-weight-normal">Blitz Scouter</h1>
 	<div class="form-group">
@@ -29,7 +34,7 @@
 	</div>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Scout</button>
 	<button class="btn btn-link" type="button" data-toggle="modal" data-target="#statsModal">Stats</button>
-	<div class="modal fade" id="statsModal" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true">
+	<div class="modal fade" id="statsModal" tabindex="-1" role="dialog" aria-labelledby="label" aria-hidden="true" style="color:black;">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">

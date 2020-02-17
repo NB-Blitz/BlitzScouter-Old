@@ -4,7 +4,19 @@
 @model List<BSTeam>
 
 <h1 class="top-elem">Overview</h1>
-<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<table class="table table-striped table-sm" style="width:40%;float: left;padding: 20px;">
+	<tbody>
+		<tr>
+			<td style="width:10px;"></td>
+			<th>Top Teams</th>
+		</tr>
+		@for (int i = 0; i < 5; i++)
+		{
+			<tr><td style="width:10px;">@(i+1)</td><td>@Model[Model.Count - i - 1].team</td></tr>
+		}
+	</tbody>
+</table>
+<div id="chartContainer" style="height: 370px;width: 50%;float: right;"></div>
 <script>
 	window.onload = function () {
 		var font = "Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji";

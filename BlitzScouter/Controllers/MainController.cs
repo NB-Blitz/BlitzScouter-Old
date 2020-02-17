@@ -38,6 +38,11 @@ namespace BlitzScouter.Controllers
         [HttpPost]
         public IActionResult Data(BSRaw model)
         {
+            if (model == null)
+                return RedirectToAction("Index", new { controller = "Main", action = "Index", code = 3 });
+            if (model.comments != null)
+                if (model.comments.Length >= 256)
+                    model.comments = model.comments.Substring(0, 256);
             service.addUserData(model);
             return RedirectToAction("Index", new { controller = "Main", action = "Index", code = 1 });
         }

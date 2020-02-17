@@ -33,12 +33,12 @@ else
 		</div>
 		<div class="form-group">
 			<label for="comments">Comments</label>
-			<input type="text" class="form-control" id="comments" name="comments" placeholder="Comments" value="@Model.pitComments">
+			<textarea class="form-control" id="comments" name="comments" placeholder="Comments">@Model.pitComments</textarea>
 		</div>
 		<button type="submit" class="btn btn-primary">Save Data</button>
 	</form>
 	<h3>Previous Rounds</h3>
-	<div>
+	<div style="overflow-x: scroll;">
 		<table class="table table-striped table-sm">
 			<tr>
 				<th>Average</th>

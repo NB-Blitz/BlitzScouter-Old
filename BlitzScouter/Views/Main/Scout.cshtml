@@ -13,7 +13,6 @@
 		
 
 		@Html.HiddenFor(m => m.team)
-		@Html.HiddenFor(m => m.color)
 		@Html.HiddenFor(m => m.round)
 
 			// Initialize Variables
@@ -76,6 +75,6 @@
 				}
 			}
 
-		@Html.TextAreaFor(model => model.comments, new { @class="form-control", placeholder = "Comments", style="padding:10px" })
+		@Html.TextAreaFor(model => model.comments, new { @class="form-control", placeholder = "Comments", style="padding:10px", maxlength="256" })
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 }

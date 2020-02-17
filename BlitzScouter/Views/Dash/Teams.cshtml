@@ -19,7 +19,7 @@
 		break;
 }
 <h1 class="border-bottom">Teams</h1>
-<div>
+<div style="overflow-x: scroll;">
 	<table class="table table-striped table-sm" id="sortable">
 		<tr>
 			<th>Team</th>
@@ -29,7 +29,7 @@
 				{
 					if (BSConfig.c.matchScout[i].type == "checkbox")
 					{
-						<th><button style="border:none;font-weight:bold;" onclick="sort(@(c));">@BSConfig.c.matchScout[i].text</button></th>
+						<th><button style="border:none;font-weight:bold;background-color:Transparent;" onclick="sort(@(c));">@BSConfig.c.matchScout[i].text</button></th>
 						c++;
 					}
 				}
@@ -38,7 +38,7 @@
 				{
 					if (BSConfig.c.matchScout[i].type == "counter")
 					{
-						<th><button style="border:none;font-weight:bold;" onclick="sort(@(c));">@BSConfig.c.matchScout[i].text</button></th>
+						<th><button style="border:none;font-weight:bold;background-color:Transparent;" onclick="sort(@(c));">@BSConfig.c.matchScout[i].text</button></th>
 						c++;
 					}
 				}

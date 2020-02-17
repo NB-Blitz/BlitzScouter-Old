@@ -10,6 +10,7 @@ namespace BlitzScouter.Models
     {
         public DbSet<BSRaw> BS_Rounds { get; set; }
         public DbSet<BSTeam> BS_Teams { get; set; }
+        public DbSet<BSMatch> BS_Matches { get; set; }
 
         public BSContext(DbContextOptions<BSContext> options)
             :base(options)
