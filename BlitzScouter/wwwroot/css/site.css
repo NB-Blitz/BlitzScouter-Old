@@ -42,8 +42,7 @@ a:hover .linkIcon {
 
 	.sidebar {
 		z-index: 1;
-		min-width: 880px;
-		margin-top: 48px;
+		padding-top: 48px;
 	}
 
 	main {
@@ -65,8 +64,13 @@ h3, p {
 
 .center-input {
 	margin: auto;
+	margin-top:10px;
 	text-align: center;
 	width:max-content;
+}
+
+.form-check-input {
+	transform: scale(1.5);
 }
 
 .matchLink {

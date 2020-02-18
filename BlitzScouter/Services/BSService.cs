@@ -259,7 +259,7 @@ namespace BlitzScouter.Services
         // Get all Teams
         public List<BSTeam> getAllTeams()
         {
-            /*
+            
             // The Blue Alliance
             String tba = repo.getTBA("event/" + BSConfig.c.tbaComp + "/teams");
             List<RootTeam> json = JsonConvert.DeserializeObject<List<RootTeam>>(tba);
@@ -269,8 +269,9 @@ namespace BlitzScouter.Services
             {
                 teams.Add(getTeam(tm.teamNum));
             }
-            */
+            
 
+            /*
             // Internal
             List<BSTeam> teams = repo.GetAllTeams();
             for (int b = 0; b < teams.Count; b++)
@@ -324,7 +325,7 @@ namespace BlitzScouter.Services
                     tm.counterAverages[i] = Math.Round(tm.counterAverages[i]);
                 }
             }
-
+            */
             
 
             return teams;

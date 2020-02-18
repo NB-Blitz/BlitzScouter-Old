@@ -53,9 +53,8 @@ namespace BlitzScouter.Repository
         }
         public List<BSRaw> getRounds(int team)
         {
-            var rounds = db.BS_Rounds.Where(t => t.team.Equals(team));
-            var arr = rounds.ToList();
-            return arr;
+            var rounds = db.BS_Rounds.Where(t => t.team.Equals(team)).OrderBy(r => r.round).ToList();
+            return rounds;
         }
         public BSMatch getMatch(String match)
         {
