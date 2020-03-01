@@ -5,24 +5,32 @@ matchScout:
   - type: header
     text: "Autonomous"
   - type: counter
-    text: "Balls Low"
+    text: |-
+            Balls Low
+            (Auto)
     min: 0
     def: 0
     max: 100
   - type: counter
-    text: "Balls High"
+    text: |-
+            Balls High
+            (Auto)
     min: 0
     def: 0
     max: 100
   - type: header
     text: "Teleoperated"
   - type: counter
-    text: "Balls Low"
+    text: |-
+            Balls Low
+            (Tele)
     min: 0
     def: 0
     max: 100
   - type: counter
-    text: "Balls High"
+    text: |-
+            Balls High
+            (Tele)
     min: 0
     def: 0
     max: 100

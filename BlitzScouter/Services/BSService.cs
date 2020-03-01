@@ -80,7 +80,10 @@ namespace BlitzScouter.Services
             {
                 BSTeam rTeam = repo.getTeam(team.team);
                 rTeam.name = team.name;
-                rTeam.pitComments = team.pitComments;
+                rTeam.abilities = team.abilities;
+                rTeam.performance = team.performance;
+                rTeam.downfalls = team.downfalls;
+                rTeam.star = team.star;
                 repo.saveData();
             }
             else
@@ -269,7 +272,38 @@ namespace BlitzScouter.Services
             {
                 teams.Add(getTeam(tm.teamNum));
             }
-            
+
+            int sorted = 0;
+            while (sorted < teams.Count)
+            {
+                // Find Smallest
+                int smallIndex = sorted;
+                int num = int.MaxValue;
+                for (int i = sorted; i < teams.Count; i++)
+                {
+                    if (teams[i].team < num)
+                    {
+                        smallIndex = i;
+                    }
+                }
+
+                while (smallIndex > sorted)
+                {
+                    if (teams[smallIndex - 1].team >= teams[smallIndex].team)
+                    {
+                        BSTeam temp = teams[smallIndex];
+                        teams[smallIndex] = teams[smallIndex - 1];
+                        teams[smallIndex - 1] = temp;
+                        smallIndex--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                sorted++;
+            }
+
 
             /*
             // Internal
@@ -326,7 +360,7 @@ namespace BlitzScouter.Services
                 }
             }
             */
-            
+
 
             return teams;
         }

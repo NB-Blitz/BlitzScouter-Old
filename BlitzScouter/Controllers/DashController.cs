@@ -69,7 +69,7 @@ namespace BlitzScouter.Controllers
         }
 
         [HttpPost]
-        public IActionResult Team(String teamnum, String teamname, String comments)
+        public IActionResult Team(String teamnum, String teamname, String abilities, String performance, String downfalls, bool star)
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
@@ -81,7 +81,11 @@ namespace BlitzScouter.Controllers
             if (isNumeric && tm != null)
             {
                 tm.name = teamname;
-                tm.pitComments = comments;
+                tm.abilities = abilities;
+                tm.performance = performance;
+                tm.downfalls = downfalls;
+                tm.star = star;
+
                 service.setTeam(tm);
             }
             return RedirectToAction("Team", new { controller = "Dash", action = "Team", teamnum = teamnum, code = 1 });
