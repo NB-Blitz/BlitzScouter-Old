@@ -9,34 +9,29 @@
 function sort(col) {
 	var table = document.getElementById("sortable");
 	var rows = table.rows;
-	var hasSwitched = true;
-	while (hasSwitched) {
-		hasSwitched = false;
-		loop:
-		for (var i = 1; i < rows.length - 1; i++)
+
+	var sorted = 1;
+	while (sorted < rows.length) {
+		var bigIndex = sorted;
+		var num = Number.MIN_SAFE_INTEGER;
+		for (var i = sorted; i < rows.length; i++)
 		{
-			var valA = rows[i].getElementsByTagName("TD")[col].innerText;
-			if (valA == "-")
-				valA = "-1";
-
-			var indexB = i + 1;
-			while (rows[indexB].className.includes("matchdata")) {
-				indexB++;
-				if (indexB >= rows.length) {
-					break loop;
-				}
+			var valS = rows[i].getElementsByTagName("TD")[col].innerText;
+			if (valS == "-") {
+				valS = "-1";
 			}
+			var val = parseInt(valS);
 
-			var valB = rows[indexB].getElementsByTagName("TD")[col].innerText;
-			if (valB == "-")
-				valB = "-1";
-
-			if (parseInt(valA) < parseInt(valB)) {
-				rows[i].parentNode.insertBefore(rows[indexB], rows[i]);
-				hasSwitched = true;
+			if (val > num) {
+				bigIndex = i;
+				num = val;
 			}
-			i = indexB - 1;
 		}
+
+		var temp = rows[bigIndex].innerHTML;
+		rows[bigIndex].innerHTML = rows[sorted].innerHTML;
+		rows[sorted].innerHTML = temp;
+		sorted++;
 	}
 }
 

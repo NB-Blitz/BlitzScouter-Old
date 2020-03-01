@@ -210,36 +210,28 @@ namespace BlitzScouter.Services
         {
             List<BSTeam> top = getAllTeams();
 
+            // Find Smallest
             int sorted = 0;
             while (sorted < top.Count)
             {
                 // Find Smallest
                 int smallIndex = sorted;
-                int score = int.MaxValue;
+                double num = double.MaxValue;
                 for (int i = sorted; i < top.Count; i++)
                 {
-                    if (getScore(top[i]) < score)
+                    if (getScore(top[i]) < num)
                     {
                         smallIndex = i;
+                        num = getScore(top[i]);
                     }
                 }
-                
-                while (smallIndex > sorted)
-                {
-                    if (getScore(top[smallIndex - 1]) >= getScore(top[smallIndex]))
-                    {
-                        BSTeam temp = top[smallIndex];
-                        top[smallIndex] = top[smallIndex - 1];
-                        top[smallIndex - 1] = temp;
-                        smallIndex--;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
+
+                BSTeam temp = top[smallIndex];
+                top[smallIndex] = top[sorted];
+                top[sorted] = temp;
                 sorted++;
-            }
+
+                }
 
             return top;
         }
@@ -284,24 +276,15 @@ namespace BlitzScouter.Services
                     if (teams[i].team < num)
                     {
                         smallIndex = i;
+                        num = teams[i].team;
                     }
                 }
 
-                while (smallIndex > sorted)
-                {
-                    if (teams[smallIndex - 1].team >= teams[smallIndex].team)
-                    {
-                        BSTeam temp = teams[smallIndex];
-                        teams[smallIndex] = teams[smallIndex - 1];
-                        teams[smallIndex - 1] = temp;
-                        smallIndex--;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
+                BSTeam temp = teams[smallIndex];
+                teams[smallIndex] = teams[sorted];
+                teams[sorted] = temp;
                 sorted++;
+                
             }
 
 
