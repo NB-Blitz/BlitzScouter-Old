@@ -1,0 +1,141 @@
+﻿@{
+	ViewData["Title"] = "Blitz Scouter";
+}
+
+@model BSMatch
+
+<form action="/Dash/Round/" method="get" class="top-elem">
+	<div class="form-group">
+		<input type="number" class="form-control" id="roundnum" name="roundnum" placeholder="Round Number" />
+	</div>
+	<button type="submit" class="btn btn-primary">Lookup</button>
+</form>
+@switch (ViewBag.code)
+{
+	case 1:
+		<div class="alert alert-success" role="alert">
+			Match has been updated!
+		</div>
+		break;
+}
+<h1 class="border-bottom">@(Model.matchStr)</h1>
+<div style="overflow-x: scroll;">
+	<h3>Blue Alliance</h3>
+	<table class="table table-striped table-sm">
+		<tr>
+			<th></th>
+			<th>Team</th>
+			@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+			{
+				if (t.type == "checkbox")
+				{
+					<th>@t.text</th>
+				}
+			}
+
+			@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+			{
+				if (t.type == "counter")
+				{
+					<th>@t.text</th>
+				}
+			}
+			<!--<th>Comments</th>-->
+		</tr>
+		@for (var i = 0; i < Model.blue.Count; i++)
+		{
+			<tr>
+				@if (Model.blue[i].star)
+				{
+					<td style="vertical-align:middle;max-width:18px;">
+							<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#ffe300" xmlns="http://www.w3.org/2000/svg">
+								<path d="M5.612 17.443c-.386.198-.824-.149-.746-.592l.83-4.73-3.522-3.356c-.33-.314-.16-.888.282-.95l4.898-.696 2.184-4.327c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L10 15.187l-4.389 2.256z"></path>
+							</svg>
+					</td>
+					<td><a href="/dash/team/?teamnum=@(Model.blue[i].team)" style="text-decoration: underline;font-weight: bold;vertical-align:middle;">@Model.blue[i].team</a></td>
+				}
+				else
+				{
+					<td style="vertical-align:middle;max-width:18px;"></td>
+					<td><a href="/dash/team/?teamnum=@(Model.blue[i].team)" style="vertical-align:middle;">@Model.blue[i].team</a></td>
+				}
+				@foreach (var a in Model.blue[i].checkboxAverages)
+				{
+					<td>@(Math.Round(a * 100))%</td>
+				}
+				@foreach (var a in Model.blue[i].counterAverages)
+				{
+					<td>@a</td>
+				}
+
+				<!--if (Model.blue[i].rounds.Count > 0)
+				{
+					<td>Model.blue[i].pitComments</td>
+				}-->
+			</tr>
+		}
+	</table>
+
+	<h3>Red Alliance</h3>
+	<table class="table table-striped table-sm">
+		<tr>
+			<th></th>
+			<th>Team</th>
+			@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+			{
+				if (t.type == "checkbox")
+				{
+					<th>@t.text</th>
+				}
+			}
+
+			@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+			{
+				if (t.type == "counter")
+				{
+					<th>@t.text</th>
+				}
+			}
+			<!--<th>Comments</th>-->
+		</tr>
+		@for (var i = 0; i < Model.red.Count; i++)
+		{
+			<tr>
+				@if (Model.red[i].star)
+				{
+					<td style="vertical-align:middle;max-width:18px;">
+							<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#ffe300" xmlns="http://www.w3.org/2000/svg">
+								<path d="M5.612 17.443c-.386.198-.824-.149-.746-.592l.83-4.73-3.522-3.356c-.33-.314-.16-.888.282-.95l4.898-.696 2.184-4.327c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L10 15.187l-4.389 2.256z"></path>
+							</svg>
+					</td>
+					<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="text-decoration: underline;font-weight: bold;vertical-align:middle;">@Model.red[i].team</a></td>
+				}
+				else
+				{
+					<td style="vertical-align:middle;max-width:18px;"></td>
+					<td><a href="/dash/team/?teamnum=@(Model.red[i].team)" style="vertical-align:middle;">@Model.red[i].team</a></td>
+				}
+				@foreach (var a in Model.red[i].checkboxAverages)
+				{
+					<td>@(Math.Round(a * 100))%</td>
+				}
+				@foreach (var a in Model.red[i].counterAverages)
+				{
+					<td>@a</td>
+				}
+				<!--if (Model.red[i].rounds.Count > 0)
+				{
+					<td>Model.red[i].pitComments</td>
+				}-->
+			</tr>
+		}
+	</table>
+</div>
+<h3>Comments</h3>
+<form action="/Dash/SetMatch/" method="post">
+	<input type="hidden" id="roundnum" name="roundnum" value="@(Model.match)" />
+	<div class="form-group">
+		<textarea class="form-control" id="comments" name="comments" placeholder="Comments">@(Model.comments)</textarea>
+	</div>
+	<button type="submit" class="btn btn-primary">Save Data</button>
+</form>

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<title>Blitz Scouter</title>
+
+	<script type="text/javascript" src="@Url.Content("~/external/jquery-3.4.1.min.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/external/autoresize.jquery.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/external/popper.min.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/external/bootstrap.min.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/external/canvasjs.min.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/external/jsQR.js")"></script>
+	<link rel="stylesheet" href="@Url.Content("~/external/bootstrap.min.css")">
+
+	<link href="@Url.Content("~/css/site.css?v=1.7")" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="@Url.Content("~/js/site.js?v=1.22")"></script>
+
+	<link rel="apple-touch-icon" sizes="57x57" href="@Url.Content("/apple-touch-icon.png")" />
+	<link rel="icon" type="image/png" sizes="32x32" href="@Url.Content("/favicon-32x32.png")">
+	<link rel="icon" type="image/png" sizes="16x16" href="@Url.Content("/favicon-16x16.png")">
+	<link rel="manifest" href="@Url.Content("/site.webmanifest")">
+</head>
+<body>
+	<nav class="navbar navbar-dark bg-dark p-1" style="position:fixed;width:100vw;z-index:2;background-color:#1a1d20 !important;">
+		<a href="/dash" class="navbar-brand col-md-3">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="color: yellow;margin-right: 5px;"><path d="M8 24l3-9h-9l14-15-3 9h9l-14 15z" fill="currentColor"></path></svg>
+			Blitz Scouting App
+		</a>
+		<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" data-target="#dropdownmenu" aria-controls="dropdownmenu" style="float: right;position:absolute;">
+			<span class="navbar-toggler-icon" style="float: right;"></span>
+		</button>
+	</nav>
+	<div class="container-fluid">
+		<div class="row">
+			<nav class="col-md-2 d-md-block bg-light sidebar" style="box-shadow:inset -1px 0 0 rgba(0, 0, 0, .1);top:0;left:0;position:sticky;">
+				<div class="sidebar-sticky collapse" id="dropdownmenu" style="top:0;left:0;">
+					<ul class="nav flex-column">
+						<li class="nav-item top-elem">
+							<a href="/Dash/" class="nav-link text-dark sideLink">
+								<svg class="linkIcon" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M10 17a7 7 0 100-14 7 7 0 000 14zm0 1a8 8 0 100-16 8 8 0 000 16z" clip-rule="evenodd"></path>
+									<path fill-rule="evenodd" d="M9.5 9.793V3h1v6.5H17v1h-6.793l-4.853 4.854-.708-.708L9.5 9.793z" clip-rule="evenodd"></path>
+								</svg>
+								Overview
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/Dash/Rounds" class="nav-link text-dark sideLink">
+								<svg class="linkIcon" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M16 2H4a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2zM3 5.857C3 5.384 3.448 5 4 5h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H4c-.552 0-1-.384-1-.857V5.857z" clip-rule="evenodd"></path>
+									<path fill-rule="evenodd" d="M8.5 9a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm-9 3a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2zm3 0a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"></path>
+								</svg>
+								Rounds
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/Dash/Teams" class="nav-link text-dark sideLink">
+								<svg class="linkIcon" width="1em" height="1em" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+									<path fill-rule="evenodd" d="M17 16s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.995-.944v-.002zM9.022 15h7.956a.274.274 0 00.014-.002l.008-.002c-.002-.264-.167-1.03-.76-1.72C15.688 12.629 14.718 12 13 12c-1.717 0-2.687.63-3.24 1.276-.593.69-.759 1.457-.76 1.72a1.05 1.05 0 00.022.004zm7.973.056v-.002zM13 9a2 2 0 100-4 2 2 0 000 4zm3-2a3 3 0 11-6 0 3 3 0 016 0zm-7.064 4.28a5.873 5.873 0 00-1.23-.247A7.334 7.334 0 007 11c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 017 15c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM6.92 12c-1.668.02-2.615.64-3.16 1.276C3.163 13.97 3 14.739 3 15h3c0-1.045.323-2.086.92-3zM3.5 7.5a3 3 0 116 0 3 3 0 01-6 0zm3-2a2 2 0 100 4 2 2 0 000-4z" clip-rule="evenodd"></path>
+								</svg>
+								Teams
+							</a>
+						</li>
+						<li class="nav-item">
+							<a href="/Dash/Import" class="nav-link text-dark sideLink">
+								<svg class="linkIcon" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M2.5 10a.5.5 0 01.5.5V14a1 1 0 001 1h12a1 1 0 001-1v-3.5a.5.5 0 011 0V14a2 2 0 01-2 2H4a2 2 0 01-2-2v-3.5a.5.5 0 01.5-.5zM7 6.854a.5.5 0 00.707 0L10 4.56l2.293 2.293A.5.5 0 1013 6.146L10.354 3.5a.5.5 0 00-.708 0L7 6.146a.5.5 0 000 .708z" clip-rule="evenodd"></path>
+									<path fill-rule="evenodd" d="M10 4a.5.5 0 01.5.5v8a.5.5 0 01-1 0v-8A.5.5 0 0110 4z" clip-rule="evenodd"></path>
+								</svg>
+								Import
+							</a>
+						</li>
+					</ul>
+					<h6 class="text-muted" href="/Dash/" style="font-size: 12px;padding-top: 10px;margin-bottom: 2px;">UPCOMING MATCHES</h6>
+					<ul class="nav flex-column">
+						@foreach (String s in ViewBag.upcomingRounds)
+						{
+							<li class="nav-item">
+								@Html.Raw(s)
+							</li>
+						}
+					</ul>
+				</div>
+			</nav>
+			<main class="col-md-9 pt-3 px-4">
+				@RenderBody()
+			</main>
+		</div>
+	</div>
+</body>
+</html>

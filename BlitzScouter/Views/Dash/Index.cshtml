@@ -1,0 +1,61 @@
+﻿@{
+	ViewData["Title"] = "Blitz Scouter";
+}
+@model List<BSTeam>
+
+<h1 class="top-elem">Overview</h1>
+<table class="table table-striped table-sm" style="width:40%;float: left;padding: 20px;">
+	<tbody>
+		<tr>
+			<td style="width:10px;"></td>
+			<th>Top Teams</th>
+		</tr>
+		@for (int i = 0; i < 5; i++)
+		{
+			<tr><td style="width:10px;">@(i+1)</td><td>@Model[Model.Count - i - 1].team</td></tr>
+		}
+	</tbody>
+</table>
+<div id="chartContainer" style="height: 370px;width: 50%;float: right;"></div>
+<script>
+	window.onload = function () {
+		var font = "Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji";
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			theme: "light2",
+			title: {
+				text: "Balls High vs Low",
+				fontFamily: font
+			},
+			axisX: {
+				title: "Balls High",
+				titleFontFamily: font,
+				labelFontFamily: font
+			},
+			axisY: {
+				title: "Balls Low",
+				titleFontFamily: font,
+				labelFontFamily: font
+			},
+			legend: {
+				cursor: "pointer"
+			},
+			data: [
+				@{
+					String str = "";
+					for (var i = 0; i < ViewBag.graphData.Count; i++)
+					{
+						str += "{type: \"scatter\", name: \"" + ViewBag.graphData[i].Name + "\", markerType: \"circle\", showInLegend: false, toolTipContent: \"<span>{name}</span><br>Balls High: {x}<br>Balls Low: {y}\", dataPoints: [{x: " + ViewBag.graphData[i].X + ", y:" + ViewBag.graphData[i].Y + " }]}";
+						if (i < ViewBag.graphData.Count - 1)
+						{
+							str += ",";
+						}
+					}
+					@Html.Raw(str);
+				}
+			]
+		});
+		chart.render();
+
+	}
+</script>

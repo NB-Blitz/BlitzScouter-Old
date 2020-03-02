@@ -14,10 +14,15 @@ namespace BlitzScouter.Models
         public int id { get; set; }
         public int team { get; set; }
 		public String name { get; set; }
-        public String pitComments { get; set; }
+        public String abilities { get; set; }
+        public String performance { get; set; }
+        public String downfalls { get; set; }
+        public bool star { get; set; }
+
 
         // Other Data
-        public List<double> averages;
+        public List<double> checkboxAverages;
+        public List<double> counterAverages;
         public List<BSRaw> rounds;
     }
 

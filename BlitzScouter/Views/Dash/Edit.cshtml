@@ -1,0 +1,68 @@
+﻿@{
+	ViewData["Title"] = "Blitz Scouter";
+}
+
+@model BSRaw
+
+<h1 class="border-bottom top-elem">Data Edit</h1>
+@switch (ViewBag.code)
+	{
+		case 1:
+			<div class="alert alert-success" role="alert">
+				Data has been updated!
+			</div>
+			break;
+	}
+@using (Html.BeginForm("Edit", "Dash", FormMethod.Post, new { @class = "form-signin" }))
+{
+	@Html.HiddenFor(m => m.id)
+	<div class="form-group">
+		<label>Team Number</label>
+		@Html.TextBoxFor(model => model.team, new { @class = "form-control", required = string.Empty, placeholder = "Team Number", type = "number", style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })
+	</div>
+	<div class="form-group">
+		<label>Round Number</label>
+		@Html.TextBoxFor(model => model.round, new { @class = "form-control", required = string.Empty, placeholder = "Match Number", type = "number", style = "border-top-left-radius:0;border-top-right-radius:0;" })
+	</div>
+
+	<div class="form-group">
+		<label>Match Data</label>
+		<div style="overflow-x: scroll;">
+			<table class="table table-striped table-sm">
+				<tr>
+					@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+					{
+						if (t.type == "checkbox")
+						{
+							<th>@t.text</th>
+						}
+					}
+
+					@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+					{
+						if (t.type == "counter")
+						{
+							<th>@t.text</th>
+						}
+					}
+				</tr>
+				<tr>
+					@for (int i = 0; i < Model.counters.Count; i++)
+					{
+						<td>@Html.TextBoxFor(model => model.counters[i], new { type = "number" })</td>
+					}
+					@for (int i = 0; i < Model.checkboxes.Count; i++)
+					{
+						<td>@Html.CheckBoxFor(model => model.checkboxes[i])</td>
+					}
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label>Comments</label>
+		@Html.TextAreaFor(model => model.comments, new { @class = "form-control", placeholder = "Comments" })
+		<button type="submit" class="btn btn-primary" style="margin-top:10px;">Update Data</button>
+	</div>
+}

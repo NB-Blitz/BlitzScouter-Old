@@ -1,0 +1,199 @@
+﻿@{
+	ViewData["Title"] = "Blitz Scouter";
+}
+
+@model BSTeam
+
+@if (Model == null)
+{
+	<h1 class="top-elem">Invalid Team</h1>
+}
+else
+{
+	<form action="/Dash/Team/" method="get" class="top-elem">
+		<div class="form-group">
+			<input type="number" class="form-control" id="teamnum" name="teamnum" placeholder="Team Number" />
+		</div>
+		<button type="submit" class="btn btn-primary">Lookup</button>
+	</form>
+	switch (ViewBag.code)
+	{
+		case 1:
+			<div class="alert alert-success" role="alert">
+				Team has been updated!
+			</div>
+			break;
+	}
+	<h1 class="border-bottom">
+		<button type="button" id="starButton" style="border: none;font-weight: bold;background-color: Transparent;color: #ffe300;outline:none;padding:0;" onclick="star()">
+			@if (Model.star)
+			{
+				<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.612 17.443c-.386.198-.824-.149-.746-.592l.83-4.73-3.522-3.356c-.33-.314-.16-.888.282-.95l4.898-.696 2.184-4.327c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L10 15.187l-4.389 2.256z"></path>
+				</svg>
+			}
+			else
+			{
+				<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" d="M4.866 16.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.523-3.356c.329-.314.158-.888-.283-.95l-4.898-.696-2.184-4.327a.513.513 0 00-.927 0L7.354 7.12l-4.898.696c-.441.062-.612.636-.282.95l3.522 3.356-.83 4.73zm4.905-2.767l-3.686 1.894.694-3.957a.565.565 0 00-.163-.505L3.71 8.745l4.052-.576a.525.525 0 00.393-.288l1.847-3.658 1.846 3.658c.08.157.226.264.393.288l4.053.575-2.907 2.77a.564.564 0 00-.163.506l.694 3.957-3.686-1.894a.503.503 0 00-.461 0z" clip-rule="evenodd"></path>
+				</svg>
+			}
+		</button>
+		@Model.team
+	</h1>
+	<form action="/Dash/Team/" method="post">
+		<input type="hidden" id="teamnum" name="teamnum" value="@(Model.team)" />
+		<input type="hidden" id="star" name="star" value="@(Model.star)" />
+		<div class="form-group">
+			<label for="teamname">Team Name</label>
+			<input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" value="@Model.name">
+		</div>
+		<div class="form-group">
+			<label for="abilities">Abilities</label>
+			<textarea class="form-control" id="abilities" name="abilities" placeholder="Abilities">@Model.abilities</textarea>
+		</div>
+		<div class="form-group">
+			<label for="performance">Performance</label>
+			<textarea class="form-control" id="performance" name="performance" placeholder="Performance">@Model.performance</textarea>
+		</div>
+		<div class="form-group">
+			<label for="downfalls">Downfalls</label>
+			<textarea class="form-control" id="downfalls" name="downfalls" placeholder="Downfalls">@Model.downfalls</textarea>
+		</div>
+		<button type="submit" class="btn btn-primary">Save Data</button>
+	</form>
+	<h3>Previous Rounds</h3>
+	<div style="overflow-x: scroll;">
+		<table class="table table-striped table-sm">
+			<tr>
+				<th>Average</th>
+				@foreach (var a in Model.checkboxAverages)
+				{
+					<td>@(Math.Round(a * 100))%</td>
+				}
+				@foreach (var a in Model.counterAverages)
+				{
+					<td>@a</td>
+				}
+				<!--<td>Model.pitComments</td>-->
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<th>Round</th>
+				@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+				{
+					if (t.type == "checkbox")
+					{
+						<th>@t.text</th>
+					}
+				}
+
+				@foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+				{
+					if (t.type == "counter")
+					{
+						<th>@t.text</th>
+					}
+				}
+				<!--<th>Comments</th>-->
+				<th></th>
+			</tr>
+			@foreach (var r in Model.rounds)
+			{
+				<tr>
+					<td id="@(r.round)" style="text-align:center;vertical-align:middle;"><a href="/dash/round/?roundnum=@(r.round)">@r.round</a></td>
+					@foreach (bool checkbox in r.checkboxes)
+					{
+						if (checkbox)
+						{
+							<td style="vertical-align:middle;">@checkbox</td>
+						}
+						else
+						{
+							<td style="vertical-align:middle;">@checkbox</td>
+						}
+					}
+					@foreach (int counter in r.counters)
+					{
+						<td>@counter</td>
+					}
+					<!--<td>@r.comments</td>-->
+					<td>
+						<a href="/dash/edit?id=@(r.id)">
+							<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" d="M13.293 3.293a1 1 0 011.414 0l2 2a1 1 0 010 1.414l-9 9a1 1 0 01-.39.242l-3 1a1 1 0 01-1.266-1.265l1-3a1 1 0 01.242-.391l9-9zM14 4l2 2-9 9-3 1 1-3 9-9z" clip-rule="evenodd"></path>
+								<path fill-rule="evenodd" d="M14.146 8.354l-2.5-2.5.708-.708 2.5 2.5-.708.708zM5 12v.5a.5.5 0 00.5.5H6v.5a.5.5 0 00.5.5H7v.5a.5.5 0 00.5.5H8v-1.5a.5.5 0 00-.5-.5H7v-.5a.5.5 0 00-.5-.5H5z" clip-rule="evenodd"></path>
+							</svg>
+						</a>
+					</td>
+					<td>
+						<a href="/dash/delete?id=@(r.id)">
+							<svg class="bi bi-trash" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+								<path d="M7.5 7.5A.5.5 0 018 8v6a.5.5 0 01-1 0V8a.5.5 0 01.5-.5zm2.5 0a.5.5 0 01.5.5v6a.5.5 0 01-1 0V8a.5.5 0 01.5-.5zm3 .5a.5.5 0 00-1 0v6a.5.5 0 001 0V8z"></path>
+								<path fill-rule="evenodd" d="M16.5 5a1 1 0 01-1 1H15v9a2 2 0 01-2 2H7a2 2 0 01-2-2V6h-.5a1 1 0 01-1-1V4a1 1 0 011-1H8a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM6.118 6L6 6.059V15a1 1 0 001 1h6a1 1 0 001-1V6.059L13.882 6H6.118zM4.5 5V4h11v1h-11z" clip-rule="evenodd"></path>
+							</svg>
+						</a>
+					</td>
+				</tr>
+			}
+		</table>
+	</div>
+	<h1 class="top-elem">Media</h1>
+	<img src="/robotimg/@(Model.team).png" style="margin:10px;width:75vw;" />
+	<script>
+		autosize($('textarea'));
+	</script>
+	<!--
+	<h1 class="top-elem">Overview</h1>
+	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+	<script>
+	window.onload = function () {
+		var font = "Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji";
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			theme: "light2",
+			title: {
+				text: "Balls High vs Low",
+				fontFamily: font
+			},
+			axisX: {
+				title: "Match",
+				titleFontFamily: font,
+				labelFontFamily: font
+			},
+			axisY: {
+				title: "Balls",
+				titleFontFamily: font,
+				labelFontFamily: font
+			},
+			legend: {
+				cursor: "pointer"
+			},
+			data: [
+				{
+					String str = "";
+					for (int i = 0; i < BSConfig.getByType("counter").Count; i++)
+					{
+						str += "{type: \"line\", name: \"" + BSConfig.getByType("counter")[i].text + "\", showInLegend: true, dataPoints: [";
+						for (var o = 0; o < ViewBag.graphData.Count; o++)
+						{
+							str += "{x: " + ViewBag.graphData[o].round + ", y: " + ViewBag.graphData[o].counters[i] + "}";
+							if (o < ViewBag.graphData.Count - 1)
+								str += ",";
+						}
+						if (i < BSConfig.getByType("counter").Count - 1)
+							str += "]},";
+						else
+							str += "]}";
+					}
+					Html.Raw(str);
+				}
+			]
+		});
+		chart.render();
+
+	}
+	</script>
+	-->
+}

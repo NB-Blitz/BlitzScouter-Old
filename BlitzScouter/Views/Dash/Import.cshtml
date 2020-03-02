@@ -1,0 +1,94 @@
+﻿@{
+	ViewData["Title"] = "Blitz Scouter";
+}
+
+<h1 class="border-bottom top-elem">Import</h1>
+@switch (ViewBag.code)
+{
+	case 1:
+		<div class="alert alert-success" role="alert">
+			Data has been imported!
+		</div>
+		break;
+	case 2:
+		<div class="alert alert-warning" role="alert">
+			Data has been imported with 1 or more errors.
+		</div>
+		break;
+}
+
+<form action="/Dash/Import/" method="post">
+	<canvas id="canvas" style="display: block;width:100%;"></canvas>
+	<input type="hidden" id="num" name="num" value="">
+	<button type="submit" class="btn btn-primary" style="margin:10px;">Upload All</button>
+	<table class="table table-striped table-sm" id="checkout">
+		<tbody>
+			<tr><th>Team</th><th>Round Number</th></tr>
+		</tbody>
+	</table>
+</form>
+<script>
+	var video = document.createElement('video');
+	var canvas = document.getElementById('canvas');
+	var ctx = canvas.getContext('2d');
+	var table = document.getElementById('checkout');
+	var form = document.getElementById('num');
+
+	var all = "";
+	var allCheck = [];
+
+	if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+		navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function (stream) {
+			video.srcObject = stream;
+			video.setAttribute("playsinline", true);
+			video.play();
+			window.requestAnimationFrame(input);
+		});
+	}
+
+	function drawLine(begin, end, color) {
+		ctx.beginPath();
+		ctx.moveTo(begin.x, begin.y);
+		ctx.lineTo(end.x, end.y);
+		ctx.lineWidth = 4;
+		ctx.strokeStyle = color;
+		ctx.stroke();
+	}
+
+	function input() {
+		if (video.readyState === video.HAVE_ENOUGH_DATA) {
+			canvas.height = video.videoHeight;
+			canvas.width = video.videoWidth;
+			ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+			var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+			var code = jsQR(imageData.data, imageData.width, imageData.height);
+
+			if (code) {
+				drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF3B58");
+				drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF3B58");
+				drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF3B58");
+				drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF3B58");
+
+				var totalLength = 19;
+				for (var i = 0; i < code.data.length; i += totalLength) {
+					var section = code.data.substring(i, i + totalLength);
+					console.log(code.data);
+					var check = parseInt(section.substring(0, 6));
+					if (!allCheck.includes(check)) {
+						allCheck.push(check);
+						all += section;
+						var row = table.insertRow();
+						var cellA = row.insertCell();
+						cellA.innerHTML = parseInt(section.substring(0, 4));
+						var cellB = row.insertCell();
+						cellB.innerHTML = parseInt(section.substring(4, 6));
+
+						form.value = all;
+					}
+				}
+			}
+		}
+
+		window.requestAnimationFrame(input);
+	}
+</script>

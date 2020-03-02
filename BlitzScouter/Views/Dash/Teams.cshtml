@@ -1,0 +1,95 @@
+﻿@{
+	ViewData["Title"] = "Blitz Scouter";
+}
+
+@model List<BSTeam>
+
+<form action="/Dash/Team/" method="get" class="top-elem">
+	<div class="form-group">
+		<input type="number" class="form-control" id="teamnum" name="teamnum" placeholder="Team Number" />
+	</div>
+	<button type="submit" class="btn btn-primary">Lookup</button>
+</form>
+@switch (ViewBag.code)
+{
+	case 2:
+		<div class="alert alert-danger" role="alert">
+			Invalid Team
+		</div>
+		break;
+}
+<h1 class="border-bottom">Teams</h1>
+<div style="overflow-x: scroll;">
+	<table class="table table-striped table-sm" id="sortable">
+		<tr>
+			<th></th>
+			<th>Team</th>
+			@{
+				int c = 2;
+				for (int i = 0; i < BSConfig.c.matchScout.Count; i++)
+				{
+					if (BSConfig.c.matchScout[i].type == "checkbox")
+					{
+						<th><button style="border:none;font-weight:bold;background-color:Transparent;" onclick="sort(@(c));">@BSConfig.c.matchScout[i].text</button></th>
+						c++;
+					}
+				}
+
+				for (int i = 0; i < BSConfig.c.matchScout.Count; i++)
+				{
+					if (BSConfig.c.matchScout[i].type == "counter")
+					{
+						<th><button style="border:none;font-weight:bold;background-color:Transparent;" onclick="sort(@(c));">@BSConfig.c.matchScout[i].text</button></th>
+						c++;
+					}
+				}
+			}
+			<!--<th>Comments</th>-->
+		</tr>
+		@for (var o = 0; o < Model.Count; o++)
+		{
+			BSTeam tm = Model[o];
+			<tr>
+				@if (tm.star)
+				{
+					<td style="vertical-align:middle;max-width:18px;">
+							<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="#ffe300" xmlns="http://www.w3.org/2000/svg">
+								<path d="M5.612 17.443c-.386.198-.824-.149-.746-.592l.83-4.73-3.522-3.356c-.33-.314-.16-.888.282-.95l4.898-.696 2.184-4.327c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L10 15.187l-4.389 2.256z"></path>
+							</svg>
+					</td>
+					<td id="@(tm.team)" style="vertical-align:middle;">
+					<a href="/dash/team/?teamnum=@(tm.team)" style="text-decoration: underline;font-weight: bold;">@tm.team</a></td>
+				}
+				else
+				{
+					<td style="vertical-align:middle;max-width:18px;"></td>
+					<td id="@(tm.team)" style="vertical-align:middle;">
+					<a href="/dash/team/?teamnum=@(tm.team)">@tm.team</a></td>
+				}
+
+				@if (tm.checkboxAverages.Count <= 0 || tm.counterAverages.Count <= 0)
+				{
+					for (var i = 2; i < c; i++)
+					{
+						<td style="vertical-align:middle;">-</td>
+					}
+				}
+
+				@foreach (var a in tm.checkboxAverages)
+				{
+					<td style="vertical-align:middle;">@(Math.Round(a * 100))%</td>
+				}
+
+				@foreach (var a in tm.counterAverages)
+				{
+					<td style="vertical-align:middle;">@a</td>
+				}
+
+				<!--if (tm.rounds.Count > 0)
+				{
+					<td style="font-size:16px;">tm.pitComments</td>
+				}-->
+			</tr>
+		}
+	</table>
+</div>
