@@ -41,9 +41,10 @@ else
 		</button>
 		@Model.team
 	</h1>
+	<a href="https://www.thebluealliance.com/team/@(Model.team)">The Blue Alliance</a>
 	<form action="/Dash/Team/" method="post">
 		<input type="hidden" id="teamnum" name="teamnum" value="@(Model.team)" />
-		<input type="hidden" id="star" name="star" value="@(Model.star)" />
+		<input type="hidden" id="star" name="star" value="@(Model.star.ToString())" />
 		<div class="form-group">
 			<label for="teamname">Team Name</label>
 			<input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" value="@Model.name">

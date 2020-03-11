@@ -216,10 +216,10 @@ namespace BlitzScouter.Services
             {
                 // Find Smallest
                 int smallIndex = sorted;
-                double num = double.MaxValue;
+                double num = double.MinValue;
                 for (int i = sorted; i < top.Count; i++)
                 {
-                    if (getScore(top[i]) < num)
+                    if (getScore(top[i]) > num)
                     {
                         smallIndex = i;
                         num = getScore(top[i]);
@@ -242,12 +242,26 @@ namespace BlitzScouter.Services
                 return 0;
             if (team.counterAverages == null)
                 return 0;
+            if (team.counterAverages.Count <= 0)
+                return 0;
 
             double score = 0;
+            /*
             for (int i = 0; i < team.counterAverages.Count; i++)
             {
                 score += team.counterAverages[i];
             }
+            */
+
+            // HARD CODED!!!
+            score += team.counterAverages[0] * 2;
+            score += team.counterAverages[1] * 4;
+            score += team.counterAverages[2] * 1;
+            score += team.counterAverages[3] * 2;
+            score += team.checkboxAverages[0] * 10;
+            score += team.checkboxAverages[1] * 15;
+            score += team.checkboxAverages[2] * 25;
+            score += team.checkboxAverages[3] * 15;
             return score;
         }
 
