@@ -23,6 +23,11 @@ else
 				Team has been updated!
 			</div>
 			break;
+		case 2:
+			<div class="alert alert-danger" role="alert">
+				Error updating team...
+			</div>
+			break;
 	}
 	<h1 class="border-bottom">
 		<button type="button" id="starButton" style="border: none;font-weight: bold;background-color: Transparent;color: #ffe300;outline:none;padding:0;" onclick="star()">
@@ -41,26 +46,86 @@ else
 		</button>
 		@Model.team
 	</h1>
-	<a href="https://www.thebluealliance.com/team/@(Model.team)">The Blue Alliance</a>
 	<form action="/Dash/Team/" method="post">
-		<input type="hidden" id="teamnum" name="teamnum" value="@(Model.team)" />
-		<input type="hidden" id="star" name="star" value="@(Model.star.ToString())" />
 		<div class="form-group">
-			<label for="teamname">Team Name</label>
-			<input type="text" class="form-control" id="teamname" name="teamname" placeholder="Team Name" value="@Model.name">
+			@Html.TextBoxFor(m => m.name, new { @class = "form-control", placeholder = "Team Name" })
 		</div>
-		<div class="form-group">
-			<label for="abilities">Abilities</label>
-			<textarea class="form-control" id="abilities" name="abilities" placeholder="Abilities">@Model.abilities</textarea>
-		</div>
-		<div class="form-group">
-			<label for="performance">Performance</label>
-			<textarea class="form-control" id="performance" name="performance" placeholder="Performance">@Model.performance</textarea>
-		</div>
-		<div class="form-group">
-			<label for="downfalls">Downfalls</label>
-			<textarea class="form-control" id="downfalls" name="downfalls" placeholder="Downfalls">@Model.downfalls</textarea>
-		</div>
+		<a href="https://www.thebluealliance.com/team/@(Model.team)">The Blue Alliance</a>
+
+		@{
+			bool init = Model.checkboxes == null && Model.counters == null;
+			if (init)
+			{
+				Model.checkboxes = new List<bool>();
+				Model.counters = new List<int>();
+			}
+
+
+			@Html.HiddenFor(m => m.team)
+			@Html.HiddenFor(m => m.star)
+			@Html.HiddenFor(m => m.id)
+
+			// Initialize Variables
+			int checkboxCounter = 0;
+			int counterCounter = 0;
+
+			foreach (BlitzScouter.Models.Component t in BSConfig.c.pitScout)
+			{
+				switch (t.type)
+				{
+					case "header":
+						<div class="form-group">
+							<h3>@t.text</h3>
+						</div>
+						break;
+					case "checkbox":
+						if (init)
+						{
+							Model.checkboxes.Add(t.def != 0);
+						}
+
+						<div class="input-group" style="margin-left:20px;">
+							<label class="form-check-label">@t.text</label>
+							@Html.CheckBoxFor(m => m.checkboxes[checkboxCounter], new { @class = "form-check-input" })
+						</div>
+						checkboxCounter++;
+						break;
+					case "counter":
+						if (init)
+						{
+							Model.counters.Add(t.def);
+						}
+
+						@Html.HiddenFor(m => m.counters[counterCounter], new { id = "cnt" + counterCounter + "val" })
+						<div class="input-group" style="margin-left:20px;">
+							<div class="input-group-prepend" style="">
+								<span class="input-group-text" id="cnt@(counterCounter)disp">@(Model.counters[counterCounter])</span>
+								<button type="button" onclick="changeCounters(@(counterCounter), 1, @(t.min), @(t.max))" class="btn btn-outline-secondary" style="width: 100%;color:#495057;border-color:#ced4da;">
+									<svg class="bi bi-plus" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M10 5.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H6a.5.5 0 010-1h3.5V6a.5.5 0 01.5-.5z" clip-rule="evenodd"></path>
+										<path fill-rule="evenodd" d="M9.5 10a.5.5 0 01.5-.5h4a.5.5 0 010 1h-3.5V14a.5.5 0 01-1 0v-4z" clip-rule="evenodd"></path>
+									</svg>
+								</button>
+							</div>
+							<div class="input-group-append">
+								<button type="button" onclick="changeCounters(@(counterCounter), -1, @(t.min), @(t.max))" class="btn btn-outline-secondary" style="width: 100%;color:#495057;border-color:#ced4da;">
+									<svg class="bi bi-dash" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" d="M5.5 10a.5.5 0 01.5-.5h8a.5.5 0 010 1H6a.5.5 0 01-.5-.5z" clip-rule="evenodd"></path>
+									</svg>
+								</button>
+								<span class="input-group-text" style="white-space: pre;"> @Html.Raw(t.text) </span>
+							</div>
+						</div>
+						counterCounter++;
+						break;
+				}
+			}
+		}
+
+		<h3>Other Abilities</h3>
+		@Html.TextAreaFor(model => model.comments, new { @class = "form-control", placeholder = "Other Abilities", style = "padding:10px", maxlength = "1024" })
+		<h3>Performance</h3>
+		@Html.TextAreaFor(model => model.commentsP, new { @class = "form-control", placeholder = "Performance", style = "padding:10px", maxlength = "1024" })
 		<button type="submit" class="btn btn-primary">Save Data</button>
 	</form>
 	<h3>Previous Rounds</h3>
@@ -76,7 +141,6 @@ else
 				{
 					<td>@a</td>
 				}
-				<!--<td>Model.pitComments</td>-->
 				<td></td>
 				<td></td>
 			</tr>
@@ -97,7 +161,6 @@ else
 						<th>@t.text</th>
 					}
 				}
-				<!--<th>Comments</th>-->
 				<th></th>
 			</tr>
 			@foreach (var r in Model.rounds)
@@ -119,7 +182,6 @@ else
 					{
 						<td>@counter</td>
 					}
-					<!--<td>@r.comments</td>-->
 					<td>
 						<a href="/dash/edit?id=@(r.id)">
 							<svg class="bi bi-pencil" width="1em" height="1em" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -140,61 +202,9 @@ else
 			}
 		</table>
 	</div>
-	<h1 class="top-elem">Media</h1>
+	<h2 class="top-elem">Media</h2>
 	<img src="/robotimg/@(Model.team).png" style="margin:10px;width:75vw;" />
 	<script>
 		autosize($('textarea'));
 	</script>
-	<!--
-	<h1 class="top-elem">Overview</h1>
-	<div id="chartContainer" style="height: 370px; width: 100%;"></div>
-	<script>
-	window.onload = function () {
-		var font = "Roboto,\"Helvetica Neue\",Arial,\"Noto Sans\",sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\",\"Segoe UI Symbol\",\"Noto Color Emoji";
-		var chart = new CanvasJS.Chart("chartContainer", {
-			animationEnabled: true,
-			theme: "light2",
-			title: {
-				text: "Balls High vs Low",
-				fontFamily: font
-			},
-			axisX: {
-				title: "Match",
-				titleFontFamily: font,
-				labelFontFamily: font
-			},
-			axisY: {
-				title: "Balls",
-				titleFontFamily: font,
-				labelFontFamily: font
-			},
-			legend: {
-				cursor: "pointer"
-			},
-			data: [
-				{
-					String str = "";
-					for (int i = 0; i < BSConfig.getByType("counter").Count; i++)
-					{
-						str += "{type: \"line\", name: \"" + BSConfig.getByType("counter")[i].text + "\", showInLegend: true, dataPoints: [";
-						for (var o = 0; o < ViewBag.graphData.Count; o++)
-						{
-							str += "{x: " + ViewBag.graphData[o].round + ", y: " + ViewBag.graphData[o].counters[i] + "}";
-							if (o < ViewBag.graphData.Count - 1)
-								str += ",";
-						}
-						if (i < BSConfig.getByType("counter").Count - 1)
-							str += "]},";
-						else
-							str += "]}";
-					}
-					Html.Raw(str);
-				}
-			]
-		});
-		chart.render();
-
-	}
-	</script>
-	-->
 }

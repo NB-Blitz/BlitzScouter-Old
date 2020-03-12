@@ -136,7 +136,7 @@
 <form action="/Dash/SetMatch/" method="post">
 	<input type="hidden" id="roundnum" name="roundnum" value="@(Model.match)" />
 	<div class="form-group">
-		<textarea class="form-control" id="comments" name="comments" placeholder="Comments">@(Model.comments)</textarea>
+		<textarea class="form-control" id="comments" name="comments" placeholder="Comments" maxlength="1024">@(Model.comments)</textarea>
 	</div>
 	<button type="submit" class="btn btn-primary">Save Data</button>
 </form>

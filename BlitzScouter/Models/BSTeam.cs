@@ -1,30 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace BlitzScouter.Models
 {
-    public class BSTeam
+    public class BSTeam : BSRaw
     {
-        // SQL data
-        [System.ComponentModel.DataAnnotations.Key]
-        public int id { get; set; }
-        public int team { get; set; }
 		public String name { get; set; }
-        public String abilities { get; set; }
-        public String performance { get; set; }
-        public String downfalls { get; set; }
         public bool star { get; set; }
+        public String commentsP { get; set; }
 
-
-        // Other Data
+        [NotMapped]
         public List<double> checkboxAverages;
+        [NotMapped]
         public List<double> counterAverages;
-        public List<BSRaw> rounds;
+        [NotMapped]
+        public List<BSScout> rounds;
     }
-
-    
 }

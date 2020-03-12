@@ -53,6 +53,7 @@ namespace BlitzScouter.Models
         public string tbaComp { get; set; }
         public int teamnum { get; set; }
         public List<Component> matchScout { get; set; }
+        public List<Component> pitScout { get; set; }
     }
 
     public class Component

@@ -91,7 +91,7 @@
 				cursor: "pointer"
 			},
 			data: [
-				@{
+				{
 					String str = "";
 					for (var i = 0; i < ViewBag.graphData.Count; i++)
 					{
@@ -101,7 +101,7 @@
 							str += ",";
 						}
 					}
-					@Html.Raw(str);
+					Html.Raw(str);
 				}
 			]
 		});

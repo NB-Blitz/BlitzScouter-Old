@@ -2,7 +2,7 @@
 	ViewData["Title"] = "Blitz Scouter";
 }
 
-@model BSRaw
+@model BSScout
 
 <h1 class="border-bottom top-elem">Data Edit</h1>
 @switch (ViewBag.code)
@@ -17,16 +17,16 @@
 {
 	@Html.HiddenFor(m => m.id)
 	<div class="form-group">
-		<label>Team Number</label>
+		<h3>Team Number</h3>
 		@Html.TextBoxFor(model => model.team, new { @class = "form-control", required = string.Empty, placeholder = "Team Number", type = "number", style = "border-bottom-left-radius:0;border-bottom-right-radius:0;" })
 	</div>
 	<div class="form-group">
-		<label>Round Number</label>
+		<h3>Round Number</h3>
 		@Html.TextBoxFor(model => model.round, new { @class = "form-control", required = string.Empty, placeholder = "Match Number", type = "number", style = "border-top-left-radius:0;border-top-right-radius:0;" })
 	</div>
 
 	<div class="form-group">
-		<label>Match Data</label>
+		<h3>Match Data</h3>
 		<div style="overflow-x: scroll;">
 			<table class="table table-striped table-sm">
 				<tr>
@@ -47,13 +47,13 @@
 					}
 				</tr>
 				<tr>
-					@for (int i = 0; i < Model.counters.Count; i++)
-					{
-						<td>@Html.TextBoxFor(model => model.counters[i], new { type = "number" })</td>
-					}
 					@for (int i = 0; i < Model.checkboxes.Count; i++)
 					{
 						<td>@Html.CheckBoxFor(model => model.checkboxes[i])</td>
+					}
+					@for (int i = 0; i < Model.counters.Count; i++)
+					{
+						<td>@Html.TextBoxFor(model => model.counters[i], new { type = "number" })</td>
 					}
 				</tr>
 			</table>
@@ -61,7 +61,7 @@
 	</div>
 
 	<div class="form-group">
-		<label>Comments</label>
+		<h3>Comments</h3>
 		@Html.TextAreaFor(model => model.comments, new { @class = "form-control", placeholder = "Comments" })
 		<button type="submit" class="btn btn-primary" style="margin-top:10px;">Update Data</button>
 	</div>

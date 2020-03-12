@@ -14,7 +14,6 @@ namespace BlitzScouter.Models
         [System.ComponentModel.DataAnnotations.Key]
         public int id { get; set; }
         public int team { get; set; }
-        public int round { get; set; }
         public String comments { get; set; }
 
         // For SQL Use (Serialized)
@@ -31,44 +30,46 @@ namespace BlitzScouter.Models
         // SQL --> ASP.NET (Deserializer)
         public void toObj()
         {
-            if (checkbox == null || counter == null)
-                return;
+            if (checkbox != null)
+            {
+                String[] checkboxSplit = checkbox.Split(',');
+                checkboxes = new List<bool>();
+                for (int i = 0; i < checkboxSplit.Length; i++)
+                    checkboxes.Add(bool.Parse(checkboxSplit[i]));
+            }
 
-            String[] checkboxSplit = checkbox.Split(',');
-            checkboxes = new List<bool>();
-            for (int i = 0; i < checkboxSplit.Length; i++)
-                checkboxes.Add(bool.Parse(checkboxSplit[i]));
-
-            String[] counterSplit = counter.Split(',');
-            counters = new List<int>();
-            for (int i = 0; i < counterSplit.Length; i++)
-                counters.Add(int.Parse(counterSplit[i]));
+            if (counter != null)
+            {
+                String[] counterSplit = counter.Split(',');
+                counters = new List<int>();
+                for (int i = 0; i < counterSplit.Length; i++)
+                    counters.Add(int.Parse(counterSplit[i]));
+            }
         }
 
         // ASP.NET --> SQL (Serializer)
         public void toStr()
         {
-            if (checkboxes == null || counters == null)
-                return;
-
-            checkbox = "";
-            counter = "";
-            
-            for (int i = 0; i < checkboxes.Count; i++)
+            if (checkboxes != null)
             {
-                checkbox += checkboxes[i].ToString();
-                if (i + 1 != checkboxes.Count)
-                    checkbox += ",";
+                checkbox = "";
+                for (int i = 0; i < checkboxes.Count; i++)
+                {
+                    checkbox += checkboxes[i].ToString();
+                    if (i + 1 != checkboxes.Count)
+                        checkbox += ",";
+                }
             }
-            System.Diagnostics.Debug.WriteLine(checkbox);
-
-            for (int i = 0; i < counters.Count; i++)
+            if (counters != null)
             {
-                counter += counters[i].ToString();
-                if (i + 1 != counters.Count)
-                    counter += ",";
+                counter = "";
+                for (int i = 0; i < counters.Count; i++)
+                {
+                    counter += counters[i].ToString();
+                    if (i + 1 != counters.Count)
+                        counter += ",";
+                }
             }
-            System.Diagnostics.Debug.WriteLine(counter);
         }
     }
 }

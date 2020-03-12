@@ -23,6 +23,7 @@ namespace BlitzScouter.Controllers
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
             List<BSTeam> tms = service.getTopTeams();
+            /*
             List<PlotData> list = new List<PlotData>();
             foreach (BSTeam tm in tms)
             {
@@ -38,6 +39,7 @@ namespace BlitzScouter.Controllers
                 });
             }
             ViewBag.graphData = list;
+            */
             return View(tms);
         }
 
@@ -63,32 +65,25 @@ namespace BlitzScouter.Controllers
             BSTeam tm = service.getTeam(ex);
             ViewBag.code = code;
 
-            ViewBag.graphData = tm.rounds;
-
             return View(tm);
         }
 
         [HttpPost]
-        public IActionResult Team(String teamnum, String teamname, String abilities, String performance, String downfalls, bool star)
+        public IActionResult Team(BSTeam tm)
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
-            int ex;
-            bool isNumeric = int.TryParse(teamnum, out ex);
-            if (ex < 0)
-                ex = -ex;
-            BSTeam tm = service.getTeam(ex);
-            if (isNumeric && tm != null)
-            {
-                tm.name = teamname;
-                tm.abilities = abilities;
-                tm.performance = performance;
-                tm.downfalls = downfalls;
-                tm.star = star;
 
-                service.setTeam(tm);
-            }
-            return RedirectToAction("Team", new { controller = "Dash", action = "Team", teamnum = teamnum, code = 1 });
+            if (tm == null)
+                return RedirectToAction("Team", new { controller = "Dash", action = "Team", code = 2 });
+            if (tm.comments != null)
+                if (tm.comments.Length >= 1024)
+                    tm.comments = tm.comments.Substring(0, 1024);
+            if (tm.commentsP != null)
+                if (tm.commentsP.Length >= 1024)
+                    tm.commentsP = tm.commentsP.Substring(0, 1024);
+            service.setTeam(tm);
+            return RedirectToAction("Team", new { controller = "Dash", action = "Team", teamnum = tm.team, code = 1 });
         }
 
         // Rounds
@@ -136,7 +131,7 @@ namespace BlitzScouter.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(BSRaw raw)
+        public IActionResult Edit(BSScout raw)
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
@@ -147,7 +142,7 @@ namespace BlitzScouter.Controllers
                     raw.comments = raw.comments.Substring(0, 256);
             service.setRound(raw);
             ViewBag.code = 1;
-            BSRaw r = service.getById(raw.id);
+            BSScout r = service.getById(raw.id);
             if (r == null)
             {
                 return RedirectToAction("Rounds", new { controller = "Dash", code = 3 });
@@ -162,7 +157,7 @@ namespace BlitzScouter.Controllers
         {
             BSConfig.initialize();
             ViewBag.upcomingRounds = service.getUpcomingRounds();
-            BSRaw r = service.getById(id);
+            BSScout r = service.getById(id);
             if (r == null)
             {
                 return RedirectToAction("Rounds", new { controller = "Dash", code = 3 });
@@ -191,7 +186,7 @@ namespace BlitzScouter.Controllers
                 bool isFailure = false;
 
                 String section = num.Substring(i * length, length);
-                BSRaw raw = new BSRaw();
+                BSScout raw = new BSScout();
                 raw.checkboxes = new List<bool>();
                 raw.counters = new List<int>();
 

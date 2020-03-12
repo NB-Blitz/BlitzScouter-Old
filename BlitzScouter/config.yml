@@ -51,5 +51,21 @@ matchScout:
   - type: checkbox
     text: "Robot Issues"
     def: 0
-  - type: desc
-    text: "Was the robot stable? What issues did the robot encounter? Did anything jump out at you about the robot?"
+pitScout:
+  - type: header
+    text: "Abilities"
+  - type: checkbox
+    text: "Climber"
+    def: 0
+  - type: checkbox
+    text: "High Goal"
+    def: 0
+  - type: checkbox
+    text: "Low Goal"
+    def: 0
+  - type: checkbox
+    text: "Control Panel"
+    def: 0
+  - type: checkbox
+    text: "Fit Under Trench"
+    def: 0
