@@ -19,7 +19,7 @@ namespace BlitzScouter.Models
          *      ----------------------------- 
          */
 
-        private const String CONFIG_FILE_LOCATION = "./config.yml";
+        private const String CONFIG_FILE_LOCATION = "../config.yml";
         public static YAMLRoot c;
         public static bool initialized = false;
 
