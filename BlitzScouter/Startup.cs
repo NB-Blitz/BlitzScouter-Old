@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using BlitzScouter.Models;
@@ -27,7 +28,7 @@ namespace BlitzScouter
         {
             services.AddControllersWithViews();
             services.AddDbContext<BSContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Blitz_Scouting_DB")));
+                options.UseSqlite(Configuration.GetConnectionString("Blitz_Scouting_DB").Replace("{AppDir}", AppDomain.CurrentDomain.BaseDirectory)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

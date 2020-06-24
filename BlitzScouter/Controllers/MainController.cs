@@ -26,7 +26,7 @@ namespace BlitzScouter.Controllers
         }
 
         [HttpPost]
-        public IActionResult Scout(BSRaw data)
+        public IActionResult Scout(BSScout data)
         {
             BSConfig.initialize();
             if (service.containsTeam(data.team))
@@ -36,7 +36,7 @@ namespace BlitzScouter.Controllers
         }
         
         [HttpPost]
-        public IActionResult Data(BSRaw model)
+        public IActionResult Data(BSScout model)
         {
             if (model == null)
                 return RedirectToAction("Index", new { controller = "Main", action = "Index", code = 3 });

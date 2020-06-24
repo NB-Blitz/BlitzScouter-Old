@@ -1,0 +1,71 @@
+tbaApiKey: i90dAcKHXvQ9havypHJKeGY8O1tfymFpaW1Po3RGYpvoMTRVwtiUsUFaLmstCDp3
+tbaComp: 2020ilch
+teamnum: 5148
+matchScout:
+  - type: header
+    text: "Autonomous"
+  - type: counter
+    text: |-
+            Balls Low
+            (Auto)
+    min: 0
+    def: 0
+    max: 100
+  - type: counter
+    text: |-
+            Balls High
+            (Auto)
+    min: 0
+    def: 0
+    max: 100
+  - type: header
+    text: "Teleoperated"
+  - type: counter
+    text: |-
+            Balls Low
+            (Tele)
+    min: 0
+    def: 0
+    max: 100
+  - type: counter
+    text: |-
+            Balls High
+            (Tele)
+    min: 0
+    def: 0
+    max: 100
+  - type: checkbox
+    text: "Defensive"
+    def: 0
+  - type: checkbox
+    text: "Control Panel"
+    def: 0
+  - type: checkbox
+    text: "Climb"
+    def: 0
+  - type: checkbox
+    text: "Balanced"
+    def: 0
+  - type: header
+    text: "Miscellaneous"
+  - type: checkbox
+    text: "Robot Issues"
+    def: 0
+pitScout:
+  - type: header
+    text: "Abilities"
+  - type: checkbox
+    text: "Climber"
+    def: 0
+  - type: checkbox
+    text: "High Goal"
+    def: 0
+  - type: checkbox
+    text: "Low Goal"
+    def: 0
+  - type: checkbox
+    text: "Control Panel"
+    def: 0
+  - type: checkbox
+    text: "Fit Under Trench"
+    def: 0

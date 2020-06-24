@@ -20,8 +20,8 @@ namespace BlitzScouter.Services
             repo = new BSRepo(context);
         }
 
-        // Upload BSRaw
-        public void addUserData(BSRaw model)
+        // Upload BSScout
+        public void addUserData(BSScout model)
         {
             model.toStr();
             if (repo.containsTeam(model.team))
@@ -39,8 +39,8 @@ namespace BlitzScouter.Services
             }
         }
 
-        // Update BSRaw
-        public void setRound(BSRaw model)
+        // Update BSScout
+        public void setRound(BSScout model)
         {
             if (model == null)
                 return;
@@ -76,14 +76,11 @@ namespace BlitzScouter.Services
         {
             if (team == null)
                 return;
+
+            team.toStr();
             if (repo.containsTeam(team.team))
             {
-                BSTeam rTeam = repo.getTeam(team.team);
-                rTeam.name = team.name;
-                rTeam.abilities = team.abilities;
-                rTeam.performance = team.performance;
-                rTeam.downfalls = team.downfalls;
-                rTeam.star = team.star;
+                repo.updateTeam(team);
                 repo.saveData();
             }
             else
@@ -155,8 +152,9 @@ namespace BlitzScouter.Services
                 };
                 repo.addTeam(tm);
             }
+            tm.toObj();
             tm.rounds = getRounds(team);
-
+            
             // Calculate Averages
             tm.checkboxAverages = new List<double>();
             tm.counterAverages = new List<double>();
@@ -216,10 +214,10 @@ namespace BlitzScouter.Services
             {
                 // Find Smallest
                 int smallIndex = sorted;
-                double num = double.MaxValue;
+                double num = double.MinValue;
                 for (int i = sorted; i < top.Count; i++)
                 {
-                    if (getScore(top[i]) < num)
+                    if (getScore(top[i]) > num)
                     {
                         smallIndex = i;
                         num = getScore(top[i]);
@@ -242,12 +240,26 @@ namespace BlitzScouter.Services
                 return 0;
             if (team.counterAverages == null)
                 return 0;
+            if (team.counterAverages.Count <= 0)
+                return 0;
 
             double score = 0;
+            /*
             for (int i = 0; i < team.counterAverages.Count; i++)
             {
                 score += team.counterAverages[i];
             }
+            */
+
+            // HARD CODED!!!
+            score += team.counterAverages[0] * 2;
+            score += team.counterAverages[1] * 4;
+            score += team.counterAverages[2] * 1;
+            score += team.counterAverages[3] * 2;
+            score += team.checkboxAverages[0] * 10;
+            score += team.checkboxAverages[1] * 15;
+            score += team.checkboxAverages[2] * 25;
+            score += team.checkboxAverages[3] * 15;
             return score;
         }
 
@@ -287,72 +299,14 @@ namespace BlitzScouter.Services
                 
             }
 
-
-            /*
-            // Internal
-            List<BSTeam> teams = repo.GetAllTeams();
-            for (int b = 0; b < teams.Count; b++)
-            {
-                BSTeam tm = teams[b];
-                tm.rounds = getRounds(tm.team);
-
-                // Calculate Averages
-                tm.checkboxAverages = new List<double>();
-                tm.counterAverages = new List<double>();
-                for (int i = 0; i < tm.rounds.Count; i++)
-                {
-                    // Checkbox
-                    for (int o = 0; o < tm.rounds[i].checkboxes.Count; o++)
-                    {
-                        if (i == 0)
-                        {
-                            tm.checkboxAverages.Add(Convert.ToInt32(tm.rounds[i].checkboxes[o]));
-                        }
-                        else
-                        {
-                            tm.checkboxAverages[o] += Convert.ToInt32(tm.rounds[i].checkboxes[o]);
-                        }
-                    }
-
-                    // Counter
-                    for (int o = 0; o < tm.rounds[i].counters.Count; o++)
-                    {
-                        if (i == 0)
-                        {
-                            tm.counterAverages.Add(tm.rounds[i].counters[o]);
-                        }
-                        else
-                        {
-                            tm.counterAverages[o] += tm.rounds[i].counters[o];
-                        }
-                    }
-                }
-
-                // Divide for Averages
-                for (int i = 0; i < tm.checkboxAverages.Count; i++)
-                {
-                    tm.checkboxAverages[i] /= tm.rounds.Count;
-                    // Fix Decimals
-                    tm.checkboxAverages[i] = Math.Round(tm.checkboxAverages[i] * 100) / 100;
-                }
-                for (int i = 0; i < tm.counterAverages.Count; i++)
-                {
-                    tm.counterAverages[i] /= tm.rounds.Count;
-                    // Fix Decimals
-                    tm.counterAverages[i] = Math.Round(tm.counterAverages[i]);
-                }
-            }
-            */
-
-
             return teams;
         }
 
         // Get All Rounds
-        public List<BSRaw> getAllRounds()
+        public List<BSScout> getAllRounds()
         {
-            List<BSRaw> arr = repo.getAll();
-            foreach (BSRaw round in arr)
+            List<BSScout> arr = repo.getAll();
+            foreach (BSScout round in arr)
                 round.toObj();
             return arr;
         }
@@ -363,18 +317,18 @@ namespace BlitzScouter.Services
             return repo.containsTeam(team);
         }
 
-        // Get all BSRaws
-        public List<BSRaw> getRounds(int team)
+        // Get all BSScouts
+        public List<BSScout> getRounds(int team)
         {
-            List<BSRaw> arr = repo.getRounds(team);
+            List<BSScout> arr = repo.getRounds(team);
             for (int i = 0; i < arr.Count; i++)
                 arr[i].toObj();
             return arr;
         }
 
-        public BSRaw getById(int id)
+        public BSScout getById(int id)
         {
-            BSRaw raw = repo.getById(id);
+            BSScout raw = repo.getById(id);
             if (raw != null)
                 raw.toObj();
             return raw;

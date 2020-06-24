@@ -2,7 +2,7 @@
 	ViewData["Title"] = "Blitz Scouter";
 }
 
-@model List<BSRaw>
+@model List<BSScout>
 
 <form action="/Dash/Round/" method="get" class="top-elem">
 	<div class="form-group">
@@ -63,7 +63,7 @@
 			<th></th>
 			<th></th>
 		</tr>
-		@foreach (BSRaw r in Model)
+		@foreach (BSScout r in Model)
 		{
 			<tr>
 				<td id="@(r.round)" style="text-align:center;vertical-align:middle;"><a href="/dash/round/?roundnum=@(r.round)">@r.round</a></td>

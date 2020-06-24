@@ -7,8 +7,6 @@
 
 	<title>Blitz Scouter</title>
 
-	<link rel="manifest" href="@Url.Content("~/manifest.json")">
-
 	<script src="@Url.Content("~/external/jquery-3.4.1.min.js")"></script>
 	<script src="@Url.Content("~/external/popper.min.js")"></script>
 	<script src="@Url.Content("~/external/bootstrap.min.js")"></script>
@@ -16,12 +14,12 @@
 	<link rel="stylesheet" href="@Url.Content("~/external/bootstrap.min.css")">
 
 	<link href="@Url.Content("~/css/site.css?v=1.6")" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="@Url.Content("~/js/site.js?v=1.21")"></script>
+	<script type="text/javascript" src="@Url.Content("~/js/site.js")"></script>
 
-	<link rel="apple-touch-icon" sizes="57x57" href="@Url.Content("/apple-touch-icon.png")" />
-	<link rel="icon" type="image/png" sizes="32x32" href="@Url.Content("/favicon-32x32.png")">
-	<link rel="icon" type="image/png" sizes="16x16" href="@Url.Content("/favicon-16x16.png")">
-	<link rel="manifest" href="@Url.Content("/site.webmanifest")">
+	<link rel="apple-touch-icon" sizes="57x57" href="@Url.Content("~/apple-touch-icon.png")" />
+	<link rel="icon" type="image/png" sizes="32x32" href="@Url.Content("~/favicon-32x32.png")">
+	<link rel="icon" type="image/png" sizes="16x16" href="@Url.Content("~/favicon-16x16.png")">
+	<link rel="manifest" href="@Url.Content("~/site.webmanifest")">
 </head>
 <body class="text-center" style="background-color:#1f1f1f;display:flex;align-items:center;color: #fff;">
 	@RenderBody()

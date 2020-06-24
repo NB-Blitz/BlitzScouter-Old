@@ -43,7 +43,7 @@ namespace BlitzScouter.Repository
         {
             return getTeam(team) != null;
         }
-        public bool containsRound(BSRaw m)
+        public bool containsRound(BSScout m)
         {
             return getById(m.id) != null;
         }
@@ -51,7 +51,7 @@ namespace BlitzScouter.Repository
         {
             return getMatch(match) != null;
         }
-        public List<BSRaw> getRounds(int team)
+        public List<BSScout> getRounds(int team)
         {
             var rounds = db.BS_Rounds.Where(t => t.team.Equals(team)).OrderBy(r => r.round).ToList();
             return rounds;
@@ -60,7 +60,7 @@ namespace BlitzScouter.Repository
         {
             return db.BS_Matches.FirstOrDefault(m => m.match == match);
         }
-        public List<BSRaw> getAll()
+        public List<BSScout> getAll()
         {
             return db.BS_Rounds.OrderBy(val => val.round).ToList();
         }
@@ -68,7 +68,7 @@ namespace BlitzScouter.Repository
         {
             return db.BS_Teams.ToList();
         }
-        public BSRaw getById(int id)
+        public BSScout getById(int id)
         {
             return db.BS_Rounds.FirstOrDefault(t => t.id == id);
         }
@@ -85,17 +85,25 @@ namespace BlitzScouter.Repository
             saveData();
         }
 
-        public void addRound(BSRaw roundData)
+        public void addRound(BSScout roundData)
         {
             db.BS_Rounds.Add(roundData);
             saveData();
         }
-        public void updateRound(BSRaw round)
+        public void updateRound(BSScout round)
         {
             var dup = db.BS_Rounds.FirstOrDefault(m => m.id == round.id);
             db.Entry(dup).State = EntityState.Detached;
             db.BS_Rounds.Attach(round);
             db.Entry(round).State = EntityState.Modified;
+            saveData();
+        }
+        public void updateTeam(BSTeam team)
+        {
+            var dup = db.BS_Teams.FirstOrDefault(m => m.id == team.id);
+            db.Entry(dup).State = EntityState.Detached;
+            db.BS_Teams.Attach(team);
+            db.Entry(team).State = EntityState.Modified;
             saveData();
         }
         public void deleteRound(int id)

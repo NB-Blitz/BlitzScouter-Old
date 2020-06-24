@@ -1,13 +1,12 @@
 ﻿@{
 	ViewData["Title"] = "Scout";
 }
-@model BlitzScouter.Models.BSRaw
+@model BSScout
 
 @using (Html.BeginForm("Data", "Main", FormMethod.Post, new { @class = "form-signin", style = "max-width:330px;margin:auto;", onsubmit = "increment(\"scoutCount\")" }))
 {
 	<h1 class="border-bottom">@Model.team</h1>
 
-		
 		Model.checkboxes = new List<bool>();
 		Model.counters = new List<int>();
 		
@@ -15,66 +14,61 @@
 		@Html.HiddenFor(m => m.team)
 		@Html.HiddenFor(m => m.round)
 
-			// Initialize Variables
-			int checkboxCounter = 0;
-			int counterCounter = 0;
+		// Initialize Variables
+		int checkboxCounter = 0;
+		int counterCounter = 0;
 
-			// Iterate Through Each Component
-			foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+		// Iterate Through Each Component
+		foreach (BlitzScouter.Models.Component t in BSConfig.c.matchScout)
+		{
+			switch (t.type)
 			{
-				switch (t.type)
-				{
-					case "header":
-						<div class="form-group">
-							<h3>@t.text</h3>
+				case "header":
+					<div class="form-group">
+						<h3>@t.text</h3>
+					</div>
+					break;
+				case "checkbox":
+					Model.checkboxes.Add(t.def != 0);
+					<div class="input-group center-input">
+						<label class="form-check-label">@t.text</label>
+						@Html.CheckBoxFor(m => m.checkboxes[checkboxCounter], new { @class="form-check-input" })
+					</div>
+					checkboxCounter++;
+					break;
+				case "counter":
+					Model.counters.Add(t.def);
+					@Html.HiddenFor(m => m.counters[counterCounter], new { id = "cnt" + counterCounter + "val" })
+					<div class="input-group center-input">
+						<div class="input-group-prepend" style="">
+							<span class="input-group-text" id="cnt@(counterCounter)disp">0</span>
+							<button type="button" onclick="changeCounters(@(counterCounter), 1, @(t.min), @(t.max))" class="btn btn-outline-secondary" style="width: 100%;color:#fff;border-color:#fff;">
+								<svg class="bi bi-plus" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M10 5.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H6a.5.5 0 010-1h3.5V6a.5.5 0 01.5-.5z" clip-rule="evenodd"></path>
+									<path fill-rule="evenodd" d="M9.5 10a.5.5 0 01.5-.5h4a.5.5 0 010 1h-3.5V14a.5.5 0 01-1 0v-4z" clip-rule="evenodd"></path>
+								</svg>
+							</button>
 						</div>
-						break;
-					case "desc":
-						<div class="card" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;margin-top: 15px;background-color:#2d2d2e;">
-							<div class="card-body" style="">
-								<h5 class="card-title" style="margin-bottom: 0;">Comments</h5>
-								<p class="card-text" style="">@t.text</p>
-							</div>
+						<div class="input-group-append">
+							<button type="button" onclick="changeCounters(@(counterCounter), -1, @(t.min), @(t.max))" class="btn btn-outline-secondary" style="border-left: none;width: 100%;color:#fff;border-color:#fff;">
+								<svg class="bi bi-dash" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M5.5 10a.5.5 0 01.5-.5h8a.5.5 0 010 1H6a.5.5 0 01-.5-.5z" clip-rule="evenodd"></path>
+								</svg>
+							</button>
+							<span class="input-group-text" style="white-space: pre;"> @Html.Raw(t.text) </span>
 						</div>
-						break;
-					case "checkbox":
-						Model.checkboxes.Add(t.def != 0);
-						<div class="input-group center-input">
-							<label class="form-check-label">@t.text</label>
-							@Html.CheckBoxFor(m => m.checkboxes[checkboxCounter], new { @class="form-check-input" })
-						</div>
-						checkboxCounter++;
-						break;
-					case "counter":
-						Model.counters.Add(t.def);
-						@Html.HiddenFor(m => m.counters[counterCounter], new { id = "cnt" + counterCounter + "val" })
-						<div class="input-group center-input">
-							<div class="input-group-prepend" style="">
-								<span class="input-group-text" id="cnt@(counterCounter)disp">0</span>
-								<button type="button" onclick="changeCounters(@(counterCounter), 1, @(t.min), @(t.max))" class="btn btn-outline-secondary" style="width: 100%;color:#fff;border-color:#fff;">
-									<svg class="bi bi-plus" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" d="M10 5.5a.5.5 0 01.5.5v4a.5.5 0 01-.5.5H6a.5.5 0 010-1h3.5V6a.5.5 0 01.5-.5z" clip-rule="evenodd"></path>
-										<path fill-rule="evenodd" d="M9.5 10a.5.5 0 01.5-.5h4a.5.5 0 010 1h-3.5V14a.5.5 0 01-1 0v-4z" clip-rule="evenodd"></path>
-									</svg>
-								</button>
-							</div>
-							<div class="input-group-append">
-								<button type="button" onclick="changeCounters(@(counterCounter), -1, @(t.min), @(t.max))" class="btn btn-outline-secondary" style="border-left: none;width: 100%;color:#fff;border-color:#fff;">
-									<svg class="bi bi-dash" width="40px" height="40px" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-										<path fill-rule="evenodd" d="M5.5 10a.5.5 0 01.5-.5h8a.5.5 0 010 1H6a.5.5 0 01-.5-.5z" clip-rule="evenodd"></path>
-									</svg>
-								</button>
-								<span class="input-group-text" style="white-space: pre;"> @Html.Raw(t.text) </span>
-							</div>
-						</div>
-						counterCounter++;
-						break;
-					case "text":
-						
-						break;
-				}
+					</div>
+					counterCounter++;
+					break;
 			}
+		}
 
+		<div class="card" style="border-bottom-left-radius: 0;border-bottom-right-radius: 0;margin-top: 15px;background-color:#2d2d2e;">
+			<div class="card-body" style="">
+				<h5 class="card-title" style="margin-bottom: 0;">Comments</h5>
+				<p class="card-text" style="">Was the robot stable? What issues did the robot encounter? Did anything jump out at you about the robot?</p>
+			</div>
+		</div>
 		@Html.TextAreaFor(model => model.comments, new { @class="form-control", placeholder = "Comments", style="padding:10px", maxlength="256" })
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
 }

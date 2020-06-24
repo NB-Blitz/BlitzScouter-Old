@@ -3,19 +3,69 @@
 }
 @model List<BSTeam>
 
-<h1 class="top-elem">Overview</h1>
-<table class="table table-striped table-sm" style="width:40%;float: left;padding: 20px;">
-	<tbody>
+<h1 class="top-elem">Leaderboard</h1>
+<div style="overflow-x: scroll;">
+	<table class="table table-striped table-sm" id="sortable">
 		<tr>
-			<td style="width:10px;"></td>
-			<th>Top Teams</th>
+			<th></th>
+			<th>Team</th>
+			@{
+				int c = 2;
+				for (int i = 0; i < BSConfig.c.matchScout.Count; i++)
+				{
+					if (BSConfig.c.matchScout[i].type == "checkbox")
+					{
+						<th>@BSConfig.c.matchScout[i].text</th>
+						c++;
+					}
+				}
+
+				for (int i = 0; i < BSConfig.c.matchScout.Count; i++)
+				{
+					if (BSConfig.c.matchScout[i].type == "counter")
+					{
+						<th>@BSConfig.c.matchScout[i].text</th>
+						c++;
+					}
+				}
+			}
+			<!--<th>Comments</th>-->
 		</tr>
-		@for (int i = 0; i < 5; i++)
+		@for (var o = 0; o < Model.Count; o++)
 		{
-			<tr><td style="width:10px;">@(i+1)</td><td>@Model[Model.Count - i - 1].team</td></tr>
+			BSTeam tm = Model[o];
+			<tr>
+				<td style="font-weight:bold;">@(o+1)</td>
+				<td id="@(tm.team)" style="vertical-align:middle;">
+					<a href="/dash/team/?teamnum=@(tm.team)">@tm.team</a>
+				</td>
+
+				@if (tm.checkboxAverages.Count <= 0 || tm.counterAverages.Count <= 0)
+				{
+					for (var i = 2; i < c; i++)
+					{
+						<td style="vertical-align:middle;">-</td>
+					}
+				}
+
+				@foreach (var a in tm.checkboxAverages)
+				{
+					<td style="vertical-align:middle;">@(Math.Round(a * 100))%</td>
+				}
+
+				@foreach (var a in tm.counterAverages)
+				{
+					<td style="vertical-align:middle;">@a</td>
+				}
+
+				<!--if (tm.rounds.Count > 0)
+				{
+					<td style="font-size:16px;">tm.pitComments</td>
+				}-->
+			</tr>
 		}
-	</tbody>
-</table>
+	</table>
+</div><!--
 <div id="chartContainer" style="height: 370px;width: 50%;float: right;"></div>
 <script>
 	window.onload = function () {
@@ -41,7 +91,7 @@
 				cursor: "pointer"
 			},
 			data: [
-				@{
+				{
 					String str = "";
 					for (var i = 0; i < ViewBag.graphData.Count; i++)
 					{
@@ -51,11 +101,11 @@
 							str += ",";
 						}
 					}
-					@Html.Raw(str);
+					Html.Raw(str);
 				}
 			]
 		});
 		chart.render();
 
 	}
-</script>
+</script>-->

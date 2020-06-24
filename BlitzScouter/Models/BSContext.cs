@@ -8,7 +8,7 @@ namespace BlitzScouter.Models
 {
     public class BSContext : DbContext
     {
-        public DbSet<BSRaw> BS_Rounds { get; set; }
+        public DbSet<BSScout> BS_Rounds { get; set; }
         public DbSet<BSTeam> BS_Teams { get; set; }
         public DbSet<BSMatch> BS_Matches { get; set; }
 
